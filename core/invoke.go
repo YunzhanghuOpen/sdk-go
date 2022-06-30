@@ -90,13 +90,11 @@ func (o *Core) do(ctx context.Context, method string, urlStr string, req interfa
 	}
 
 	r := struct {
-		Code      string      `json:"code"`       // 响应码
-		Message   string      `json:"message"`    // 响应信息
-		RequestID string      `json:"request_id"` // 请求ID
-		Data      interface{} `json:"data"`       // 响应体
-	}{
-		Data: resp,
-	}
+		Code      string          `json:"code"`       // 响应码
+		Message   string          `json:"message"`    // 响应信息
+		RequestID string          `json:"request_id"` // 请求ID
+		Data      json.RawMessage `json:"data"`       // 响应体
+	}{}
 	err = json.Unmarshal(b, &r)
 	if err != nil {
 		o.logger.Logf(ctx, "json.Unmarshal failed, err=%v, body=%s", err, string(b))
@@ -105,6 +103,12 @@ func (o *Core) do(ctx context.Context, method string, urlStr string, req interfa
 
 	if r.Code != errorx.OK {
 		return errorx.New(r.Code, r.Message)
+	}
+
+	err = json.Unmarshal(r.Data, resp)
+	if err != nil {
+		o.logger.Logf(ctx, "json.Unmarshal failed, err=%v, data=%s", err, string(r.Data))
+		return err
 	}
 	return nil
 }
