@@ -2,13 +2,9 @@
 ## 概览
 
 ### 简介
-
-欢迎使用 云账户 SDK For Golang
-
+欢迎使用 云账户 SDK For Golang，这里向您介绍如何快速使用云账户 SDK For Golang 。
 云账户 SDK For Golang  包含了请求的封装、加解密、签名验签等功能。
-
-这里向您介绍如何快速使用云账户 SDK For Golang 。
-如果您在使用 云账户 SDK For Golang 的过程中遇到任何问题，欢迎在当前 GitHub 提交 [Issues](https://github.com/YunzhanghuOpen/sdk-go/issues/new) 或发送邮件至技术支持组 <techsupport@yunzhanghu.com> 。
+如果您在使用 云账户 SDK For Golang 的过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues 或发送邮件至技术支持 <techsupport@yunzhanghu.com> 。
 
 ### 环境要求
 - go1.16+
@@ -16,7 +12,7 @@
 ### 获取配置
 #### 获取 dealer_id、broker_id、3DES Key、App Key
 
-  根据开户邮件中的账号登录云账户综合服务平台：业务中心 -> 业务管理 -> 对接信息
+根据开户邮件中的账号登录[云账户综合服务平台](https://service.yunzhanghu.com)
 
 ![获取配置信息](.doc/keyconfig.png)
 
