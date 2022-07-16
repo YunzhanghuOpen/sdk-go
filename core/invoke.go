@@ -105,6 +105,11 @@ func (o *Core) do(ctx context.Context, method string, urlStr string, req interfa
 		return errorx.New(r.Code, r.Message)
 	}
 
+	if len(r.Data) == 0 {
+		// 返回可能没有 data 字段
+		return nil
+	}
+
 	err = json.Unmarshal(r.Data, resp)
 	if err != nil {
 		o.logger.Logf(ctx, "json.Unmarshal failed, err=%v, data=%s", err, string(r.Data))
