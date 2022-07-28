@@ -14,7 +14,7 @@ type Invoice interface {
 	ApplyInvoice(context.Context, *ApplyInvoiceRequest) (*ApplyInvoiceResponse, error)
 	// GetInvoiceStatus 查询开票申请状态
 	GetInvoiceStatus(context.Context, *GetInvoiceStatusRequest) (*GetInvoiceStatusResponse, error)
-	// GetInvoiceFile 下载发票 PDF
+	// GetInvoiceFile 下载 PDF 版发票
 	GetInvoiceFile(context.Context, *GetInvoiceFileRequest) (*GetInvoiceFileResponse, error)
 	// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
 	SendReminderEmail(context.Context, *SendReminderEmailRequest) (*SendReminderEmailResponse, error)
@@ -70,7 +70,7 @@ func (c *invoiceImpl) GetInvoiceStatus(ctx context.Context, in *GetInvoiceStatus
 	return out, nil
 }
 
-// GetInvoiceFile 下载发票 PDF
+// GetInvoiceFile 下载 PDF 版发票
 func (c *invoiceImpl) GetInvoiceFile(ctx context.Context, in *GetInvoiceFileRequest) (*GetInvoiceFileResponse, error) {
 	out := new(GetInvoiceFileResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/invoice/v2/invoice/invoice-pdf", false, in, out)
@@ -94,15 +94,15 @@ func (c *invoiceImpl) SendReminderEmail(ctx context.Context, in *SendReminderEma
 type GetInvoiceStatRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 查询年份
 	Year int32 `json:"year,omitempty"`
 }
 
-// GetInvoiceStatResponse 查询平台企业已开具和待开具发票金额响应
+// GetInvoiceStatResponse 查询平台企业已开具和待开具发票金额返回
 type GetInvoiceStatResponse struct {
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -116,11 +116,11 @@ type GetInvoiceStatResponse struct {
 type GetInvoiceAmountRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 }
 
-// GetInvoiceAmountResponse 查询可开票额度和开票信息响应
+// GetInvoiceAmountResponse 查询可开票额度和开票信息返回
 type GetInvoiceAmountResponse struct {
 	// 可开票额度
 	Amount string `json:"amount,omitempty"`
@@ -136,7 +136,7 @@ type ApplyInvoiceRequest struct {
 	InvoiceApplyID string `json:"invoice_apply_id,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 申请开票金额
 	Amount string `json:"amount,omitempty"`
@@ -150,7 +150,7 @@ type ApplyInvoiceRequest struct {
 	Remark string `json:"remark,omitempty"`
 }
 
-// ApplyInvoiceResponse 开票申请响应
+// ApplyInvoiceResponse 开票申请返回
 type ApplyInvoiceResponse struct {
 	// 发票申请单 ID
 	ApplicationID string `json:"application_id,omitempty"`
@@ -166,7 +166,7 @@ type GetInvoiceStatusRequest struct {
 	ApplicationID string `json:"application_id,omitempty"`
 }
 
-// GetInvoiceStatusResponse 查询开票申请状态响应
+// GetInvoiceStatusResponse 查询开票申请状态返回
 type GetInvoiceStatusResponse struct {
 	// 申请结果
 	Status string `json:"status,omitempty"`
@@ -206,7 +206,7 @@ type BankNameAccount struct {
 	Default bool `json:"default,omitempty"`
 }
 
-// GoodsServicesName 统支持的货物或应税劳务、服务名称
+// GoodsServicesName 系统支持的货物或应税劳务、服务名称
 type GoodsServicesName struct {
 	// 货物或应税劳务、服务名称
 	Item string `json:"item,omitempty"`
@@ -214,7 +214,7 @@ type GoodsServicesName struct {
 	Default bool `json:"default,omitempty"`
 }
 
-// GetInvoiceFileRequest 下载发票 PDF 请求
+// GetInvoiceFileRequest 下载 PDF 版发票请求
 type GetInvoiceFileRequest struct {
 	// 发票申请编号
 	InvoiceApplyID string `json:"invoice_apply_id,omitempty"`
@@ -222,7 +222,7 @@ type GetInvoiceFileRequest struct {
 	ApplicationID string `json:"application_id,omitempty"`
 }
 
-// GetInvoiceFileResponse 下载发票 PDF 响应
+// GetInvoiceFileResponse 下载 PDF 版发票返回
 type GetInvoiceFileResponse struct {
 	// 下载地址
 	URL string `json:"url,omitempty"`
@@ -238,7 +238,7 @@ type SendReminderEmailRequest struct {
 	ApplicationID string `json:"application_id,omitempty"`
 }
 
-// SendReminderEmailResponse 发送发票扫描件压缩包下载链接邮件响应
+// SendReminderEmailResponse 发送发票扫描件压缩包下载链接邮件返回
 type SendReminderEmailResponse struct {
 }
 

@@ -18,10 +18,10 @@ func CreateBankpayOrder_Example(client api.Payment) {
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "填写自己的",
+		IDCard:    "120000000000000000",
 		CardNo:    "1111111111111111111111111",
 		PhoneNo:   "13333333333",
-		PayRemark: "银行卡打款",
+		PayRemark: "银行卡支付",
 		NotifyURL: "https://wwww.callback.com",
 		Pay:       "99.99",
 	}
@@ -29,7 +29,7 @@ func CreateBankpayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -45,8 +45,7 @@ func CreateBankpayOrder_Example(client api.Payment) {
 		} else {
 			/*
 				下单异常
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -54,7 +53,7 @@ func CreateBankpayOrder_Example(client api.Payment) {
 		return
 	}
 
-	// 没有 err 说明下单成功
+	// 没有 err ，说明下单成功
 	fmt.Println(resp)
 
 }
@@ -66,10 +65,10 @@ func CreateAlipayOrder_Example(client api.Payment) {
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "填写自己的",
+		IDCard:    "120000000000000000",
 		CardNo:    "1111111111111111111111111",
 		PhoneNo:   "13333333333",
-		PayRemark: "银行卡打款",
+		PayRemark: "支付宝支付",
 		NotifyURL: "https://wwww.callback.com",
 		Pay:       "99.99",
 	}
@@ -77,7 +76,7 @@ func CreateAlipayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -93,8 +92,7 @@ func CreateAlipayOrder_Example(client api.Payment) {
 		} else {
 			/*
 				下单异常
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -107,17 +105,17 @@ func CreateAlipayOrder_Example(client api.Payment) {
 
 }
 
-// CreateWxpayOrder_Example 创建支付宝支付订单示例
+// CreateWxpayOrder_Example 创建微信支付订单示例
 func CreateWxpayOrder_Example(client api.Payment) {
 	req := &api.CreateWxpayOrderRequest{
 		BrokerID:  base.BrokerID,
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "填写自己的",
+		IDCard:    "120000000000000000",
 		Openid:    "wx11111111111111111111111",
 		PhoneNo:   "13333333333",
-		PayRemark: "银行卡打款",
+		PayRemark: "微信支付",
 		NotifyURL: "https://wwww.callback.com",
 		Pay:       "99.99",
 	}
@@ -125,7 +123,7 @@ func CreateWxpayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -141,8 +139,7 @@ func CreateWxpayOrder_Example(client api.Payment) {
 		} else {
 			/*
 				下单异常
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -159,8 +156,9 @@ func CreateWxpayOrder_Example(client api.Payment) {
 func GetOrder_Example(client api.Payment) {
 	/*
 		注意:
-			建议下单请求结束后30秒再进行订单查询操作，若查询接口返回code = 2018（订单不存在），则可以用原订单号重新下单, 切记不可换单号重试，否则有资损风险。
-			响应码 code != 2018 时，均为异常状态，需要继续查单，不能进行下单重试，否则有资损风险。
+			建议下单请求结束后30秒再进行订单查询操作。
+			若响应码code = 2018，表示订单不存在，则可使用原订单号重新下单，切记不可更换其他单号重试，否则将存在资损风险。
+			若返回响应码 code != 2018 ，均表示异常状态，则需继续查单，不能进行下单重试，否则将存在有资损风险。
 	*/
 	req := &api.GetOrderRequest{
 		OrderID:  "416739461477437492",
@@ -171,13 +169,13 @@ func GetOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
 
 		if e.Code == "2018" {
-			// 说明订单不存在, 下单可以使用原单号重试
+			// 说明订单不存在, 可使用原单号重试下单
 			// TODO
 			// TODO:
 			return
@@ -187,7 +185,7 @@ func GetOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// GetDealerVARechargeAccount_Example 查询平台企业 VA 账户信息
+// GetDealerVARechargeAccount_Example 查询平台企业汇款信息
 func GetDealerVARechargeAccount_Example(client api.Payment) {
 	req := &api.GetDealerVARechargeAccountRequest{
 		BrokerID: base.BrokerID,
@@ -197,8 +195,8 @@ func GetDealerVARechargeAccount_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -215,8 +213,8 @@ func ListAccount_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -234,8 +232,8 @@ func GetEleReceiptFile_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -255,8 +253,8 @@ func CancelOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -283,7 +281,7 @@ func NotifyOrder_Example() {
 			return
 		}
 
-		// TODO: 处理 req信息 业务流程
+		// TODO: 处理 req 信息业务流程
 	}))
 }
 

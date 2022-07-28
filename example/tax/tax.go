@@ -14,15 +14,15 @@ import (
  */
 func GetTaxFile_Example(client api.Tax) {
 	req := &api.GetTaxFileRequest{
-		DealerID:  "填写自己的",
-		EntID:     "填写自己的",   // 商户签约主体，其中天津：accumulus_tj，甘肃: accumulus_gs（必填）
-		YearMonth: "2022-02", // 所属期（必填）, 注意格式 yyyy-mm
+		DealerID:  base.DealerID,
+		EntID:     "accumulus_tj", // 平台企业签约主体，其中天津：accumulus_tj，甘肃: accumulus_gs（必填）
+		YearMonth: "2022-02",      // 所属期（必填）, 注意格式 yyyy-mm
 	}
 	resp, err := client.GetTaxFile(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -38,8 +38,7 @@ func GetTaxFile_Example(client api.Tax) {
 
 		} else {
 			/*
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -66,15 +65,15 @@ func GetTaxFile_Example(client api.Tax) {
 func GetUserCross_Example(client api.Tax) {
 	req := &api.GetUserCrossRequest{
 		DealerID: base.DealerID,
-		EntID:    "填写自己的", // 商户签约主体，其中天津：accumulus_tj，甘肃: accumulus_gs（必填）
-		Year:     "2022",  // 用户报税所在年份(必填)
-		IDCard:   "填写自己的",
+		EntID:    "accumulus_tj", // 天津：accumulus_tj，甘肃: accumulus_gs（必填）
+		Year:     "2022",         // 用户报税所在年份(必填)
+		IDCard:   "121201111111111111111",
 	}
 	resp, err := client.GetUserCross(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}

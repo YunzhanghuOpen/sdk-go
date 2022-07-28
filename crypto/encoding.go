@@ -31,7 +31,7 @@ func NewDes3Encoding(des3key string) *Des3Encoding {
 	return &Des3Encoding{des3key: []byte(des3key)}
 }
 
-// Encode 实现加密接口
+// Encode 实现加密功能
 func (h *Des3Encoding) Encode(b []byte) ([]byte, error) {
 	b, err := tripleDesEncrypt(b, h.des3key)
 	if err != nil {
@@ -54,12 +54,12 @@ var (
 	_ Decoder = (*RsaDecoder)(nil)
 )
 
-// RsaEncoder rsa 加密器
+// RsaEncoder RSA 加密器
 type RsaEncoder struct {
 	pubKey *rsa.PublicKey
 }
 
-// NewRsaEncoder 新建rsa加密器
+// NewRsaEncoder 新建 RSA 加密器
 func NewRsaEncoder(publicKey []byte) (*RsaEncoder, error) {
 	pubKey, err := loadPublicKey(publicKey)
 	if err != nil {
@@ -77,12 +77,12 @@ func (r *RsaEncoder) Encode(data []byte) ([]byte, error) {
 	return base64Encode(b)
 }
 
-// RsaDecoder rsa 解密器
+// RsaDecoder RSA 解密器
 type RsaDecoder struct {
 	privKey *rsa.PrivateKey
 }
 
-// NewRsaDecoder 新建rsa解密器
+// NewRsaDecoder 新建 RSA 解密器
 func NewRsaDecoder(privKey []byte) (*RsaDecoder, error) {
 	pri, err := loadPrivateKey(privKey)
 	if err != nil {

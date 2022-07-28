@@ -18,7 +18,7 @@ import (
 func (o *Core) Invoke(ctx context.Context, method string, urlStr string, respEncrypted bool, req interface{}, resp interface{}) error {
 	h := func(ctx context.Context, req interface{}) (interface{}, error) {
 		if RequestID(ctx) == "" {
-			// 必须注入requestID, 方便调用链追溯，排查问题
+			// 必须注入 requestID，方便调用链追踪，问题排查
 			return nil, errors.New("please use function WithRequestID inject request_id")
 		}
 		err := o.invoke(ctx, method, urlStr, respEncrypted, req, resp)

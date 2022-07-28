@@ -60,7 +60,7 @@ func EnDebug() Option {
 	}
 }
 
-// WithRsaSign rsa签名
+// WithRsaSign RSA 签名
 func WithRsaSign(privateKey, appKey string) Option {
 	return func(o *Core) {
 		signer, err := crypto.NewRsaSigner(privateKey, appKey)
@@ -73,7 +73,7 @@ func WithRsaSign(privateKey, appKey string) Option {
 	}
 }
 
-// WithHmacSign hmac签名
+// WithHmacSign HMAC 签名
 func WithHmacSign(appKey string) Option {
 	return func(o *Core) {
 		signer, err := crypto.NewHmacSigner(appKey)
