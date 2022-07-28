@@ -14,7 +14,7 @@ type Payment interface {
 	CreateWxpayOrder(context.Context, *CreateWxpayOrderRequest) (*CreateWxpayOrderResponse, error)
 	// GetOrder 查询单笔订单信息
 	GetOrder(context.Context, *GetOrderRequest) (*GetOrderResponse, error)
-	// GetDealerVARechargeAccount 查询平台企业 VA 账户信息
+	// GetDealerVARechargeAccount 查询平台企业汇款信息
 	GetDealerVARechargeAccount(context.Context, *GetDealerVARechargeAccountRequest) (*GetDealerVARechargeAccountResponse, error)
 	// ListAccount 查询平台企业余额
 	ListAccount(context.Context, *ListAccountRequest) (*ListAccountResponse, error)
@@ -74,7 +74,7 @@ func (c *paymentImpl) GetOrder(ctx context.Context, in *GetOrderRequest) (*GetOr
 	return out, nil
 }
 
-// GetDealerVARechargeAccount 查询平台企业 VA 账户信息
+// GetDealerVARechargeAccount 查询平台企业汇款信息
 func (c *paymentImpl) GetDealerVARechargeAccount(ctx context.Context, in *GetDealerVARechargeAccountRequest) (*GetDealerVARechargeAccountResponse, error) {
 	out := new(GetDealerVARechargeAccountResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/va-account", false, in, out)
@@ -116,9 +116,9 @@ func (c *paymentImpl) CancelOrder(ctx context.Context, in *CancelOrderRequest) (
 
 // CreateBankpayOrderRequest 银行卡实时下单请求
 type CreateBankpayOrderRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -126,11 +126,11 @@ type CreateBankpayOrderRequest struct {
 	RealName string `json:"real_name,omitempty"`
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`
-	// 打款金额
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -142,19 +142,18 @@ type CreateBankpayOrderRequest struct {
 
 // CreateBankpayOrderResponse 银行卡实时下单返回
 type CreateBankpayOrderResponse struct {
-	// 商户订单号，原值返回
 	OrderID string `json:"order_id,omitempty"`
-	// 综合服务平台流水号，唯一
+	// 综合服务平台流水号
 	Ref string `json:"ref,omitempty"`
-	// 单位：元，支持小数点后两位
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 }
 
 // CreateAlipayOrderRequest 支付宝实时下单请求
 type CreateAlipayOrderRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -162,11 +161,11 @@ type CreateAlipayOrderRequest struct {
 	RealName string `json:"real_name,omitempty"`
 	// 支付宝账户
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`
-	// 打款金额
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -174,25 +173,25 @@ type CreateAlipayOrderRequest struct {
 	NotifyURL string `json:"notify_url,omitempty"`
 	// 项目标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 校验支付宝姓名，校验支付宝姓名，固定值：Check
+	// 校验支付宝账户姓名，固定值：Check
 	CheckName string `json:"check_name,omitempty"`
 }
 
 // CreateAlipayOrderResponse 支付宝实时下单返回
 type CreateAlipayOrderResponse struct {
-	// 商户订单号，原值返回
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
-	// 综合服务平台流水号，唯一
+	// 综合服务平台流水号
 	Ref string `json:"ref,omitempty"`
-	// 单位：元，支持小数点后两位
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 }
 
 // CreateWxpayOrderRequest 微信实时下单请求
 type CreateWxpayOrderRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -200,11 +199,11 @@ type CreateWxpayOrderRequest struct {
 	RealName string `json:"real_name,omitempty"`
 	// 微信用户 openid
 	Openid string `json:"openid,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`
-	// 打款金额
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -216,23 +215,23 @@ type CreateWxpayOrderRequest struct {
 	WxpayMode string `json:"wxpay_mode,omitempty"`
 	// 项目标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 描述信息
+	// 描述信息，该字段已废弃
 	Notes string `json:"notes,omitempty"`
 }
 
 // CreateWxpayOrderResponse 微信实时下单返回
 type CreateWxpayOrderResponse struct {
-	// 商户订单号，原值返回
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 综合服务平台流水号，唯一
 	Ref string `json:"ref,omitempty"`
-	// 单位：元，支持小数点后两位
+	// 订单金额
 	Pay string `json:"pay,omitempty"`
 }
 
 // GetOrderRequest 查询单笔订单信息请求
 type GetOrderRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 支付路径名，银行卡（默认）、支付宝、微信
 	Channel string `json:"channel,omitempty"`
@@ -242,19 +241,19 @@ type GetOrderRequest struct {
 
 // GetOrderResponse 查询单笔订单信息返回
 type GetOrderResponse struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
 	// 收款人账号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`
@@ -304,31 +303,31 @@ type GetOrderResponse struct {
 	SysFee string `json:"sys_fee,omitempty"`
 }
 
-// GetDealerVARechargeAccountRequest 查询平台企业 VA 账户信息请求
+// GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
 type GetDealerVARechargeAccountRequest struct {
-	// 综合服务主体ID
+	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 }
 
-// GetDealerVARechargeAccountResponse 查询平台企业 VA 账户信息返回
+// GetDealerVARechargeAccountResponse 查询平台企业汇款信息返回
 type GetDealerVARechargeAccountResponse struct {
 	// 账户名称
 	AcctName string `json:"acct_name,omitempty"`
-	// 账号
+	// 专属账户
 	AcctNo string `json:"acct_no,omitempty"`
 	// 银行名称
 	BankName string `json:"bank_name,omitempty"`
-	// 商户账户名称
+	// 付款账户
 	DealerAcctName string `json:"dealer_acct_name,omitempty"`
 }
 
 // CancelOrderRequest 取消待支付订单请求
 type CancelOrderRequest struct {
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 综合服务平台流水号
 	Ref string `json:"ref,omitempty"`
@@ -343,7 +342,7 @@ type CancelOrderResponse struct {
 
 // ListAccountRequest 查询平台企业余额请求
 type ListAccountRequest struct {
-	// 商户ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 }
 
@@ -378,7 +377,7 @@ type AccountInfo struct {
 
 // GetEleReceiptFileRequest 查询电子回单请求
 type GetEleReceiptFileRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 综合服务平台流水号
 	Ref string `json:"ref,omitempty"`
@@ -396,19 +395,19 @@ type GetEleReceiptFileResponse struct {
 
 // NotifyOrderRequest 订单回调消息
 type NotifyOrderRequest struct {
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
 	// 收款人账号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`

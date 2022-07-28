@@ -18,10 +18,10 @@ import (
 
 // 接口配置信息
 var (
-	BrokerID      = "填写自己的"
-	DealerID      = "填写自己的"
-	AppKey        = "选择自己的 appkey"
-	Des3Key       = "选择自己的 3deskey"
+	BrokerID      = "testbroker"
+	DealerID      = "testdealer"
+	AppKey        = "appkey"
+	Des3Key       = "3deskey"
 	YunPrivateKey = privateKey
 	YunPublicKey  = publicKey
 )
@@ -53,7 +53,7 @@ func NewClient() *api.Client {
 	}
 
 	conf := &api.Config{
-		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时应使用 api.ProductHost
+		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时使用 api.ProductHost
 		DealerID:   DealerID,
 		PrivateKey: YunPrivateKey,
 		AppKey:     AppKey,
@@ -70,7 +70,7 @@ func NewClient() *api.Client {
 	return c
 }
 
-// NewRsaSignVerifier 新建Rsa签名验签
+// NewRsaSignVerifier 新建 RSA 签名验签
 func NewRsaSignVerifier(dealerID string) crypto.SignVerifier {
 	v, err := crypto.NewRsaSignVerifier(YunPublicKey, AppKey)
 	if err != nil {
@@ -79,7 +79,7 @@ func NewRsaSignVerifier(dealerID string) crypto.SignVerifier {
 	return v
 }
 
-// NewHmacSignVerifier 新建hmac签名
+// NewHmacSignVerifier 新建 RSA 签名
 func NewHmacSignVerifier(dealerID string) crypto.SignVerifier {
 	v, err := crypto.NewHmacSignVerifier(AppKey)
 	if err != nil {
@@ -126,12 +126,12 @@ func NotifyDecoder(dealerID, mess, timestamp, data, sign, signType string, out i
 	return json.Unmarshal(b, req)
 }
 
-// NewRsaDecoder 新建rsa解密接口
+// NewRsaDecoder 新建 RSA 解密接口
 func NewRsaDecoder() (crypto.Decoder, error) {
 	return crypto.NewRsaDecoder([]byte(privateKey))
 }
 
-// DecodeZipPwd 解密zip密码
+// DecodeZipPwd 解密 ZIP 密码
 func DecodeZipPwd(pwdStr string) (string, error) {
 	d, err := NewRsaDecoder()
 	if err != nil {

@@ -9,7 +9,7 @@ type DataService interface {
 	// ListDailyOrder 查询日订单数据
 	ListDailyOrder(context.Context, *ListDailyOrderRequest) (*ListDailyOrderResponse, error)
 	// GetDailyOrderFile 查询日订单文件
-	GetDailyOrderFile(context.Context, *GetOrderDownloadsUrlRequest) (*GetOrderDownloadsUrlResponse, error)
+	GetDailyOrderFile(context.Context, *GetDailyOrderFileRequest) (*GetDailyOrderFileResponse, error)
 	// GetDailyOrderFileV2 查询日订单文件（支付和退款订单）
 	GetDailyOrderFileV2(context.Context, *GetDailyOrderFileV2Request) (*GetDailyOrderFileV2Response, error)
 	// ListDailyBill 查询日流水数据
@@ -43,8 +43,8 @@ func (c *dataServiceImpl) ListDailyOrder(ctx context.Context, in *ListDailyOrder
 }
 
 // GetDailyOrderFile 查询日订单文件
-func (c *dataServiceImpl) GetDailyOrderFile(ctx context.Context, in *GetOrderDownloadsUrlRequest) (*GetOrderDownloadsUrlResponse, error) {
-	out := new(GetOrderDownloadsUrlResponse)
+func (c *dataServiceImpl) GetDailyOrderFile(ctx context.Context, in *GetDailyOrderFileRequest) (*GetDailyOrderFileResponse, error) {
+	out := new(GetDailyOrderFileResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v1/order/downloadurl", false, in, out)
 	if err != nil {
 		return nil, err
@@ -108,7 +108,7 @@ type GetDailyOrderFileRequest struct {
 	OrderDate string `json:"order_date,omitempty"`
 }
 
-// GetDailyOrderFileResponse 查询日订单文件响应
+// GetDailyOrderFileResponse 查询日订单文件返回
 type GetDailyOrderFileResponse struct {
 	// 下载地址
 	OrderDownloadURL string `json:"order_download_url,omitempty"`
@@ -120,13 +120,13 @@ type GetDailyBillFileV2Request struct {
 	BillDate string `json:"bill_date,omitempty"`
 }
 
-// GetDailyBillFileV2Response 查询日流水文件响应
+// GetDailyBillFileV2Response 查询日流水文件返回
 type GetDailyBillFileV2Response struct {
 	// 下载地址
 	BillDownloadURL string `json:"bill_download_url,omitempty"`
 }
 
-// ListDealerRechargeRecordV2Request 商户充值记录请求
+// ListDealerRechargeRecordV2Request 平台企业预付业务服务费记录请求
 type ListDealerRechargeRecordV2Request struct {
 	// 开始时间，格式：yyyy-MM-dd
 	BeginAt string `json:"begin_at,omitempty"`
@@ -134,21 +134,21 @@ type ListDealerRechargeRecordV2Request struct {
 	EndAt string `json:"end_at,omitempty"`
 }
 
-// ListDealerRechargeRecordV2Response 商户充值记录响应
+// ListDealerRechargeRecordV2Response 平台企业预付业务服务费记录返回
 type ListDealerRechargeRecordV2Response struct {
-	// 充值记录
+	// 预付业务服务费记录
 	Data []*RechargeRecordInfo `json:"data,omitempty"`
 }
 
-// RechargeRecordInfo 充值记录信息
+// RechargeRecordInfo 预付业务服务费记录信息
 type RechargeRecordInfo struct {
-	// 商户ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 综合服务主体ID
+	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 充值记录ID
+	// 预付业务服务费记录 ID
 	RechargeID string `json:"recharge_id,omitempty"`
-	// 充值金额
+	// 预付业务服务费
 	Amount string `json:"amount,omitempty"`
 	// 实际到账金额
 	ActualAmount string `json:"actual_amount,omitempty"`
@@ -156,9 +156,9 @@ type RechargeRecordInfo struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// 资金用途
 	RechargeChannel string `json:"recharge_channel,omitempty"`
-	// 充值备注
+	// 预付业务服务费备注
 	Remark string `json:"remark,omitempty"`
-	// 商户付款银行账号
+	// 平台企业付款银行账号
 	RechargeAccountNo string `json:"recharge_account_no,omitempty"`
 }
 
@@ -176,7 +176,7 @@ type ListDailyOrderRequest struct {
 	DataType string `json:"data_type,omitempty"`
 }
 
-// ListDailyOrderResponse 查询日订单响应
+// ListDailyOrderResponse 查询日订单返回
 type ListDailyOrderResponse struct {
 	// 总数目
 	TotalNum int32 `json:"total_num,omitempty"`
@@ -184,26 +184,27 @@ type ListDailyOrderResponse struct {
 	List []*DealerOrderInfo `json:"list,omitempty"`
 }
 
-// DealerOrderInfo 商户打款订单信息
+// DealerOrderInfo 平台企业支付订单信息
 type DealerOrderInfo struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 订单流水号
 	Ref string `json:"ref,omitempty"`
 	// 批次ID
-	BatchID  string `json:"batch_id,omitempty"`
+	BatchID string `json:"batch_id,omitempty"`
+	// 姓名
 	RealName string `json:"real_name,omitempty"`
 	// 收款账号
 	CardNo string `json:"card_no,omitempty"`
-	// 打款金额
+	// 综合服务主体订单金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
-	// 打款金额
+	// 综合服务主体加成服务费
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 渠道流水号
+	// 支付路径流水号
 	Bill string `json:"bill,omitempty"`
 	// 订单状态
 	Status string `json:"status,omitempty"`
@@ -217,7 +218,7 @@ type DealerOrderInfo struct {
 	FeeStatementID string `json:"fee_statement_id,omitempty"`
 	// 余额账单号
 	BalStatementID string `json:"bal_statement_id,omitempty"`
-	// 支付渠道
+	// 支付路径
 	Channel string `json:"channel,omitempty"`
 	// 创建时间
 	CreatedAt string `json:"created_at,omitempty"`
@@ -233,11 +234,11 @@ type ListDailyBillRequest struct {
 	Offset int32 `json:"offset,omitempty"`
 	// 长度
 	Length int32 `json:"length,omitempty"`
-	// 如果为encryption，则对返回的data进行加密
+	// 如果为 encryption，则对返回的 data 进行加密
 	DataType string `json:"data_type,omitempty"`
 }
 
-// ListDailyBillResponse 查询日流水数据响应
+// ListDailyBillResponse 查询日流水数据返回
 type ListDailyBillResponse struct {
 	// 总条数
 	TotalNum int32 `json:"total_num,omitempty"`
@@ -249,15 +250,15 @@ type ListDailyBillResponse struct {
 type DealerBillInfo struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 商户订单号
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 资金流水号
 	Ref string `json:"ref,omitempty"`
-	// 综合服务主体名
+	// 综合服务主体名称
 	BrokerProductName string `json:"broker_product_name,omitempty"`
-	// 商户名
+	// 平台企业名称
 	DealerProductName string `json:"dealer_product_name,omitempty"`
 	// 业务订单流水号
 	BizRef string `json:"biz_ref,omitempty"`
@@ -279,25 +280,13 @@ type DealerBillInfo struct {
 	Remark string `json:"remark,omitempty"`
 }
 
-// GetOrderDownloadsUrlRequest 查询日订单文件请求
-type GetOrderDownloadsUrlRequest struct {
-	// 订单查询日期
-	OrderDate string `json:"order_date,omitempty"`
-}
-
-// GetOrderDownloadsUrlResponse 查询日订单文件响应
-type GetOrderDownloadsUrlResponse struct {
-	// 下载地址
-	OrderDownloadURL string `json:"order_download_url,omitempty"`
-}
-
 // GetDailyOrderFileV2Request 查询日订单文件（支付和退款订单）请求
 type GetDailyOrderFileV2Request struct {
 	// 订单查询日期, 格式：yyyy-MM-dd
 	OrderDate string `json:"order_date,omitempty"`
 }
 
-// GetDailyOrderFileV2Response 查询日订单文件（支付和退款订单）响应
+// GetDailyOrderFileV2Response 查询日订单文件（支付和退款订单）返回
 type GetDailyOrderFileV2Response struct {
 	// 下载地址
 	URL string `json:"url,omitempty"`
@@ -309,7 +298,7 @@ type ListBalanceDailyStatementRequest struct {
 	StatementDate string `json:"statement_date,omitempty"`
 }
 
-// ListBalanceDailyStatementResponse 查询余额日账单数据响应
+// ListBalanceDailyStatementResponse 查询余额日账单数据返回
 type ListBalanceDailyStatementResponse struct {
 	// 条目信息
 	List []*StatementDetail `json:"list,omitempty"`
@@ -323,9 +312,9 @@ type StatementDetail struct {
 	StatementDate string `json:"statement_date,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 综合服务主体 名称
+	// 综合服务主体名称
 	BrokerProductName string `json:"broker_product_name,omitempty"`
 	// 平台企业名称
 	DealerProductName string `json:"dealer_product_name,omitempty"`
@@ -333,13 +322,13 @@ type StatementDetail struct {
 	BizType string `json:"biz_type,omitempty"`
 	// 账单金额
 	TotalMoney string `json:"total_money,omitempty"`
-	// 打款金额
+	// 订单金额
 	Amount string `json:"amount,omitempty"`
 	// 退汇金额
 	ReexAmount string `json:"reex_amount,omitempty"`
-	// 服务费金额
+	// 加成服务费金额
 	FeeAmount string `json:"fee_amount,omitempty"`
-	// 服务费抵扣金额
+	// 加成服务费抵扣金额
 	DeductRebateFeeAmount string `json:"deduct_rebate_fee_amount,omitempty"`
 	// 冲补金额
 	MoneyAdjust string `json:"money_adjust,omitempty"`

@@ -16,9 +16,9 @@ type Authentication interface {
 	BankCardThreeVerify(context.Context, *BankCardThreeVerifyRequest) (*BankCardThreeVerifyResponse, error)
 	// IDCardVerify 身份证实名验证
 	IDCardVerify(context.Context, *IDCardVerifyRequest) (*IDCardVerifyResponse, error)
-	// UserExemptedInfo 上传用户免验证名单信息
+	// UserExemptedInfo 上传免验证用户名单信息
 	UserExemptedInfo(context.Context, *UserExemptedInfoRequest) (*UserExemptedInfoResponse, error)
-	// UserWhiteCheck 查看用户免验证名单是否存在
+	// UserWhiteCheck 查看免验证用户名单是否存在
 	UserWhiteCheck(context.Context, *UserWhiteCheckRequest) (*UserWhiteCheckResponse, error)
 	// GetBankCardInfo 银行卡信息查询接口
 	GetBankCardInfo(context.Context, *GetBankCardInfoRequest) (*GetBankCardInfoResponse, error)
@@ -84,7 +84,7 @@ func (c *authenticationImpl) IDCardVerify(ctx context.Context, in *IDCardVerifyR
 	return out, nil
 }
 
-// UserExemptedInfo 上传用户免验证名单信息
+// UserExemptedInfo 上传免验证用户名单信息
 func (c *authenticationImpl) UserExemptedInfo(ctx context.Context, in *UserExemptedInfoRequest) (*UserExemptedInfoResponse, error) {
 	out := new(UserExemptedInfoResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/user/exempted/info", false, in, out)
@@ -94,7 +94,7 @@ func (c *authenticationImpl) UserExemptedInfo(ctx context.Context, in *UserExemp
 	return out, nil
 }
 
-// UserWhiteCheck 查看用户免验证名单是否存在
+// UserWhiteCheck 查看免验证用户名单是否存在
 func (c *authenticationImpl) UserWhiteCheck(ctx context.Context, in *UserWhiteCheckRequest) (*UserWhiteCheckResponse, error) {
 	out := new(UserWhiteCheckResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/user/white/check", false, in, out)
@@ -118,7 +118,7 @@ func (c *authenticationImpl) GetBankCardInfo(ctx context.Context, in *GetBankCar
 type BankCardFourAuthVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
@@ -126,7 +126,7 @@ type BankCardFourAuthVerifyRequest struct {
 	Mobile string `json:"mobile,omitempty"`
 }
 
-// BankCardFourAuthVerifyResponse 银行卡四要素鉴权响应
+// BankCardFourAuthVerifyResponse 银行卡四要素鉴权返回
 type BankCardFourAuthVerifyResponse struct {
 	// 交易凭证
 	Ref string `json:"ref,omitempty"`
@@ -136,7 +136,7 @@ type BankCardFourAuthVerifyResponse struct {
 type BankCardFourAuthConfirmRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
@@ -148,7 +148,7 @@ type BankCardFourAuthConfirmRequest struct {
 	Ref string `json:"ref,omitempty"`
 }
 
-// BankCardFourAuthConfirmResponse 银行卡四要素确认鉴权响应
+// BankCardFourAuthConfirmResponse 银行卡四要素确认鉴权返回
 type BankCardFourAuthConfirmResponse struct {
 }
 
@@ -156,7 +156,7 @@ type BankCardFourAuthConfirmResponse struct {
 type BankCardFourVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
@@ -164,41 +164,41 @@ type BankCardFourVerifyRequest struct {
 	Mobile string `json:"mobile,omitempty"`
 }
 
-// BankCardFourVerifyResponse 银行卡四要素验证响应
+// BankCardFourVerifyResponse 银行卡四要素验证返回
 type BankCardFourVerifyResponse struct {
 }
 
-// BankCardThreeVerifyRequest 银行卡三要素验证请求
+// BankCardThreeVerifyRequest 银行卡三要素验证返回
 type BankCardThreeVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
 }
 
-// BankCardThreeVerifyResponse 银行卡三要素验证响应
+// BankCardThreeVerifyResponse 银行卡三要素验证返回
 type BankCardThreeVerifyResponse struct {
 }
 
-// IDCardVerifyRequest 身份证实名验证请求
+// IDCardVerifyRequest 身份证实名验证返回
 type IDCardVerifyRequest struct {
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
 }
 
-// IDCardVerifyResponse 身份证实名验证响应
+// IDCardVerifyResponse 身份证实名验证返回
 type IDCardVerifyResponse struct {
 }
 
-// UserExemptedInfoRequest 上传用户免验证名单信息请求
+// UserExemptedInfoRequest 上传免验证用户名单信息请求
 type UserExemptedInfoRequest struct {
 	// 证件类型码
 	CardType string `json:"card_type,omitempty"`
-	// 身份证号
+	// 证件号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
@@ -206,7 +206,7 @@ type UserExemptedInfoRequest struct {
 	CommentApply string `json:"comment_apply,omitempty"`
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 人员信息图片
 	UserImages []string `json:"user_images,omitempty"`
@@ -222,21 +222,21 @@ type UserExemptedInfoRequest struct {
 	Ref string `json:"ref,omitempty"`
 }
 
-// UserExemptedInfoResponse 上传用户免验证名单信息响应
+// UserExemptedInfoResponse 上传免验证用户名单信息返回
 type UserExemptedInfoResponse struct {
 	// 是否上传成功
 	Ok string `json:"ok,omitempty"`
 }
 
-// UserWhiteCheckRequest 查看用户免验证名单是否存在请求
+// UserWhiteCheckRequest 查看免验证用户名单是否存在请求
 type UserWhiteCheckRequest struct {
-	// 身份证号
+	// 证件号码
 	IDCard string `json:"id_card,omitempty"`
 	// 姓名
 	RealName string `json:"real_name,omitempty"`
 }
 
-// UserWhiteCheckResponse 查看用户免验证名单是否存在响应
+// UserWhiteCheckResponse 查看免验证用户名单是否存在返回
 type UserWhiteCheckResponse struct {
 	Ok bool `json:"ok,omitempty"`
 }
@@ -249,7 +249,7 @@ type GetBankCardInfoRequest struct {
 	BankName string `json:"bank_name,omitempty"`
 }
 
-// GetBankCardInfoResponse 银行卡信息查询响应
+// GetBankCardInfoResponse 银行卡信息查询返回
 type GetBankCardInfoResponse struct {
 	// 银行代码
 	BankCode string `json:"bank_code,omitempty"`

@@ -21,7 +21,7 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -35,8 +35,7 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 
 		} else {
 			/*
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -47,7 +46,7 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 
 	res, err := http.Get(resp.BillDownloadURL)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -55,7 +54,7 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 
 	r, err := gzip.NewReader(res.Body)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -83,7 +82,7 @@ func ListDailyOrder_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -94,14 +93,14 @@ func ListDailyOrder_Example(client api.DataService) {
 
 // GetOrderDownloadsUrl_Example 查询日订单文件
 func GetOrderDownloadsUrl_Example(client api.DataService) {
-	req := &api.GetOrderDownloadsUrlRequest{
+	req := &api.GetDailyOrderFileRequest{
 		OrderDate: "2022-03-23",
 	}
 	resp, err := client.GetDailyOrderFile(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -115,8 +114,7 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 
 		} else {
 			/*
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -127,7 +125,7 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 
 	res, err := http.Get(resp.OrderDownloadURL)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -135,7 +133,7 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 
 	r, err := gzip.NewReader(res.Body)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -160,7 +158,7 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -174,8 +172,7 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 
 		} else {
 			/*
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 
 			fmt.Println(e.Code, e.Message)
@@ -186,7 +183,7 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 
 	res, err := http.Get(resp.URL)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -194,7 +191,7 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 
 	r, err := gzip.NewReader(res.Body)
 	if err != nil {
-		// 有可能为网络错误
+		// 可能为网络错误
 		fmt.Println(err)
 		return
 	}
@@ -221,7 +218,7 @@ func ListDailyBill_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -240,7 +237,7 @@ func ListDealerRechargeRecordV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -258,7 +255,7 @@ func ListBalanceDailyStatement_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)

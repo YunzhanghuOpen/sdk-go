@@ -21,14 +21,14 @@ type SignVerifier interface {
 	Verify(mess, timestamp, data, sign string) (bool, error)
 }
 
-// NewHmacSigner 新建hmac签名
+// NewHmacSigner 新建 HMAC 签名
 func NewHmacSigner(appKey string) (Signer, error) {
 	return &hmacSigner{
 		appKey: appKey,
 	}, nil
 }
 
-// NewHmacSignVerifier 新建hmac验签
+// NewHmacSignVerifier 新建 HMAC 验签
 func NewHmacSignVerifier(appKey string) (SignVerifier, error) {
 	return &hmacSigner{
 		appKey: appKey,
@@ -64,7 +64,7 @@ type rsaSigner struct {
 	appKey string
 }
 
-// NewRsaSigner 新建Rsa签名
+// NewRsaSigner 新建 RSA 签名
 func NewRsaSigner(privateKey, appkey string) (Signer, error) {
 	priv, err := loadPrivateKey([]byte(privateKey))
 	if err != nil {
@@ -91,7 +91,7 @@ func (r *rsaSigner) Sign(mess, timestamp, data string) (string, error) {
 
 }
 
-// NewRsaSignVerifier 新建rsa签名验证
+// NewRsaSignVerifier 新建 RSA 签名验证
 func NewRsaSignVerifier(publicKey, appKey string) (SignVerifier, error) {
 	pubKey, err := loadPublicKey([]byte(publicKey))
 	if err != nil {

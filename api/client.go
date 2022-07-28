@@ -8,20 +8,22 @@ import (
 
 // Client 客户端
 type Client struct {
-	Payment        // 实时下单接口
-	Tax            // 个税服务接口
-	Authentication // 用户信息验证接口
-	DataService    // 数据接口
-	Invoice        // 发票接口
+	Payment            // 实时下单接口
+	Tax                // 个税服务接口
+	Authentication     // 用户信息验证接口
+	DataService        // 数据接口
+	Invoice            // 发票接口
+	ApiUserSignService // API签约
+	H5UserSignService  // H5签约
 }
 
 // Config Client 配置
 type Config struct {
 	Host       string // 服务地址 必传  生产环境地址 https://api-service.yunzhanghu.com  沙箱环境地址 https://api-service.yunzhanghu.com/sandbox
-	DealerID   string // 商户ID 必传
-	PrivateKey string // 商户私钥 必传
-	AppKey     string // 商户 appKey 必传
-	Des3Key    string // 商户 des3Key 必传
+	DealerID   string // 平台企业 ID 必传
+	PrivateKey string // 平台企业 私钥 必传
+	AppKey     string // 平台企业 appKey 必传
+	Des3Key    string // 平台企业 des3Key 必传
 }
 
 // New 新建 Client
@@ -58,10 +60,12 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		return nil, err
 	}
 	return &Client{
-		Payment:        NewPayment(co),
-		Tax:            NewTax(co),
-		Authentication: NewAuthentication(co),
-		DataService:    NewDataService(co),
-		Invoice:        NewInvoice(co),
+		Payment:            NewPayment(co),
+		Tax:                NewTax(co),
+		Authentication:     NewAuthentication(co),
+		DataService:        NewDataService(co),
+		Invoice:            NewInvoice(co),
+		ApiUserSignService: NewApiUserSignService(co),
+		H5UserSignService:  NewH5UserSignService(co),
 	}, nil
 }

@@ -18,13 +18,13 @@ import (
 func IDCardVerify_Example(client api.Authentication) {
 	req := &api.IDCardVerifyRequest{
 		RealName: "张三",
-		IDCard:   "370829199101012219",
+		IDCard:   "120000000000000000",
 	}
 	resp, err := client.IDCardVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -38,13 +38,13 @@ func IDCardVerify_Example(client api.Authentication) {
  */
 func GetBankCardInfo_Example(client api.Authentication) {
 	req := &api.GetBankCardInfoRequest{
-		CardNo: "6226220130885345",
+		CardNo: "1111111111111111111111111",
 	}
 	resp, err := client.GetBankCardInfo(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -59,14 +59,14 @@ func GetBankCardInfo_Example(client api.Authentication) {
 func BankCardThreeVerify_Example(client api.Authentication) {
 	req := &api.BankCardThreeVerifyRequest{
 		RealName: "张三",
-		IDCard:   "370829199101012219",
+		IDCard:   "121201111111111111111",
 		CardNo:   "1111111111111111111111111",
 	}
 	resp, err := client.BankCardThreeVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -81,8 +81,8 @@ func BankCardThreeVerify_Example(client api.Authentication) {
 func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthConfirmRequest{
 		RealName: "张三",
-		IDCard:   "110101200011111111",
-		CardNo:   "6226110188885555",
+		IDCard:   "121201111111111111111",
+		CardNo:   "1111111111111111111111111",
 		Mobile:   "15800001111",
 		Captcha:  "011099",
 		Ref:      "11111111",
@@ -91,7 +91,7 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -106,15 +106,15 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 func BankCardFourAuthVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110101200011111111",
-		CardNo:   "6226110188885555",
+		IDCard:   "121201111111111111111",
+		CardNo:   "1111111111111111111111111",
 		Mobile:   "15811111111",
 	}
 	resp, err := client.BankCardFourAuthVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -129,15 +129,15 @@ func BankCardFourAuthVerify_Example(client api.Authentication) {
 func BankCardFourVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110101200011111111",
-		CardNo:   "6226110188885555",
+		IDCard:   "121201111111111111111",
+		CardNo:   "1111111111111111111111111",
 		Mobile:   "15811111111",
 	}
 	resp, err := client.BankCardFourVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -147,7 +147,7 @@ func BankCardFourVerify_Example(client api.Authentication) {
 }
 
 /**
-* 上传用户免验证名单信息
+* 上传免验证用户名单信息
  */
 func UserExemptedInfo_Example(client api.Authentication) {
 	srcByte, err := ioutil.ReadFile("example/authentication/test.png")
@@ -159,15 +159,15 @@ func UserExemptedInfo_Example(client api.Authentication) {
 	req := &api.UserExemptedInfoRequest{
 		//  证件类型码
 		CardType: "passport",
-		//  身份证号
-		IDCard: "370829199101012219",
+		//  证件号码
+		IDCard: "ABC1212011111",
 		//  姓名
 		RealName: "张三",
 		//  申请备注
 		CommentApply: "mark",
 		//  综合服务主体 ID
 		BrokerID: base.BrokerID,
-		//  商户 ID
+		//  平台企业 ID
 		DealerID: base.DealerID,
 		//  人员信息图片
 		UserImages: []string{base64str, base64str},
@@ -186,7 +186,7 @@ func UserExemptedInfo_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -196,18 +196,18 @@ func UserExemptedInfo_Example(client api.Authentication) {
 }
 
 /**
-* 查看用户免验证名单是否存在
+* 查看免验证用户名单是否存在
  */
 func UserWhiteCheck_Example(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",
-		IDCard:   "370829199101012219",
+		IDCard:   "121201111111111111111",
 	}
 	resp, err := client.UserWhiteCheck(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}

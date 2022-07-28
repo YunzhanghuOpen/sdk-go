@@ -44,15 +44,15 @@ func (c *taxImpl) GetUserCross(ctx context.Context, in *GetUserCrossRequest) (*G
 
 // GetTaxFileRequest 下载个税扣缴明细表请求
 type GetTaxFileRequest struct {
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
-	// 商户签约主体
+	// 平台企业签约主体
 	EntID string `json:"ent_id,omitempty"`
 	// 所属期
 	YearMonth string `json:"year_month,omitempty"`
 }
 
-// GetTaxFileResponse 下载个税扣缴明细表响应
+// GetTaxFileResponse 下载个税扣缴明细表返回
 type GetTaxFileResponse struct {
 	// 文件详情
 	FileInfo []*FileInfo `json:"file_info,omitempty"`
@@ -62,7 +62,7 @@ type GetTaxFileResponse struct {
 type FileInfo struct {
 	// 文件名称
 	Name string `json:"name,omitempty"`
-	// 下载文件临时 url
+	// 下载文件临时 URL
 	URL string `json:"url,omitempty"`
 	// 文件解压缩密码
 	Pwd string `json:"pwd,omitempty"`
@@ -70,17 +70,17 @@ type FileInfo struct {
 
 // GetUserCrossRequest 查询纳税人是否为跨集团用户请求
 type GetUserCrossRequest struct {
-	// 商户 ID
+	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 年份
 	Year string `json:"year,omitempty"`
-	// 身份证号
+	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
-	// 商户签约主体
+	// 平台企业签约主体
 	EntID string `json:"ent_id,omitempty"`
 }
 
-// GetUserCrossResponse 查询纳税人是否为跨集团用户响应
+// GetUserCrossResponse 查询纳税人是否为跨集团用户返回
 type GetUserCrossResponse struct {
 	// 跨集团标识
 	IsCross bool `json:"is_cross,omitempty"`

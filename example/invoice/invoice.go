@@ -24,7 +24,7 @@ func ApplyInvoice_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -45,7 +45,7 @@ func GetInvoiceAmount_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -55,7 +55,7 @@ func GetInvoiceAmount_Example(client api.Invoice) {
 }
 
 /**
-* 下载发票 PDF
+* 下载 PDF 版发票
  */
 func GetInvoiceFile_Example(client api.Invoice) {
 	req := &api.GetInvoiceFileRequest{
@@ -65,7 +65,7 @@ func GetInvoiceFile_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -87,7 +87,7 @@ func GetInvoiceStat_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -107,7 +107,7 @@ func GetInvoiceStatus_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -127,7 +127,7 @@ func SendReminderEmail_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}

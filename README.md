@@ -1,18 +1,18 @@
-# 云账户 SDK For Golang
+# 云账户 SDK for Golang
 ## 概览
 
 ### 简介
-欢迎使用 云账户 SDK For Golang，这里向您介绍如何快速使用云账户 SDK For Golang 。
-云账户 SDK For Golang  包含了请求的封装、加解密、签名验签等功能。
-如果您在使用 云账户 SDK For Golang 的过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues 或发送邮件至技术支持 <techsupport@yunzhanghu.com> 。
+欢迎使用 云账户 SDK for Golang，这里向您介绍如何快速使用云账户 SDK for Golang 。
+云账户 SDK for Golang  包含了请求的封装、加解密、签名验签等功能。
+如果您在使用 云账户 SDK for Golang 的过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues 或发送邮件至技术支持组 <techsupport@yunzhanghu.com> 。
 
 ### 环境要求
-- go1.16+
+- Go 1.16 及以上版本
 
 ### 获取配置
 #### 获取 dealer_id、broker_id、3DES Key、App Key
 
-根据开户邮件中的账号登录[云账户综合服务平台](https://service.yunzhanghu.com)
+使用开户邮件中的账号登录[云账户综合服务平台](https://service.yunzhanghu.com)
 
 ![获取配置信息](.doc/keyconfig.png)
 
@@ -23,7 +23,7 @@
 ```
 ① ⽣成私钥 private_key.pem
 
-Openssl-> genrsa -out private_key.pem 2048 # 建议密钥⻓度⾄少为2048
+Openssl-> genrsa -out private_key.pem 2048 # 建议密钥⻓度⾄少为2048位
 
 ② ⽣成公钥⽂件 pubkey.pem
 
@@ -37,7 +37,7 @@ Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
 
 #### 上传平台企业公钥
 
-登录云账户综合服务平台，在业务中心 -> 业务管理 -> 对接信息，点击页面右上角的编辑，配置平台企业公钥。
+登录云账户综合服务平台，选择"业务中心 > 业务管理 > 对接信息"，单击页面右上角的"编辑"，配置平台企业公钥。
 ![配置平台企业公钥信息](.doc/publickeyconfig.png)
 
 
@@ -52,14 +52,17 @@ go get github.com/YunzhanghuOpen/sdk-go
 
 #### 快速使用
 
-##### 功能列表
+##### 示例功能列表
 
-- [实时下单接口](api/payment.go)
-- [数据接口](api/dataservice.go)
-- [用户信息验证接口](api/authentication.go)
-- [发票接口](api/invoice.go)
-- [个税接口](api/tax.go)
+- [实时下单接口](example/payment/payment.go)
+- [数据接口](example/dataservice/dataservice.go)
+- [用户信息验证接口](example/authentication/authentication.go)
+- [发票接口](example/invoice/invoice.go)
+- [个税接口](example/tax/tax.go)
+- [API签约](example/apiusersign/apiusersign.go)
+- [H5签约](example/h5usersign/h5usersign.go)
 - [异步回调](example/payment/payment.go)
+
 
 ##### 示例
 ```golang
@@ -96,9 +99,9 @@ func main() {
 	}
 
 	_ = requestIDMiddle
-	dealerID := "需填写自己的商户ID"
+	dealerID := "testdealer"
 	privateKey := "在云账户配置的公钥对应的私钥"
-	appKey := "云账户对接信息中申请的 appKey"
+	appKey := "云账户对接信息中申请的 AppKey"
 	des3Key := "云账户对接信息中申请的 3DES Key"
 	conf := &api.Config{
 		Host:       api.ProductHost, // 正式环境域名，开发自测时可使用沙箱环境地址 api.SandboxHost
@@ -117,26 +120,26 @@ func main() {
 		return
 	}
 
-	brokerID := "填写与当前商户签约的综合服务主体ID"
+	brokerID := "填写与当前平台企业签约的综合服务主体ID"
 	orderID := time.Now().Format("20050102150405") // 订单号应由发号器生成，保证全局唯一，此处简写
 	req := &api.CreateBankpayOrderRequest{
 		BrokerID:  brokerID,
 		DealerID:  dealerID,
 		OrderID:   orderID,
 		RealName:  "张三",
-		IDCard:    "填写自己的",
-		CardNo:    "填写自己的",
-		PayRemark: "银行卡打款",
+		IDCard:    "120000000000000000",
+		CardNo:    "1111111111111111111111111",
+		PayRemark: "银行卡支付",
 		NotifyURL: "https://wwww.callback.com", // 需填写自己实现的回调接口
 		Pay:       "99.99",
 	}
 
-	requestID := fmt.Sprint(rand.Int63()) // 此处必需注入 requestID，便于发现问题时，进行问题排查，也可以使用 requestIDMiddle 中间件实现
+	requestID := fmt.Sprint(rand.Int63()) // 此处必需注入 requestID，便于问题发现及排查，也可以使用 requestIDMiddle 中间件实现
 	resp, err := client.CreateBankpayOrder(core.WithRequestID(context.TODO(), requestID), req)
 	if err != nil {
 		e, ok := errorx.FromError(err) // 解析配置
 		if !ok {
-			// 说明可能为sdk内部错误或网络错误，请求未到服务器
+			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
@@ -151,8 +154,7 @@ func main() {
 		} else {
 			/*
 				下单异常
-				其它错误详见文档
-				可参考 e.message 中的错误信息
+				其它错误码详见接口文档附录中响应码列表
 			*/
 		}
 		return
