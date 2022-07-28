@@ -168,7 +168,7 @@ type BankCardFourVerifyRequest struct {
 type BankCardFourVerifyResponse struct {
 }
 
-// BankCardThreeVerifyRequest 银行卡三要素验证返回
+// BankCardThreeVerifyRequest 银行卡三要素验证请求
 type BankCardThreeVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
@@ -182,7 +182,7 @@ type BankCardThreeVerifyRequest struct {
 type BankCardThreeVerifyResponse struct {
 }
 
-// IDCardVerifyRequest 身份证实名验证返回
+// IDCardVerifyRequest 身份证实名验证请求
 type IDCardVerifyRequest struct {
 	// 身份证号码
 	IDCard string `json:"id_card,omitempty"`
