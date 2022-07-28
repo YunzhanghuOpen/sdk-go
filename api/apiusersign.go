@@ -66,7 +66,7 @@ func (c *apiUserSignServiceImpl) ApiUserSignRelease(ctx context.Context, in *Api
 	return out, nil
 }
 
-// ApiUseSignContractRequest 获取协议预览 URL请求
+// ApiUseSignContractRequest 获取协议预览 URL 请求
 type ApiUseSignContractRequest struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
