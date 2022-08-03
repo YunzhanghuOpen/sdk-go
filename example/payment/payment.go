@@ -29,25 +29,19 @@ func CreateBankpayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "2002" {
-			/*
-				订单号重复
-				检查是否已存在该订单号
-			*/
-
+			// 订单号重复
+			// 检查是否已存在该订单号
 			// TODO 异常处理流程
 
 		} else {
-			/*
-				下单异常
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 下单异常
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -76,25 +70,19 @@ func CreateAlipayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "2002" {
-			/*
-				订单号重复
-				检查是否已存在该订单号
-			*/
-
+			// 订单号重复
+			// 检查是否已存在该订单号
 			// TODO 异常处理流程
 
 		} else {
-			/*
-				下单异常
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 下单异常
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -123,25 +111,19 @@ func CreateWxpayOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "2002" {
-			/*
-				订单号重复
-				检查是否已存在该订单号
-			*/
-
+			// 订单号重复
+			// 检查是否已存在该订单号
 			// TODO 异常处理流程
 
 		} else {
-			/*
-				下单异常
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 下单异常
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -154,12 +136,11 @@ func CreateWxpayOrder_Example(client api.Payment) {
 
 // GetOrder_Example 订单查询
 func GetOrder_Example(client api.Payment) {
-	/*
-		注意:
-			建议下单请求结束后30秒再进行订单查询操作。
-			若响应码code = 2018，表示订单不存在，则可使用原订单号重新下单，切记不可更换其他单号重试，否则将存在资损风险。
-			若返回响应码 code != 2018 ，均表示异常状态，则需继续查单，不能进行下单重试，否则将存在有资损风险。
-	*/
+	// 注意:
+	// 	建议下单请求结束后30秒再进行订单查询操作。
+	// 	若响应码code = 2018，表示订单不存在，则可使用原订单号重新下单，切记不可更换其他单号重试，否则将存在资损风险。
+	// 	若返回响应码 code != 2018 ，均表示异常状态，则需继续查单，不能进行下单重试，否则将存在有资损风险。
+
 	req := &api.GetOrderRequest{
 		OrderID:  "416739461477437492",
 		Channel:  "微信",
@@ -169,7 +150,7 @@ func GetOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
@@ -195,7 +176,7 @@ func GetDealerVARechargeAccount_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
@@ -213,7 +194,7 @@ func ListAccount_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
@@ -232,7 +213,7 @@ func GetEleReceiptFile_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
@@ -253,7 +234,7 @@ func CancelOrder_Example(client api.Payment) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需稍后重试
 			return
 		}
@@ -264,7 +245,7 @@ func CancelOrder_Example(client api.Payment) {
 
 // NotifyOrder_Example 订单回调样例
 func NotifyOrder_Example() {
-	// 可以采用其他框架
+	// 可以采用其他 http 请求框架实现
 	http.HandleFunc("notify/order", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		data := r.PostForm.Get("data")
 		timestamp := r.PostForm.Get("timestamp")
@@ -285,6 +266,7 @@ func NotifyOrder_Example() {
 	}))
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Payment){

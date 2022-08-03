@@ -21,23 +21,17 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "8300" {
-			/*
-				获取日流水链接失败
-				说明日流水文件还未生成
-				需稍后再重试
-			*/
+			// 获取日流水链接失败
+			// 说明日流水文件还未生成，需稍后再重试
 
 		} else {
-			/*
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -82,7 +76,7 @@ func ListDailyOrder_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -100,23 +94,16 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "8300" {
-			/*
-				获取日订单链接失败
-				说明日订单文件还未生成
-				需稍后再重试
-			*/
-
+			// 获取日订单链接失败, 说明日订单文件还未生成
+			// 需稍后再重试
 		} else {
-			/*
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -158,23 +145,16 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "8300" {
-			/*
-				获取日订单链接失败
-				说明日订单文件还未生成
-				需稍后再重试
-			*/
-
+			// 获取日订单链接失败, 说明日订单文件还未生成
+			// 需稍后再重试
 		} else {
-			/*
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -218,7 +198,7 @@ func ListDailyBill_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -237,7 +217,7 @@ func ListDealerRechargeRecordV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -255,7 +235,7 @@ func ListBalanceDailyStatement_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			return
 		}
 		fmt.Println(e.Code, e.Message)
@@ -263,6 +243,7 @@ func ListBalanceDailyStatement_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.DataService){
