@@ -9,9 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-/**
- * 下载个税扣缴明细表
- */
+// GetTaxFile_Example 下载个税扣缴明细表
 func GetTaxFile_Example(client api.Tax) {
 	req := &api.GetTaxFileRequest{
 		DealerID:  base.DealerID,
@@ -22,25 +20,20 @@ func GetTaxFile_Example(client api.Tax) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需原单号重试
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 		if e.Code == "6201" {
-			/*
-				个税扣缴明细表不存在
-				说明个税扣缴明还未生成
-				需稍后再重试
-			*/
+			// 个税扣缴明细表不存在
+			// 说明个税扣缴明还未生成
+			// 需稍后再重试
 			fmt.Println(e.Code, e.Message)
 			return
 
 		} else {
-			/*
-				其它错误码详见接口文档附录中响应码列表
-			*/
-
+			// 其它错误码详见接口文档附录中响应码列表
 			fmt.Println(e.Code, e.Message)
 		}
 		return
@@ -59,9 +52,7 @@ func GetTaxFile_Example(client api.Tax) {
 	}
 }
 
-/**
-* 查询纳税人是否为跨集团用户
- */
+// GetUserCross_Example 查询纳税人是否为跨集团用户
 func GetUserCross_Example(client api.Tax) {
 	req := &api.GetUserCrossRequest{
 		DealerID: base.DealerID,
@@ -73,7 +64,7 @@ func GetUserCross_Example(client api.Tax) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -82,6 +73,7 @@ func GetUserCross_Example(client api.Tax) {
 	fmt.Println(resp)
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Tax){

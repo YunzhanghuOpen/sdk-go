@@ -9,9 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-/**
-* 开票申请
- */
+// ApplyInvoice_Example 开票申请
 func ApplyInvoice_Example(client api.Invoice) {
 	req := &api.ApplyInvoiceRequest{
 		DealerID:       base.DealerID,
@@ -24,7 +22,7 @@ func ApplyInvoice_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -33,9 +31,7 @@ func ApplyInvoice_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-/**
-*查询可开票额度和开票信息
- */
+// GetInvoiceAmount_Example 查询可开票额度和开票信息
 func GetInvoiceAmount_Example(client api.Invoice) {
 	req := &api.GetInvoiceAmountRequest{
 		DealerID: base.DealerID,
@@ -45,7 +41,7 @@ func GetInvoiceAmount_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -54,9 +50,7 @@ func GetInvoiceAmount_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-/**
-* 下载 PDF 版发票
- */
+// GetInvoiceFile_Example 下载 PDF 版发票
 func GetInvoiceFile_Example(client api.Invoice) {
 	req := &api.GetInvoiceFileRequest{
 		InvoiceApplyID: "111",
@@ -65,7 +59,7 @@ func GetInvoiceFile_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -74,9 +68,7 @@ func GetInvoiceFile_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-/**
-* 查询平台企业已开具和待开具发票金额
- */
+// GetInvoiceStat_Example 查询平台企业已开具和待开具发票金额
 func GetInvoiceStat_Example(client api.Invoice) {
 	req := &api.GetInvoiceStatRequest{
 		DealerID: base.DealerID,
@@ -87,7 +79,7 @@ func GetInvoiceStat_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -96,9 +88,7 @@ func GetInvoiceStat_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-/**
-* 查询开票申请状态
- */
+// GetInvoiceStatus_Example 查询开票申请状态
 func GetInvoiceStatus_Example(client api.Invoice) {
 	req := &api.GetInvoiceStatusRequest{
 		InvoiceApplyID: "111",
@@ -107,7 +97,7 @@ func GetInvoiceStatus_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -116,9 +106,7 @@ func GetInvoiceStatus_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-/**
-* 发送发票扫描件压缩包下载链接邮件
- */
+// SendReminderEmail_Example 发送发票扫描件压缩包下载链接邮件
 func SendReminderEmail_Example(client api.Invoice) {
 	req := &api.SendReminderEmailRequest{
 		InvoiceApplyID: "111",
@@ -127,7 +115,7 @@ func SendReminderEmail_Example(client api.Invoice) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -136,6 +124,7 @@ func SendReminderEmail_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
+// Example 用例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Invoice){

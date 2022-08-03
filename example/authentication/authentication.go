@@ -12,9 +12,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-/**
-* 身份证实名验证
- */
+// IDCardVerify_Example 身份证实名验证
 func IDCardVerify_Example(client api.Authentication) {
 	req := &api.IDCardVerifyRequest{
 		RealName: "张三",
@@ -24,7 +22,7 @@ func IDCardVerify_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -33,9 +31,7 @@ func IDCardVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 银行卡信息查询接口
- */
+// GetBankCardInfo_Example 银行卡信息查询接口
 func GetBankCardInfo_Example(client api.Authentication) {
 	req := &api.GetBankCardInfoRequest{
 		CardNo: "1111111111111111111111111",
@@ -44,7 +40,7 @@ func GetBankCardInfo_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -53,9 +49,7 @@ func GetBankCardInfo_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 银行卡三要素验证
- */
+// BankCardThreeVerify_Example 银行卡三要素验证
 func BankCardThreeVerify_Example(client api.Authentication) {
 	req := &api.BankCardThreeVerifyRequest{
 		RealName: "张三",
@@ -66,7 +60,7 @@ func BankCardThreeVerify_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -75,9 +69,7 @@ func BankCardThreeVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 银行卡四要素确认鉴权（上传短信验证码）
- */
+// BankCardFourAuthConfirm_Example 银行卡四要素确认鉴权（上传短信验证码）
 func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthConfirmRequest{
 		RealName: "张三",
@@ -91,7 +83,7 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -100,9 +92,7 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 银行卡四要素鉴权请求（下发短信验证码）
- */
+// BankCardFourAuthVerify_Example 银行卡四要素鉴权请求（下发短信验证码）
 func BankCardFourAuthVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthVerifyRequest{
 		RealName: "张三",
@@ -114,7 +104,7 @@ func BankCardFourAuthVerify_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -123,9 +113,7 @@ func BankCardFourAuthVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 银行卡四要素验证
- */
+// BankCardFourVerify_Example 银行卡四要素验证
 func BankCardFourVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourVerifyRequest{
 		RealName: "张三",
@@ -137,7 +125,7 @@ func BankCardFourVerify_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -146,9 +134,7 @@ func BankCardFourVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 上传免验证用户名单信息
- */
+// UserExemptedInfo_Example 上传免验证用户名单信息
 func UserExemptedInfo_Example(client api.Authentication) {
 	srcByte, err := ioutil.ReadFile("example/authentication/test.png")
 	if err != nil {
@@ -186,7 +172,7 @@ func UserExemptedInfo_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -195,9 +181,7 @@ func UserExemptedInfo_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-/**
-* 查看免验证用户名单是否存在
- */
+// UserWhiteCheck_Example 查看免验证用户名单是否存在
 func UserWhiteCheck_Example(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",
@@ -207,7 +191,7 @@ func UserWhiteCheck_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -216,6 +200,7 @@ func UserWhiteCheck_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Authentication){

@@ -9,9 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-/**
-* H5 预申请签约
- */
+// H5UserPresign_Example H5 预申请签约
 func H5UserPresign_Example(client api.H5UserSignService) {
 	req := &api.H5UserPresignRequest{
 		DealerID:        base.DealerID,
@@ -24,7 +22,7 @@ func H5UserPresign_Example(client api.H5UserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -33,9 +31,7 @@ func H5UserPresign_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* H5 签约
- */
+// H5UserSign_Example H5 签约
 func H5UserSign_Example(client api.H5UserSignService) {
 	req := &api.H5UserSignRequest{
 		Token: base.DealerID,
@@ -45,7 +41,7 @@ func H5UserSign_Example(client api.H5UserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -54,9 +50,7 @@ func H5UserSign_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* 获取用户签约状态
- */
+// GeH5UserSignStatus_Example 获取用户签约状态
 func GeH5UserSignStatus_Example(client api.H5UserSignService) {
 	req := &api.GetH5UserSignStatusRequest{
 		DealerID: base.DealerID,
@@ -68,7 +62,7 @@ func GeH5UserSignStatus_Example(client api.H5UserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -77,9 +71,7 @@ func GeH5UserSignStatus_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* H5 对接测试解约接口
- */
+// H5UserRelease_Example H5 对接测试解约接口
 func H5UserRelease_Example(client api.H5UserSignService) {
 	req := &api.H5UserReleaseRequest{
 		DealerID:        base.DealerID,
@@ -92,7 +84,7 @@ func H5UserRelease_Example(client api.H5UserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -101,6 +93,7 @@ func H5UserRelease_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.H5UserSignService){

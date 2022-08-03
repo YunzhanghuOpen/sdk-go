@@ -9,9 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-/**
-* 获取协议预览 URL
- */
+// ApiUseSignContract_Example 获取协议预览 URL
 func ApiUseSignContract_Example(client api.ApiUserSignService) {
 	req := &api.ApiUseSignContractRequest{
 		DealerID: base.DealerID,
@@ -21,7 +19,7 @@ func ApiUseSignContract_Example(client api.ApiUserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -30,9 +28,7 @@ func ApiUseSignContract_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* 用户签约
- */
+// ApiUserSign_Example 用户签约
 func ApiUserSign_Example(client api.ApiUserSignService) {
 	req := &api.ApiUserSignRequest{
 		DealerID: base.DealerID,
@@ -45,7 +41,7 @@ func ApiUserSign_Example(client api.ApiUserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -54,9 +50,7 @@ func ApiUserSign_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* 获取用户签约状态
- */
+// GetApiUserSignStatus_Example 获取用户签约状态
 func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
 	req := &api.GetApiUserSignStatusRequest{
 		DealerID: base.DealerID,
@@ -68,7 +62,7 @@ func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -77,9 +71,7 @@ func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-/**
-* 用户解约（测试账号专用接口）
- */
+// ApiUserSignRelease_Example 用户解约（测试账号专用接口）
 func ApiUserSignRelease_Example(client api.ApiUserSignService) {
 	req := &api.ApiUserSignReleaseRequest{
 		DealerID: base.DealerID,
@@ -92,7 +84,7 @@ func ApiUserSignRelease_Example(client api.ApiUserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是sdk内部错误或网络错误，请求未能连接到服务器
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
 			// 也可能是服务端请求超时，需要稍后重试
 			return
 		}
@@ -101,6 +93,7 @@ func ApiUserSignRelease_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
+// Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.ApiUserSignService){
