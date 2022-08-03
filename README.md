@@ -54,14 +54,13 @@ go get github.com/YunzhanghuOpen/sdk-go
 
 ##### 示例功能列表
 
+- [H5 签约](example/h5usersign/h5usersign.go) or [API 签约](example/apiusersign/apiusersign.go)
 - [实时下单接口](example/payment/payment.go)
+- [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)
-- [用户信息验证接口](example/authentication/authentication.go)
 - [发票接口](example/invoice/invoice.go)
-- [个税接口](example/tax/tax.go)
-- [API签约](example/apiusersign/apiusersign.go)
-- [H5签约](example/h5usersign/h5usersign.go)
-- [异步回调](example/payment/payment.go)
+- [个税扣缴明细接口](example/tax/tax.go)
+- [用户信息验证接口](example/authentication/authentication.go)
 
 
 ##### 示例
