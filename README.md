@@ -1,22 +1,22 @@
-# 云账户 SDK for Golang
-## 概览
+## 云账户 SDK for Golang
 
-### 简介
-欢迎使用 云账户 SDK for Golang，这里向您介绍如何快速使用云账户 SDK for Golang 。
-云账户 SDK for Golang  包含了请求的封装、加解密、签名验签等功能。
-如果您在使用 云账户 SDK for Golang 的过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues 或发送邮件至技术支持组 <techsupport@yunzhanghu.com> 。
+欢迎使用云账户 SDK for Golang 。
+云账户是一家专注为平台企业和新就业形态劳动者提供高质量灵活就业服务的新时代企业。云账户 SDK 对云账户综合服务平台 API 接口进行封装，让您不必关心过多参数请求，帮助您快速接入到云账户综合服务平台。云账户 SDK for Golang 为您提供签约、下单、回调、数据查询等功能，帮助您完成与云账户综合服务平台的接口对接及业务开发。
+如果您在使用过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues，或发送邮件至技术支持组<techsupport@yunzhanghu.com>。
 
 ### 环境要求
-- Go 1.16 及以上版本
 
-### 获取配置
-#### 获取 dealer_id、broker_id、3DES Key、App Key
+云账户 SDK for Golang 支持 Go 1.16 及其以上版本。
 
-使用开户邮件中的账号登录[云账户综合服务平台](https://service.yunzhanghu.com)
 
-![获取配置信息](.doc/keyconfig.png)
+### 配置密钥
+#### 1、获取配置
 
-#### 生成密钥
+- 使用云账户 SDK for Golang 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。
+获取方式：使用开户邮件中的账号登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择“业务中心 > 业务管理 > 对接信息”，查看并获取以上配置信息。
+![配置平台企业公钥信息](.doc/keyconfig.png)
+
+#### 2、生成密钥
 
 - 方式一：使用 OpenSSL 生成 RSA 公私钥
 
@@ -35,24 +35,22 @@ Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
 
 请联系云账户技术支持获取 RSA 密钥生成工具
 
-#### 上传平台企业公钥
+#### 3、配置密钥
 
-登录云账户综合服务平台，选择"业务中心 > 业务管理 > 对接信息"，单击页面右上角的"编辑"，配置平台企业公钥。
+登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择"业务中心 > 业务管理 > 对接信息"，单击页面右上角的"编辑"，配置平台企业公钥。
 ![配置平台企业公钥信息](.doc/publickeyconfig.png)
 
 
-### 快速开始
-
-#### 安装（使用go module）
+### 安装 Golang SDK
+#### 1、使用 go module 安装 SDK
 
 ```
 go get github.com/YunzhanghuOpen/sdk-go
 ```
 
+### 快速使用
 
-#### 快速使用
-
-##### 示例功能列表
+#### 示例功能列表
 
 - [H5 签约](example/h5usersign/h5usersign.go) or [API 签约](example/apiusersign/apiusersign.go)
 - [实时下单接口](example/payment/payment.go)
@@ -63,7 +61,7 @@ go get github.com/YunzhanghuOpen/sdk-go
 - [用户信息验证接口](example/authentication/authentication.go)
 
 
-##### 示例
+#### 示例
 ```golang
 package main
 
@@ -98,9 +96,9 @@ func main() {
 	}
 
 	_ = requestIDMiddle
-	dealerID := "testdealer"
+	dealerID := "云账户对接信息中申请的平台企业 ID"
 	privateKey := "在云账户配置的公钥对应的私钥"
-	appKey := "云账户对接信息中申请的 AppKey"
+	appKey := "云账户对接信息中申请的 App Key"
 	des3Key := "云账户对接信息中申请的 3DES Key"
 	conf := &api.Config{
 		Host:       api.ProductHost, // 正式环境域名，开发自测时可使用沙箱环境地址 api.SandboxHost
@@ -119,7 +117,7 @@ func main() {
 		return
 	}
 
-	brokerID := "填写与当前平台企业签约的综合服务主体ID"
+	brokerID := "云账户对接信息中申请的综合服务主体 ID"
 	orderID := time.Now().Format("20050102150405") // 订单号应由发号器生成，保证全局唯一，此处简写
 	req := &api.CreateBankpayOrderRequest{
 		BrokerID:  brokerID,
