@@ -291,7 +291,7 @@ type GetOrderResponse struct {
 	BankName string `json:"bank_name,omitempty"`
 	// 项目标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 主播 ID，该字段已废弃
+	// 新就业形态劳动者 ID，该字段已废弃
 	AnchorID string `json:"anchor_id,omitempty"`
 	// 描述信息，该字段已废弃
 	Notes string `json:"notes,omitempty"`
@@ -445,7 +445,7 @@ type NotifyOrderRequest struct {
 	BankName string `json:"bank_name,omitempty"`
 	// 项目标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 主播 ID，该字段已废弃
+	// 新就业形态劳动者 ID，该字段已废弃
 	AnchorID string `json:"anchor_id,omitempty"`
 	// 描述信息，该字段已废弃
 	Notes string `json:"notes,omitempty"`
