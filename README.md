@@ -12,7 +12,7 @@
 ### 配置密钥
 #### 1、获取配置
 
-- 使用云账户 SDK for Golang 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。
+使用云账户 SDK for Golang 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。   
 获取方式：使用开户邮件中的账号登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择“业务中心 > 业务管理 > 对接信息”，查看并获取以上配置信息。
 ![配置平台企业公钥信息](.doc/keyconfig.png)
 
@@ -23,12 +23,13 @@
 ```
 ① ⽣成私钥 private_key.pem
 
-Openssl-> genrsa -out private_key.pem 2048 # 建议密钥⻓度⾄少为2048位
+Openssl-> genrsa -out private_key.pem 2048   // 建议密钥⻓度⾄少为 2048 位
 
-② ⽣成公钥⽂件 pubkey.pem
+OpenSSL-> pkcs8 -topk8 -inform PEM -in private_key.pem -outform PEM -nocrypt -out private_key_pkcs8.pem    // 将私钥转为 PKCS8 格式 
+
+② ⽣成公钥 pubkey.pem
 
 Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
-
 ```
 
 - 方式二：使用工具生成
