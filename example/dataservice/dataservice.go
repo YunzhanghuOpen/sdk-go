@@ -64,7 +64,7 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 	fmt.Println(lines)
 }
 
-//ListDailyOrder_Example 查询日订单数据
+// ListDailyOrder_Example 查询日订单数据
 func ListDailyOrder_Example(client api.DataService) {
 	req := &api.ListDailyOrderRequest{
 		OrderDate: "2022-03-23",
