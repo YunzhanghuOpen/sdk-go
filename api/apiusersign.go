@@ -119,7 +119,7 @@ type GetApiUserSignStatusResponse struct {
 	// 签约时间
 	SignedAt string `json:"signed_at,omitempty"`
 	// 用户签约状态
-	Status int32 `json:"status,omitempty"`
+	Status string `json:"status,omitempty"`
 }
 
 // ApiUserSignReleaseRequest 用户解约请求
