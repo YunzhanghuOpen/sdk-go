@@ -37,10 +37,8 @@ func init() {
 	}
 }
 
-var go_version = strings.Trim(runtime.Version(), "go") // go语言版本 eg:1.16
-
 // userAgent
 // 示例：yunzhanghu-sdk-go/1.0.0/Darwin 21.6.0 arm64/1.16"
 func userAgent() string {
-	return fmt.Sprintf("yunzhanghu-sdk-go/%s/%s/%s", Version, sys_info, go_version)
+	return fmt.Sprintf("yunzhanghu-sdk-go/%s/%s/%s", Version, sys_info, strings.Trim(runtime.Version(), "go"))
 }
