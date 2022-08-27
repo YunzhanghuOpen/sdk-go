@@ -31,7 +31,7 @@ func init() {
 	// default
 	sys_info = fmt.Sprintf("%s - %s", runtime.GOOS, runtime.GOARCH)
 
-	if out, err := exec.Command("uname", "-s -r -m").CombinedOutput(); err == nil {
+	if out, err := exec.Command("uname", "-s", "-r", "-m").CombinedOutput(); err == nil {
 		sys_info = string(bytes.TrimSpace(out))
 	}
 }
