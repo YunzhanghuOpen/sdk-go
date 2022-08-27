@@ -192,6 +192,7 @@ func (o *Core) buildReq(ctx context.Context, method string, urlStr string, req i
 		"dealer-id":    o.dealerID,
 		"request-id":   requestID,
 		"Content-Type": "application/x-www-form-urlencoded",
+		"User-Agent":   userAgent(),
 	}
 
 	if o.debug {
