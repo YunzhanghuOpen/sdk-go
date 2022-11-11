@@ -243,6 +243,81 @@ func CancelOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
+// CreateBatchOrder_Example 批次下单
+func CreateBatchOrder_Example(client api.Payment) {
+
+	orderList := []*api.BatchOrderInfo{
+		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "100", Pay: "1", CardNo: "232323232323232"},
+		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "赵四", IDCard: "99", Pay: "1", CardNo: "232323232323232"},
+		&api.BatchOrderInfo{OrderID: "202210220003", RealName: "小白", IDCard: "88", Pay: "1", CardNo: "232323232323232"},
+	}
+
+	req := &api.CreateBatchOrderRequest{
+		BrokerID:   base.BrokerID,
+		DealerID:   base.DealerID,
+		BatchID:    "2022102200000001",
+		Channel:    "银行卡",
+		TotalCount: "3",
+		TotalPay:   "3",
+		OrderList:  orderList,
+	}
+	resp, err := client.CreateBatchOrder(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 也可能是服务端请求超时，需原单号重试
+			return
+		}
+		fmt.Println(e.Code, e.Message)
+		if e.Code == "2001" {
+			// 批次号重复
+			// 检查是否已上传过该批次号
+			// TODO 异常处理流程
+		} else {
+			// 下单异常
+			// 其它错误码详见接口文档附录中响应码列表
+			fmt.Println(e.Code, e.Message)
+		}
+		return
+	}
+
+	// 没有 err ，说明下单成功
+	fmt.Println(resp)
+}
+
+// ConfirmBatchOrder_Example 批次确认
+func ConfirmBatchOrder_Example(client api.Payment) {
+
+	req := &api.ConfirmBatchOrderRequest{
+		BrokerID: base.BrokerID,
+		DealerID: base.DealerID,
+		BatchID:  "2022102200000001",
+		Channel:  "银行卡",
+	}
+	resp, err := client.ConfirmBatchOrder(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 也可能是服务端请求超时
+			return
+		}
+		fmt.Println(e.Code, e.Message)
+		if e.Code == "0000" {
+			fmt.Println("确认成功")
+		} else {
+			// 下单异常
+			// 其它错误码详见接口文档附录中响应码列表
+			fmt.Println(e.Code, e.Message)
+		}
+		return
+	}
+
+	// 没有 err ，说明下单成功
+	fmt.Println(resp)
+}
+
 // NotifyOrder_Example 订单回调样例
 func NotifyOrder_Example() {
 	// 可以采用其他 http 请求框架实现
@@ -278,6 +353,8 @@ func Example() {
 		ListAccount_Example,
 		GetEleReceiptFile_Example,
 		CancelOrder_Example,
+		CreateBatchOrder_Example,
+		ConfirmBatchOrder_Example,
 	} {
 		example(client)
 	}
