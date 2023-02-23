@@ -329,7 +329,7 @@ func NotifyOrder_Example() {
 		signType := r.PostForm.Get("sign_type")
 		dealerID := r.Header.Get("dealer-id")
 
-		req := api.NotifyOrderRequest{}
+		req := api.NotifyOrderRequestV2{}.Data
 		err := base.NotifyDecoder(dealerID, timestamp, data, mess, sign, signType, &req)
 		if err != nil {
 			w.WriteHeader(http.StatusOK)
