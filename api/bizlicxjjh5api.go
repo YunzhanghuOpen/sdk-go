@@ -103,7 +103,7 @@ type H5APIGetStartUrlRequest struct {
 	// 跳转 URL
 	ReturnURL string `json:"return_url,omitempty"`
 	// H5 页面 Title
-	CustomTitle int32 `json:"custom_title,omitempty"`
+	CustomerTitle int32 `json:"customer_title,omitempty"`
 }
 
 // H5APIGetStartUrlResponse 预启动返回

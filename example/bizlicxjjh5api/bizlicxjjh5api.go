@@ -18,9 +18,9 @@ func H5PreCollectBizlicMsg_Example(client api.BizlicXjjH5APIService) {
 		PhoneNo:             "13412345678",
 		IDCard:              "120000000000000000",
 		RealName:            "张三",
-		IDCardAddress:       "张三",
-		IDCardAgency:        "张三",
-		IDCardNation:        "张三",
+		IDCardAddress:       "XXXXX",
+		IDCardAgency:        "XXXXX",
+		IDCardNation:        "XXXXX",
 		IDCardValidityStart: "2018-01-21",
 		IDCardValidityEnd:   "2027-01-12",
 	}
