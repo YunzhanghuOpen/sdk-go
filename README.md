@@ -1,18 +1,18 @@
-# 云账户 SDK for Golang
+# 云账户 SDK for Go
 
-欢迎使用云账户 SDK for Golang。   
+欢迎使用云账户 SDK for Go。   
 云账户是一家专注为平台企业和新就业形态劳动者提供高质量灵活就业服务的新时代企业。云账户 SDK 对云账户综合服务平台 API 接口进行封装，让您不必关心过多参数请求，帮助您快速接入到云账户综合服务平台。云账户 SDK for Golang 为您提供签约、下单、回调、数据查询等功能，帮助您完成与云账户综合服务平台的接口对接及业务开发。   
 如果您在使用过程中遇到任何问题，欢迎在当前 GitHub 提交 Issues，或发送邮件至技术支持组 [techsupport@yunzhanghu.com](mailto:techsupport@yunzhanghu.com)。
 
 ## 环境要求
 
-云账户 SDK for Golang 支持 Go 1.16 及以上版本。
+云账户 SDK for Go 支持 Go 1.16 及以上版本。
 
 
 ## 配置密钥
 ### 1、获取配置
 
-使用云账户 SDK for Golang 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。   
+使用云账户 SDK for Go 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。   
 获取方式：使用开户邮件中的账号登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择“业务中心 > 业务管理 > 对接信息”，查看并获取以上配置信息。
 ![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi.png?isAttachment=false&fileID=9487bd54b93a5abf49003c2b8ce7e069bfa24220&signature=X%2BR7PocQgPqSpR2xM1TgYU6lAapr%2FB9p3aFof03Gcfw%3D)
 
@@ -42,7 +42,7 @@ Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
 ![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/dujiexinxi-2.png?isAttachment=false&fileID=84e3cd1684a61c1e32eb0e7b7f43390cd053206b&signature=mqW8Zbk7h3gYXfzjR99pK%2B0pgVLcLly3VjBB2KsqDvQ%3D)
 
 
-## 安装 Golang SDK
+## 安装 Go SDK
 ### 1、使用 go module 安装 SDK
 
 ```
