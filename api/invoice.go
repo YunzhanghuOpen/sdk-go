@@ -14,6 +14,8 @@ type Invoice interface {
 	ApplyInvoice(context.Context, *ApplyInvoiceRequest) (*ApplyInvoiceResponse, error)
 	// GetInvoiceStatus 查询发票开具申请状态
 	GetInvoiceStatus(context.Context, *GetInvoiceStatusRequest) (*GetInvoiceStatusResponse, error)
+	// GetInvoiceInformation 查询发票信息
+	GetInvoiceInformation(context.Context, *GetInvoiceInformationRequest) (*GetInvoiceInformationResponse, error)
 	// GetInvoiceFile 下载 PDF 版发票
 	GetInvoiceFile(context.Context, *GetInvoiceFileRequest) (*GetInvoiceFileResponse, error)
 	// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
@@ -64,6 +66,16 @@ func (c *invoiceImpl) ApplyInvoice(ctx context.Context, in *ApplyInvoiceRequest)
 func (c *invoiceImpl) GetInvoiceStatus(ctx context.Context, in *GetInvoiceStatusRequest) (*GetInvoiceStatusResponse, error) {
 	out := new(GetInvoiceStatusResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/invoice/v2/invoice/invoice-status", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GetInvoiceInformation 查询发票信息
+func (c *invoiceImpl) GetInvoiceInformation(ctx context.Context, in *GetInvoiceInformationRequest) (*GetInvoiceInformationResponse, error) {
+	out := new(GetInvoiceInformationResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/invoice/v2/invoice-face-information", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -198,6 +210,40 @@ type GetInvoiceStatusResponse struct {
 	PostType string `json:"post_type,omitempty"`
 	// 快递单号
 	WaybillNumber []string `json:"waybill_number,omitempty"`
+}
+
+// GetInvoiceInformationRequest 查询发票信息请求
+type GetInvoiceInformationRequest struct {
+	// 发票申请编号
+	InvoiceApplyID string `json:"invoice_apply_id,omitempty"`
+	// 发票申请单 ID
+	ApplicationID string `json:"application_id,omitempty"`
+}
+
+// GetInvoiceInformationResponse 查询发票信息返回
+type GetInvoiceInformationResponse struct {
+	// 发票信息
+	Information []*InformationDataInfo `json:"information,omitempty"`
+}
+
+// InformationDataInfo 查询发票信息返回
+type InformationDataInfo struct {
+	// 货物或应税劳务、服务名称
+	GoodsServicesName string `json:"goods_services_name,omitempty"`
+	// 发票号码
+	InvoiceNum string `json:"invoice_num,omitempty"`
+	// 发票代码
+	InvoiceCode string `json:"invoice_code,omitempty"`
+	// 不含税金额
+	PriceAmount string `json:"price_amount,omitempty"`
+	// 税额
+	TaxAmount string `json:"tax_amount,omitempty"`
+	// 税率
+	TaxRate string `json:"tax_rate,omitempty"`
+	// 价税合计
+	PriceTaxAmount string `json:"price_tax_amount,omitempty"`
+	// 开票日期
+	InvoicedDate string `json:"invoiced_date,omitempty"`
 }
 
 // BankNameAccount 系统支持的开户行及账号

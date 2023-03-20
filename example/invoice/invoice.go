@@ -106,6 +106,25 @@ func GetInvoiceStatus_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
+// GetInvoiceInformation 查询发票信息
+func GetInvoiceInformation_Example(client api.Invoice) {
+	req := &api.GetInvoiceInformationRequest{
+		InvoiceApplyID: "111",
+		ApplicationID:  "111",
+	}
+	resp, err := client.GetInvoiceInformation(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 也可能是服务端请求超时，需要稍后重试
+			return
+		}
+		fmt.Println(e.Code, e.Message)
+	}
+	fmt.Println(resp)
+}
+
 // SendReminderEmail_Example 发送发票扫描件压缩包下载链接邮件
 func SendReminderEmail_Example(client api.Invoice) {
 	req := &api.SendReminderEmailRequest{
@@ -133,6 +152,7 @@ func Example() {
 		GetInvoiceFile_Example,
 		GetInvoiceStat_Example,
 		GetInvoiceStatus_Example,
+		GetInvoiceInformation_Example,
 		SendReminderEmail_Example,
 	} {
 		example(client)
