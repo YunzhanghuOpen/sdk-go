@@ -322,19 +322,21 @@ func ConfirmBatchOrder_Example(client api.Payment) {
 func NotifyOrder_Example() {
 	// 可以采用其他 http 请求框架实现
 	http.HandleFunc("notify/order", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		data := r.PostForm.Get("data")
-		timestamp := r.PostForm.Get("timestamp")
-		mess := r.PostForm.Get("mess")
-		sign := r.PostForm.Get("sign")
-		signType := r.PostForm.Get("sign_type")
-		dealerID := r.Header.Get("dealer-id")
+		if r.ParseForm() == nil {
+			data := r.PostForm.Get("data")
+			timestamp := r.PostForm.Get("timestamp")
+			mess := r.PostForm.Get("mess")
+			sign := r.PostForm.Get("sign")
+			signType := r.PostForm.Get("sign_type")
+			dealerID := r.Header.Get("dealer-id")
 
-		req := api.NotifyOrderRequestV2{}.Data
-		err := base.NotifyDecoder(dealerID, timestamp, data, mess, sign, signType, &req)
-		if err != nil {
-			w.WriteHeader(http.StatusOK)
-			_, _ = w.Write([]byte(err.Error()))
-			return
+			req := api.NotifyOrderRequestV2{}.Data
+			err := base.NotifyDecoder(dealerID, timestamp, data, mess, sign, signType, &req)
+			if err != nil {
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte(err.Error()))
+				return
+			}
 		}
 
 		// TODO: 处理 req 信息业务流程

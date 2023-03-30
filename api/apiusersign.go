@@ -4,10 +4,12 @@ import (
 	"context"
 )
 
-// ApiUserSignService API签约
+// ApiUserSignService API 签约
 type ApiUserSignService interface {
 	// ApiUseSignContract 获取协议预览 URL
 	ApiUseSignContract(context.Context, *ApiUseSignContractRequest) (*ApiUseSignContractResponse, error)
+	// ApiUserSignContract 获取协议预览 URL V2
+	ApiUserSignContract(context.Context, *ApiUserSignContractRequest) (*ApiUserSignContractResponse, error)
 	// ApiUserSign 用户签约
 	ApiUserSign(context.Context, *ApiUserSignRequest) (*ApiUserSignResponse, error)
 	// GetApiUserSignStatus 获取用户签约状态
@@ -29,6 +31,16 @@ func NewApiUserSignService(cc Invoker) ApiUserSignService {
 // ApiUseSignContract 获取协议预览 URL
 func (c *apiUserSignServiceImpl) ApiUseSignContract(ctx context.Context, in *ApiUseSignContractRequest) (*ApiUseSignContractResponse, error) {
 	out := new(ApiUseSignContractResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/sign/v1/user/contract", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ApiUserSignContract 获取协议预览 URL v2
+func (c *apiUserSignServiceImpl) ApiUserSignContract(ctx context.Context, in *ApiUserSignContractRequest) (*ApiUserSignContractResponse, error) {
+	out := new(ApiUserSignContractResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/sign/v1/user/contract", false, in, out)
 	if err != nil {
 		return nil, err
@@ -76,6 +88,22 @@ type ApiUseSignContractRequest struct {
 
 // ApiUseSignContractResponse 获取协议预览 URL 返回
 type ApiUseSignContractResponse struct {
+	// 预览跳转 URL
+	URL string `json:"url,omitempty"`
+	// 协议名称
+	Title string `json:"title,omitempty"`
+}
+
+// ApiUserSignContractRequest 获取协议预览 URL 请求 V2
+type ApiUserSignContractRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+}
+
+// ApiUserSignContractResponse 获取协议预览 URL 返回 V2
+type ApiUserSignContractResponse struct {
 	// 预览跳转 URL
 	URL string `json:"url,omitempty"`
 	// 协议名称
