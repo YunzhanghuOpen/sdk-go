@@ -8,13 +8,15 @@ import (
 
 // Client 客户端
 type Client struct {
-	Payment            // 实时下单接口
-	Tax                // 个税服务接口
-	Authentication     // 用户信息验证接口
-	DataService        // 数据接口
-	Invoice            // 发票接口
-	ApiUserSignService // API签约
-	H5UserSignService  // H5签约
+	Payment               // 实时下单接口
+	Tax                   // 个税服务接口
+	Authentication        // 用户信息验证接口
+	DataService           // 数据接口
+	Invoice               // 发票接口
+	ApiUserSignService    // API 签约
+	H5UserSignService     // H5 签约
+	BizlicXjjH5Service    // 新经济个体户注册 H5
+	BizlicXjjH5APIService // 新经济个体户注册 H5+API
 }
 
 // Config Client 配置
@@ -60,12 +62,14 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		return nil, err
 	}
 	return &Client{
-		Payment:            NewPayment(co),
-		Tax:                NewTax(co),
-		Authentication:     NewAuthentication(co),
-		DataService:        NewDataService(co),
-		Invoice:            NewInvoice(co),
-		ApiUserSignService: NewApiUserSignService(co),
-		H5UserSignService:  NewH5UserSignService(co),
+		Payment:               NewPayment(co),
+		Tax:                   NewTax(co),
+		Authentication:        NewAuthentication(co),
+		DataService:           NewDataService(co),
+		Invoice:               NewInvoice(co),
+		ApiUserSignService:    NewApiUserSignService(co),
+		H5UserSignService:     NewH5UserSignService(co),
+		BizlicXjjH5Service:    NewBizlicXjjH5Service(co),
+		BizlicXjjH5APIService: NewBizlicXjjH5APIService(co),
 	}, nil
 }

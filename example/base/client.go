@@ -2,7 +2,6 @@ package base
 
 import (
 	"context"
-	_ "embed"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -26,11 +25,11 @@ var (
 	YunPublicKey  = publicKey
 )
 
-//go:embed testdata/mch_public_key.txt
-var publicKey string
+// 云账户公钥
+var publicKey string = "XXXXX"
 
-//go:embed testdata/mch_private_key.txt
-var privateKey string
+// 平台企业私钥
+var privateKey string = "XXXXX"
 
 // NewCore 新建 client Core
 func NewClient() *api.Client {
