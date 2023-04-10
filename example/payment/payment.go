@@ -331,7 +331,7 @@ func NotifyOrder_Example() {
 			dealerID := r.Header.Get("dealer-id")
 
 			req := api.NotifyOrderRequestV2{}.Data
-			err := base.NotifyDecoder(dealerID, timestamp, data, mess, sign, signType, &req)
+			err := base.NotifyDecoder(dealerID, mess, timestamp, data, sign, signType, &req)
 			if err != nil {
 				w.WriteHeader(http.StatusOK)
 				_, _ = w.Write([]byte(err.Error()))
