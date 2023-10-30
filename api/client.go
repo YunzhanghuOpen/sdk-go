@@ -15,6 +15,7 @@ type Client struct {
 	Invoice               // 发票接口
 	ApiUserSignService    // API 签约
 	H5UserSignService     // H5 签约
+	UploadUserSignService // 签约信息上传
 	BizlicXjjH5Service    // 新经济个体户注册 H5
 	BizlicXjjH5APIService // 新经济个体户注册 H5+API
 }
@@ -69,6 +70,7 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		Invoice:               NewInvoice(co),
 		ApiUserSignService:    NewApiUserSignService(co),
 		H5UserSignService:     NewH5UserSignService(co),
+		UploadUserSignService: NewUploadUserSignService(co),
 		BizlicXjjH5Service:    NewBizlicXjjH5Service(co),
 		BizlicXjjH5APIService: NewBizlicXjjH5APIService(co),
 	}, nil

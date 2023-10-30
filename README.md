@@ -53,13 +53,19 @@ go get github.com/YunzhanghuOpen/sdk-go
 
 ### 示例功能列表
 
-- [H5 签约](example/h5usersign/h5usersign.go) or [API 签约](example/apiusersign/apiusersign.go)
+- [用户信息验证](example/authentication/authentication.go)
+- 用户签约
+   - [H5 签约](example/h5usersign/h5usersign.go)
+   - [API 签约](example/apiusersign/apiusersign.go)
+   - [签约信息上传](example/uploadusersign/uploadusersign.go)
+- 个体工商户注册
+   - [云账户新经济 H5](example/bizlicxjjh5/bizlicxjjh5.go)
+   - [云账户新经济 H5+API](example/bizlicxjjh5api/bizlicxjjh5api.go)
 - [实时下单接口](example/payment/payment.go)
 - [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)
 - [发票接口](example/invoice/invoice.go)
 - [个税扣缴明细表下载接口](example/tax/tax.go)
-- [用户信息验证接口](example/authentication/authentication.go)
 
 
 ### 示例
@@ -90,6 +96,9 @@ func main() {
 	}
 
 	// requestID 注入中间件
+	// request-id：请求 ID，请求的唯一标识
+	// 建议平台企业自定义 request-id，并记录在日志中，便于问题发现及排查
+	// 如平台企业未自定义 request-id，将使用 SDK 中的 random 方法自动生成。注意：random 方法生成的 request-id 不能保证全局唯一，推荐自定义
 	requestIDMiddle := func(next core.Handler) core.Handler {
 		return func(ctx context.Context, req interface{}) (interface{}, error) {
 			return next(core.WithRequestID(ctx, fmt.Sprint(rand.Int63())), req)
@@ -102,7 +111,7 @@ func main() {
 	appKey := "云账户对接信息中申请的 App Key"
 	des3Key := "云账户对接信息中申请的 3DES Key"
 	conf := &api.Config{
-		Host:       api.ProductHost, // 正式环境域名，开发自测时可使用沙箱环境地址 api.SandboxHost
+		Host:       api.ProductHost, // 正式环境域名，开发自测时可使用沙箱环境地址 api.SandboxHost，个体工商户注册使用 api.AicProductHost
 		DealerID:   dealerID,
 		PrivateKey: privateKey,
 		AppKey:     appKey,
@@ -125,34 +134,33 @@ func main() {
 		DealerID:  dealerID,
 		OrderID:   orderID,
 		RealName:  "张三",
-		IDCard:    "120000000000000000",
-		CardNo:    "1111111111111111111111111",
+		IDCard:    "110121202202222222",
+		CardNo:    "8888888888888888888",
 		PayRemark: "银行卡支付",
-		NotifyURL: "https://wwww.callback.com", // 需填写自己实现的回调接口
+		NotifyURL: "https://wwww.example.com", // 需填写自己实现的回调接口
 		Pay:       "99.99",
 	}
 
-	requestID := fmt.Sprint(rand.Int63()) // 此处必需注入 requestID，便于问题发现及排查，也可以使用 requestIDMiddle 中间件实现
+	// requestID := fmt.Sprint(rand.Int63()) // 此处必需注入 requestID，便于问题发现及排查，也可以使用 requestIDMiddle 中间件实现
 	resp, err := client.CreateBankpayOrder(core.WithRequestID(context.TODO(), requestID), req)
 	if err != nil {
 		e, ok := errorx.FromError(err) // 解析配置
 		if !ok {
-			// 可能是 SDK 内部错误或网络错误，请求未能连接到服务器
-			// 也可能是服务端请求超时，需原单号重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
 		if e.Code == "2002" {
 			// 订单号重复
 			// 检查是否已存在该订单号
-			// TODO 异常处理流程
-
 		} else {
-			// 下单异常
 			// 其它错误码详见接口文档附录中响应码列表
 		}
 		return
 	}
-
-	// TODO 处理返回
+	// 操作成功
+	fmt.Println(resp)
 }
 ```

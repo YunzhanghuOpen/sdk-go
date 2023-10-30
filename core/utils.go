@@ -1,11 +1,9 @@
 package core
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"log"
-	"os/exec"
 	"runtime"
 	"strings"
 )
@@ -26,19 +24,8 @@ func (l defaultLogger) Logf(ctx context.Context, format string, args ...interfac
 	log.Printf(format, args...)
 }
 
-var sys_info string // 系统信息 eg:Darwin 21.6.0 arm64
-
-func init() {
-	// default
-	sys_info = fmt.Sprintf("%s - %s", runtime.GOOS, runtime.GOARCH)
-
-	if out, err := exec.Command("uname", "-s", "-r", "-m").CombinedOutput(); err == nil {
-		sys_info = string(bytes.TrimSpace(out))
-	}
-}
-
 // userAgent
-// 示例：yunzhanghu-sdk-go/1.0.0/Darwin 21.6.0 arm64/1.16"
+// 示例：yunzhanghu-sdk-go/1.0.0/1.20"
 func userAgent() string {
-	return fmt.Sprintf("yunzhanghu-sdk-go/%s/%s/%s", Version, sys_info, strings.Trim(runtime.Version(), "go"))
+	return fmt.Sprintf("yunzhanghu-sdk-go/%s/%s", Version, strings.Trim(runtime.Version(), "go"))
 }

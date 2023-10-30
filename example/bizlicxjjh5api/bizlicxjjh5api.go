@@ -15,12 +15,12 @@ func H5PreCollectBizlicMsg_Example(client api.BizlicXjjH5APIService) {
 		DealerID:            base.DealerID,
 		BrokerID:            base.BrokerID,
 		DealerUserID:        "123456_01",
-		PhoneNo:             "13412345678",
-		IDCard:              "120000000000000000",
+		PhoneNo:             "188****8888",
+		IDCard:              "110121202202222222",
 		RealName:            "张三",
-		IDCardAddress:       "XXXXX",
-		IDCardAgency:        "XXXXX",
-		IDCardNation:        "XXXXX",
+		IDCardAddress:       "省级行政区名称区县级行政区名称具体住宿地址",
+		IDCardAgency:        "区县公安局名称",
+		IDCardNation:        "20",
 		IDCardValidityStart: "2018-01-21",
 		IDCardValidityEnd:   "2027-01-12",
 	}
@@ -28,12 +28,15 @@ func H5PreCollectBizlicMsg_Example(client api.BizlicXjjH5APIService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -44,19 +47,22 @@ func H5APIGetStartUrl_Example(client api.BizlicXjjH5APIService) {
 		BrokerID:     base.BrokerID,
 		DealerUserID: "123456_01",
 		ClientType:   2,
-		NotifyURL:    "http://www.abcdef.com/api/notify",
-		ReturnURL:    "",
+		NotifyURL:    "https://www.example.com",
+		ReturnURL:    "https://www.example.com",
 	}
 	resp, err := client.H5APIGetStartUrl(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -71,12 +77,15 @@ func H5APIEcoCityAicStatus_Example(client api.BizlicXjjH5APIService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 

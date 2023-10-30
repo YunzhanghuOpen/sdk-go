@@ -147,11 +147,11 @@ type RechargeRecordInfo struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
 	// 预付业务服务费记录 ID
-	RechargeID string `json:"recharge_id,omitempty"`
+	RechargeID int64 `json:"recharge_id,omitempty"`
 	// 预付业务服务费
-	Amount string `json:"amount,omitempty"`
+	Amount float64 `json:"amount,omitempty"`
 	// 实际到账金额
-	ActualAmount string `json:"actual_amount,omitempty"`
+	ActualAmount float64 `json:"actual_amount,omitempty"`
 	// 创建时间
 	CreatedAt string `json:"created_at,omitempty"`
 	// 资金用途

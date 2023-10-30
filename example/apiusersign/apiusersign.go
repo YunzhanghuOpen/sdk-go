@@ -19,12 +19,15 @@ func ApiUserSignContract_Example(client api.ApiUserSignService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -34,19 +37,22 @@ func ApiUserSign_Example(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
+		IDCard:   "110121202202222222",
 		CardType: "idcard",
 	}
 	resp, err := client.ApiUserSign(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -56,18 +62,21 @@ func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
+		IDCard:   "110121202202222222",
 	}
 	resp, err := client.GetApiUserSignStatus(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -77,19 +86,22 @@ func ApiUserSignRelease_Example(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
+		IDCard:   "110121202202222222",
 		CardType: "idcard",
 	}
 	resp, err := client.ApiUserSignRelease(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 

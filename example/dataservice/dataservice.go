@@ -1,11 +1,8 @@
 package dataservice
 
 import (
-	"compress/gzip"
 	"context"
-	"encoding/csv"
 	"fmt"
-	"net/http"
 
 	"github.com/YunzhanghuOpen/sdk-go/api"
 	"github.com/YunzhanghuOpen/sdk-go/errorx"
@@ -21,47 +18,16 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需原单号重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
-		if e.Code == "8300" {
-			// 获取日流水链接失败
-			// 说明日流水文件还未生成，需稍后再重试
-
-		} else {
-			// 其它错误码详见接口文档附录中响应码列表
-			fmt.Println(e.Code, e.Message)
-		}
 		return
 	}
+	// 操作成功
 	fmt.Println(resp)
-
-	res, err := http.Get(resp.BillDownloadURL)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
-
-	r, err := gzip.NewReader(res.Body)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-
-	cr := csv.NewReader(r)
-	lines, err := cr.ReadAll()
-	if err != nil {
-		// 说明文件存在问题
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Println(lines)
 }
 
 // ListDailyOrder_Example 查询日订单数据
@@ -76,12 +42,15 @@ func ListDailyOrder_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
-
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -94,46 +63,16 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需原单号重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
-		if e.Code == "8300" {
-			// 获取日订单链接失败, 说明日订单文件还未生成
-			// 需稍后再重试
-		} else {
-			// 其它错误码详见接口文档附录中响应码列表
-			fmt.Println(e.Code, e.Message)
-		}
 		return
 	}
+	// 操作成功
 	fmt.Println(resp)
-
-	res, err := http.Get(resp.OrderDownloadURL)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
-
-	r, err := gzip.NewReader(res.Body)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-
-	cr := csv.NewReader(r)
-	lines, err := cr.ReadAll()
-	if err != nil {
-		// 说明文件存在问题
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Println(lines)
 }
 
 // GetDailyOrderFileV2_Example 查询日订单文件（支付和退款订单）
@@ -145,46 +84,16 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需原单号重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
-		if e.Code == "8300" {
-			// 获取日订单链接失败, 说明日订单文件还未生成
-			// 需稍后再重试
-		} else {
-			// 其它错误码详见接口文档附录中响应码列表
-			fmt.Println(e.Code, e.Message)
-		}
 		return
 	}
+	// 操作成功
 	fmt.Println(resp)
-
-	res, err := http.Get(resp.URL)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-	defer res.Body.Close()
-
-	r, err := gzip.NewReader(res.Body)
-	if err != nil {
-		// 可能为网络错误
-		fmt.Println(err)
-		return
-	}
-
-	cr := csv.NewReader(r)
-	lines, err := cr.ReadAll()
-	if err != nil {
-		// 说明文件存在问题
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Println(lines)
 }
 
 // ListDailyBill_Example 查询日流水数据
@@ -198,12 +107,15 @@ func ListDailyBill_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
-
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -217,12 +129,15 @@ func ListDealerRechargeRecordV2_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
-
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -235,11 +150,15 @@ func ListBalanceDailyStatement_Example(client api.DataService) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
