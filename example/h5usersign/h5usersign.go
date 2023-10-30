@@ -15,38 +15,40 @@ func H5UserPresign_Example(client api.H5UserSignService) {
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
 		RealName:        "张三",
-		IDCard:          "121201111111111111111",
+		IDCard:          "110121202202222222",
 		CertificateType: 0,
 	}
 	resp, err := client.H5UserPresign(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
 // H5UserSign_Example H5 签约
 func H5UserSign_Example(client api.H5UserSignService) {
 	req := &api.H5UserSignRequest{
-		Token: base.DealerID,
-		URL:   "http://www.and.com/cabck",
+		Token: "X06603X195",
+		URL:   "https://www.example.com",
 	}
 	resp, err := client.H5UserSign(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -56,18 +58,19 @@ func GeH5UserSignStatus_Example(client api.H5UserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
+		IDCard:   "110121202202222222",
 	}
 	resp, err := client.GetH5UserSignStatus(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -77,19 +80,20 @@ func H5UserRelease_Example(client api.H5UserSignService) {
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
 		RealName:        "张三",
-		IDCard:          "121201111111111111111",
+		IDCard:          "110121202202222222",
 		CertificateType: 0,
 	}
 	resp, err := client.H5UserRelease(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
 		fmt.Println(e.Code, e.Message)
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 

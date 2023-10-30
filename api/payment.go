@@ -26,6 +26,8 @@ type Payment interface {
 	CreateBatchOrder(context.Context, *CreateBatchOrderRequest) (*CreateBatchOrderResponse, error)
 	// ConfirmBatchOrder 批次确认
 	ConfirmBatchOrder(context.Context, *ConfirmBatchOrderRequest) (*ConfirmBatchOrderResponse, error)
+	// CancelBatchOrder 批次撤销
+	CancelBatchOrder(context.Context, *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error)
 }
 
 // paymentImpl Payment 接口实现
@@ -138,6 +140,16 @@ func (c *paymentImpl) ConfirmBatchOrder(ctx context.Context, in *ConfirmBatchOrd
 	return out, nil
 }
 
+// CancelBatchOrder 批次撤销
+func (c *paymentImpl) CancelBatchOrder(ctx context.Context, in *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error) {
+	out := new(CancelBatchOrderResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/cancel-batch", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CreateBankpayOrderRequest 银行卡实时支付请求
 type CreateBankpayOrderRequest struct {
 	// 平台企业订单号
@@ -166,6 +178,7 @@ type CreateBankpayOrderRequest struct {
 
 // CreateBankpayOrderResponse 银行卡实时支付返回
 type CreateBankpayOrderResponse struct {
+	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
 	// 综合服务平台流水号
 	Ref string `json:"ref,omitempty"`
@@ -564,6 +577,8 @@ type CreateBatchOrderRequest struct {
 	TotalPay string `json:"total_pay,omitempty"`
 	// 总笔数
 	TotalCount string `json:"total_count,omitempty"`
+	// 支付模式
+	Mode string `json:"mode,omitempty"`
 	// 订单列表
 	OrderList []*BatchOrderInfo `json:"order_list,omitempty"`
 }
@@ -622,6 +637,20 @@ type ConfirmBatchOrderRequest struct {
 	Channel string `json:"channel,omitempty"`
 }
 
-// ConfirmBatchOrderResponse 批次确认响应
+// ConfirmBatchOrderResponse 批次确认返回
 type ConfirmBatchOrderResponse struct {
+}
+
+// CancelBatchOrderRequest 批次撤销请求
+type CancelBatchOrderRequest struct {
+	// 平台企业批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+}
+
+// CancelBatchOrderResponse 批次撤销返回
+type CancelBatchOrderResponse struct {
 }

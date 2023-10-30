@@ -16,19 +16,22 @@ func H5GetStartUrl_Example(client api.BizlicXjjH5Service) {
 		BrokerID:     base.BrokerID,
 		DealerUserID: "123456_01",
 		ClientType:   1,
-		NotifyURL:    "http://www.abcdef.com/api/notify",
-		ReturnURL:    "",
+		NotifyURL:    "https://www.example.com",
+		ReturnURL:    "https://www.example.com",
 	}
 	resp, err := client.H5GetStartUrl(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -43,12 +46,15 @@ func H5EcoCityAicStatus_Example(client api.BizlicXjjH5Service) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
