@@ -31,10 +31,13 @@ var publicKey string = "XXXXX"
 // 平台企业私钥
 var privateKey string = "XXXXX"
 
-// NewCore 新建 client Core
+// NewClient 新建 client Core
 func NewClient() *api.Client {
 	rand.Seed(time.Now().UnixNano())
-	// 注入requestID中间件
+	// 注入 request-id 中间件
+	// request-id：请求 ID，请求的唯一标识
+	// 建议平台企业自定义 request-id，并记录在日志中，便于问题发现及排查
+	// 如平台企业未自定义 request-id，将使用 SDK 中的 random 方法自动生成。注意：random 方法生成的 request-id 不能保证全局唯一，推荐自定义
 	requestIDMiddle := func(next core.Handler) core.Handler {
 		return func(ctx context.Context, req interface{}) (interface{}, error) {
 			return next(core.WithRequestID(ctx, fmt.Sprint(rand.Int63())), req)
@@ -52,14 +55,16 @@ func NewClient() *api.Client {
 	}
 
 	conf := &api.Config{
-		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时使用 api.ProductHost
+		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时使用 api.ProductHost，个体工商户注册使用 api.AicProductHost
 		DealerID:   DealerID,
 		PrivateKey: YunPrivateKey,
 		AppKey:     AppKey,
 		Des3Key:    Des3Key,
 	}
 	c, err := api.New(conf,
-		core.WithHttpClient(&http.Client{}),
+		core.WithHttpClient(&http.Client{
+			Timeout: 30 * time.Second, // 可自定义超时时间
+		}),
 		core.WithMiddleware(requestIDMiddle, logMiddle),
 		core.EnDebug(),
 	)
@@ -70,7 +75,7 @@ func NewClient() *api.Client {
 }
 
 // NewRsaSignVerifier 新建 RSA 签名验签
-func NewRsaSignVerifier(dealerID string) crypto.SignVerifier {
+func NewRsaSignVerifier() crypto.SignVerifier {
 	v, err := crypto.NewRsaSignVerifier(YunPublicKey, AppKey)
 	if err != nil {
 		panic(err)
@@ -78,8 +83,8 @@ func NewRsaSignVerifier(dealerID string) crypto.SignVerifier {
 	return v
 }
 
-// NewHmacSignVerifier 新建 RSA 签名
-func NewHmacSignVerifier(dealerID string) crypto.SignVerifier {
+// NewHmacSignVerifier 新建 HMAC 签名
+func NewHmacSignVerifier() crypto.SignVerifier {
 	v, err := crypto.NewHmacSignVerifier(AppKey)
 	if err != nil {
 		panic(err)
@@ -87,15 +92,15 @@ func NewHmacSignVerifier(dealerID string) crypto.SignVerifier {
 	return v
 }
 
-// NewEncoder 新建加密解密对象
-func NewDes3Decoder(dealerID string) crypto.Decoder {
+// NewDes3Decoder 新建加密解密对象
+func NewDes3Decoder() crypto.Decoder {
 	return crypto.NewDes3Encoding(Des3Key)
 }
 
-func NotifyDecoder(dealerID, mess, timestamp, data, sign, signType string, out interface{}) error {
+func NotifyDecoder(mess, timestamp, data, sign, signType string, out interface{}) error {
 	sv, ok := map[string]crypto.SignVerifier{
-		"SHA256": NewHmacSignVerifier(dealerID),
-		"RSA":    NewRsaSignVerifier(dealerID),
+		"SHA256": NewHmacSignVerifier(),
+		"RSA":    NewRsaSignVerifier(),
 	}[strings.ToUpper(signType)]
 	if !ok {
 		return errors.New("wrong sign type")
@@ -109,7 +114,7 @@ func NotifyDecoder(dealerID, mess, timestamp, data, sign, signType string, out i
 		return errors.New("签名错误")
 	}
 
-	decoder := NewDes3Decoder(dealerID)
+	decoder := NewDes3Decoder()
 	b, err := decoder.Decode([]byte(data))
 	if err != nil {
 		return err

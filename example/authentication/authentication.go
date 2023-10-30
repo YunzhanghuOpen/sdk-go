@@ -16,36 +16,42 @@ import (
 func IDCardVerify_Example(client api.Authentication) {
 	req := &api.IDCardVerifyRequest{
 		RealName: "张三",
-		IDCard:   "120000000000000000",
+		IDCard:   "110121202202222222",
 	}
 	resp, err := client.IDCardVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
 // GetBankCardInfo_Example 银行卡信息查询接口
 func GetBankCardInfo_Example(client api.Authentication) {
 	req := &api.GetBankCardInfoRequest{
-		CardNo: "1111111111111111111111111",
+		CardNo: "8888888888888888888",
 	}
 	resp, err := client.GetBankCardInfo(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -53,19 +59,22 @@ func GetBankCardInfo_Example(client api.Authentication) {
 func BankCardThreeVerify_Example(client api.Authentication) {
 	req := &api.BankCardThreeVerifyRequest{
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
-		CardNo:   "1111111111111111111111111",
+		IDCard:   "110121202202222222",
+		CardNo:   "8888888888888888888",
 	}
 	resp, err := client.BankCardThreeVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -73,9 +82,9 @@ func BankCardThreeVerify_Example(client api.Authentication) {
 func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthConfirmRequest{
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
-		CardNo:   "1111111111111111111111111",
-		Mobile:   "15800001111",
+		IDCard:   "110121202202222222",
+		CardNo:   "8888888888888888888",
+		Mobile:   "188****8888",
 		Captcha:  "011099",
 		Ref:      "11111111",
 	}
@@ -83,12 +92,15 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -96,20 +108,23 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 func BankCardFourAuthVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourAuthVerifyRequest{
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
-		CardNo:   "1111111111111111111111111",
-		Mobile:   "15811111111",
+		IDCard:   "110121202202222222",
+		CardNo:   "8888888888888888888",
+		Mobile:   "188****8888",
 	}
 	resp, err := client.BankCardFourAuthVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -117,20 +132,23 @@ func BankCardFourAuthVerify_Example(client api.Authentication) {
 func BankCardFourVerify_Example(client api.Authentication) {
 	req := &api.BankCardFourVerifyRequest{
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
-		CardNo:   "1111111111111111111111111",
-		Mobile:   "15811111111",
+		IDCard:   "110121202202222222",
+		CardNo:   "8888888888888888888",
+		Mobile:   "188****8888",
 	}
 	resp, err := client.BankCardFourVerify(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -141,43 +159,33 @@ func UserExemptedInfo_Example(client api.Authentication) {
 		log.Fatal(err)
 	}
 	base64str := base64.StdEncoding.EncodeToString(srcByte)
-
 	req := &api.UserExemptedInfoRequest{
-		//  证件类型码
-		CardType: "passport",
-		//  证件号码
-		IDCard: "ABC1212011111",
-		//  姓名
-		RealName: "张三",
-		//  申请备注
+		CardType:     "passport",
+		IDCard:       "ABC1212011111",
+		RealName:     "张三",
 		CommentApply: "mark",
-		//  综合服务主体 ID
-		BrokerID: base.BrokerID,
-		//  平台企业 ID
-		DealerID: base.DealerID,
-		//  人员信息图片
-		UserImages: []string{base64str, base64str},
-		//  国别（地区）代码
-		Country: "CHN",
-		//  出生日期
-		Birthday: "20190809",
-		//  性别
-		Gender: "男",
-		//  回调地址
-		NotifyURL: "http://www.callback.com",
-		//  请求流水号
-		Ref: "111122222",
+		BrokerID:     base.BrokerID,
+		DealerID:     base.DealerID,
+		UserImages:   []string{base64str, base64str},
+		Country:      "CHN",
+		Birthday:     "20190809",
+		Gender:       "男",
+		NotifyURL:    "https://www.example.com",
+		Ref:          "111122222",
 	}
 	resp, err := client.UserExemptedInfo(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 
@@ -185,18 +193,21 @@ func UserExemptedInfo_Example(client api.Authentication) {
 func UserWhiteCheck_Example(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",
-		IDCard:   "121201111111111111111",
+		IDCard:   "110121202202222222",
 	}
 	resp, err := client.UserWhiteCheck(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 

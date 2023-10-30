@@ -13,32 +13,22 @@ import (
 func GetTaxFile_Example(client api.Tax) {
 	req := &api.GetTaxFileRequest{
 		DealerID:  base.DealerID,
-		EntID:     "accumulus_tj", // 平台企业签约主体，其中天津：accumulus_tj，甘肃: accumulus_gs（必填）
-		YearMonth: "2022-02",      // 所属期（必填）, 注意格式 yyyy-mm
+		EntID:     "accumulus_tj",
+		YearMonth: "2022-02",
 	}
 	resp, err := client.GetTaxFile(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需原单号重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
-		if e.Code == "6201" {
-			// 个税扣缴明细表不存在
-			// 说明个税扣缴明还未生成
-			// 需稍后再重试
-			fmt.Println(e.Code, e.Message)
-			return
-
-		} else {
-			// 其它错误码详见接口文档附录中响应码列表
-			fmt.Println(e.Code, e.Message)
-		}
 		return
 	}
-
+	// 操作成功
 	fmt.Println(resp)
 	for _, file := range resp.FileInfo {
 		pwd, err := base.DecodeZipPwd(file.Pwd) // 解密zip压缩文件密码
@@ -46,9 +36,6 @@ func GetTaxFile_Example(client api.Tax) {
 			return
 		}
 		fmt.Println(pwd)
-		// TODO: 下载文件
-
-		// TODO: 解压文件
 	}
 }
 
@@ -56,20 +43,22 @@ func GetTaxFile_Example(client api.Tax) {
 func GetUserCross_Example(client api.Tax) {
 	req := &api.GetUserCrossRequest{
 		DealerID: base.DealerID,
-		EntID:    "accumulus_tj", // 天津：accumulus_tj，甘肃: accumulus_gs（必填）
-		Year:     "2022",         // 用户报税所在年份(必填)
-		IDCard:   "121201111111111111111",
+		EntID:    "accumulus_tj",
+		Year:     "2022",
+		IDCard:   "110121202202222222",
 	}
 	resp, err := client.GetUserCross(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
-			// 可能是 SDK 内部处理产生错误(如字符集问题、网络不通等)，请求未能到达服务器
-			// 也可能是服务端请求超时，需要稍后重试
+			// 发生异常
+			fmt.Println(err)
 			return
 		}
+		// 失败返回
 		fmt.Println(e.Code, e.Message)
 	}
+	// 操作成功
 	fmt.Println(resp)
 }
 

@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/YunzhanghuOpen/sdk-go/crypto"
 )
@@ -27,8 +28,10 @@ type Core struct {
 // New 新建 Core
 func New(option ...Option) (*Core, error) {
 	o := &Core{
-		httpClient: &http.Client{},
-		logger:     &defaultLogger{},
+		httpClient: &http.Client{
+			Timeout: 30 * time.Second, // 默认30秒超时
+		},
+		logger: &defaultLogger{},
 	}
 	for _, opt := range option {
 		opt(o)
