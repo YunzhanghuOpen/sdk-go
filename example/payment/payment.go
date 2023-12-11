@@ -304,6 +304,28 @@ func ConfirmBatchOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
+// QueryBatchOrder_Example 查询批次订单信息
+func QueryBatchOrder_Example(client api.Payment) {
+	req := &api.QueryBatchOrderRequest{
+		BatchID:  "2022102200000001",
+		DealerID: base.DealerID,
+	}
+	resp, err := client.QueryBatchOrder(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // CancelBatchOrder_Example 批次撤销
 func CancelBatchOrder_Example(client api.Payment) {
 	req := &api.CancelBatchOrderRequest{
@@ -338,7 +360,7 @@ func NotifyOrder_Example() {
 			sign := r.PostForm.Get("sign")
 			signType := r.PostForm.Get("sign_type")
 
-			req := api.NotifyOrderRequestV2{}.Data
+			req := api.NotifyOrderRequestV2{}
 			err := base.NotifyDecoder(mess, timestamp, data, sign, signType, &req)
 			if err != nil {
 				w.WriteHeader(http.StatusOK)
