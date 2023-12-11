@@ -26,6 +26,8 @@ type Payment interface {
 	CreateBatchOrder(context.Context, *CreateBatchOrderRequest) (*CreateBatchOrderResponse, error)
 	// ConfirmBatchOrder 批次确认
 	ConfirmBatchOrder(context.Context, *ConfirmBatchOrderRequest) (*ConfirmBatchOrderResponse, error)
+	// QueryBatchOrder 查询批次订单信息
+	QueryBatchOrder(context.Context, *QueryBatchOrderRequest) (*QueryBatchOrderResponse, error)
 	// CancelBatchOrder 批次撤销
 	CancelBatchOrder(context.Context, *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error)
 }
@@ -134,6 +136,16 @@ func (c *paymentImpl) CreateBatchOrder(ctx context.Context, in *CreateBatchOrder
 func (c *paymentImpl) ConfirmBatchOrder(ctx context.Context, in *ConfirmBatchOrderRequest) (*ConfirmBatchOrderResponse, error) {
 	out := new(ConfirmBatchOrderResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/confirm-batch", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// QueryBatchOrder 查询批次订单信息
+func (c *paymentImpl) QueryBatchOrder(ctx context.Context, in *QueryBatchOrderRequest) (*QueryBatchOrderResponse, error) {
+	out := new(QueryBatchOrderResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-batch", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -561,7 +573,7 @@ type NotifyOrderRequest struct {
 	SysFee string `json:"sys_fee,omitempty"`
 }
 
-// CreateBatchOrderRequest 批量下单请求
+// CreateBatchOrderRequest 批次下单请求
 type CreateBatchOrderRequest struct {
 	// 平台企业批次号
 	BatchID string `json:"batch_id,omitempty"`
@@ -583,7 +595,7 @@ type CreateBatchOrderRequest struct {
 	OrderList []*BatchOrderInfo `json:"order_list,omitempty"`
 }
 
-// BatchOrderInfo 批量下单订单信息
+// BatchOrderInfo 批次下单订单信息
 type BatchOrderInfo struct {
 	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
@@ -607,7 +619,7 @@ type BatchOrderInfo struct {
 	NotifyURL string `json:"notify_url,omitempty"`
 }
 
-// CreateBatchOrderResponse 批量下单返回
+// CreateBatchOrderResponse 批次下单返回
 type CreateBatchOrderResponse struct {
 	// 平台企业批次号
 	BatchID string `json:"batch_id,omitempty"`
@@ -615,7 +627,7 @@ type CreateBatchOrderResponse struct {
 	ResultList []*BatchOrderResult `json:"result_list,omitempty"`
 }
 
-// BatchOrderResult 批量下单返回订单信息
+// BatchOrderResult 批次下单返回订单信息
 type BatchOrderResult struct {
 	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
@@ -623,6 +635,18 @@ type BatchOrderResult struct {
 	Ref string `json:"ref,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
+	// 下单状态
+	Status string `json:"status,omitempty"`
+	// 下单失败原因
+	ErrorReasons []*BatchOrderErrorReasons `json:"error_reasons,omitempty"`
+}
+
+// BatchOrderErrorReasons 下单失败原因信息
+type BatchOrderErrorReasons struct {
+	// 不允许下单原因码
+	ErrorCode string `json:"error_code,omitempty"`
+	// 不允许下单原因描述
+	ErrorMessage string `json:"error_message,omitempty"`
 }
 
 // ConfirmBatchOrderRequest 批次确认请求
@@ -639,6 +663,92 @@ type ConfirmBatchOrderRequest struct {
 
 // ConfirmBatchOrderResponse 批次确认返回
 type ConfirmBatchOrderResponse struct {
+}
+
+// QueryBatchOrderRequest 查询批次订单信息请求
+type QueryBatchOrderRequest struct {
+	// 平台企业批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+}
+
+// QueryBatchOrderResponse 查询批次订单信息返回
+type QueryBatchOrderResponse struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 平台企业批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 总笔数
+	TotalCount string `json:"total_count,omitempty"`
+	// 订单总金额
+	TotalPay string `json:"total_pay,omitempty"`
+	// 支付路径
+	Channel string `json:"channel,omitempty"`
+	// 批次状态码
+	BatchStatus string `json:"batch_status,omitempty"`
+	// 批次状态码描述
+	BatchStatusMessage string `json:"batch_status_message,omitempty"`
+	// 批次接收时间
+	BatchReceivedTime string `json:"batch_received_time,omitempty"`
+	// 批次订单列表
+	OrderList []*QueryBatchOrderInfo `json:"order_list,omitempty"`
+}
+
+// QueryBatchOrderInfo 查询批次订单信息订单详情
+type QueryBatchOrderInfo struct {
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 订单金额
+	Pay string `json:"pay,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 收款人账号
+	CardNo string `json:"card_no,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty"`
+	// 手机号
+	PhoneNo string `json:"phone_no,omitempty"`
+	// 订单状态码
+	Status string `json:"status,omitempty"`
+	// 订单详情状态码
+	StatusDetail string `json:"status_detail,omitempty"`
+	// 订单状态码描述
+	StatusMessage string `json:"status_message,omitempty"`
+	// 订单详情状态码描述
+	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 综合服务主体支付金额
+	BrokerAmount string `json:"broker_amount,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 支付交易流水号
+	BrokerBankBill string `json:"broker_bank_bill,omitempty"`
+	// 支付路径
+	WithdrawPlatform string `json:"withdraw_platform,omitempty"`
+	// 订单接收时间
+	CreatedAt string `json:"created_at,omitempty"`
+	// 订单完成时间
+	FinishedTime string `json:"finished_time,omitempty"`
+	// 综合服务主体加成服务费
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 余额账户支出加成服务费
+	BrokerRealFee string `json:"broker_real_fee,omitempty"`
+	// 加成服务费抵扣金额
+	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 订单备注
+	PayRemark string `json:"pay_remark,omitempty"`
+	// 用户加成服务费
+	UserFee string `json:"user_fee,omitempty"`
+	// 银行名称
+	BankName string `json:"bank_name,omitempty"`
+	// 业务线标识
+	ProjectID string `json:"project_id,omitempty"`
 }
 
 // CancelBatchOrderRequest 批次撤销请求
