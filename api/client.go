@@ -18,6 +18,7 @@ type Client struct {
 	UploadUserSignService // 签约信息上传
 	BizlicXjjH5Service    // 新经济个体户注册 H5
 	BizlicXjjH5APIService // 新经济个体户注册 H5+API
+	BizlicGxH5APIService  // 共享大额个体户注册 H5+API
 }
 
 // Config Client 配置
@@ -73,5 +74,6 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		UploadUserSignService: NewUploadUserSignService(co),
 		BizlicXjjH5Service:    NewBizlicXjjH5Service(co),
 		BizlicXjjH5APIService: NewBizlicXjjH5APIService(co),
+		BizlicGxH5APIService:  NewBizlicGxH5APIService(co),
 	}, nil
 }
