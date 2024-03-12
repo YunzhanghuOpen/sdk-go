@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// GetDailyBillFileV2_Example 查询日流水文件
-func GetDailyBillFileV2_Example(client api.DataService) {
+// GetDailyBillFileV2Example 查询日流水文件
+func GetDailyBillFileV2Example(client api.DataService) {
 	req := &api.GetDailyBillFileV2Request{
 		BillDate: "2022-01-01",
 	}
@@ -30,8 +30,8 @@ func GetDailyBillFileV2_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// ListDailyOrder_Example 查询日订单数据
-func ListDailyOrder_Example(client api.DataService) {
+// ListDailyOrderExample 查询日订单数据
+func ListDailyOrderExample(client api.DataService) {
 	req := &api.ListDailyOrderRequest{
 		OrderDate: "2022-03-23",
 		Offset:    1,
@@ -54,8 +54,8 @@ func ListDailyOrder_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// GetOrderDownloadsUrl_Example 查询日订单文件
-func GetOrderDownloadsUrl_Example(client api.DataService) {
+// GetOrderDownloadsUrlExample 查询日订单文件
+func GetOrderDownloadsUrlExample(client api.DataService) {
 	req := &api.GetDailyOrderFileRequest{
 		OrderDate: "2022-03-23",
 	}
@@ -75,8 +75,8 @@ func GetOrderDownloadsUrl_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// GetDailyOrderFileV2_Example 查询日订单文件（支付和退款订单）
-func GetDailyOrderFileV2_Example(client api.DataService) {
+// GetDailyOrderFileV2Example 查询日订单文件（支付和退款订单）
+func GetDailyOrderFileV2Example(client api.DataService) {
 	req := &api.GetDailyOrderFileV2Request{
 		OrderDate: "2022-03-23",
 	}
@@ -96,8 +96,8 @@ func GetDailyOrderFileV2_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// ListDailyBill_Example 查询日流水数据
-func ListDailyBill_Example(client api.DataService) {
+// ListDailyBillExample 查询日流水数据
+func ListDailyBillExample(client api.DataService) {
 	req := &api.ListDailyBillRequest{
 		BillDate: "2022-03-23",
 		Offset:   1,
@@ -119,8 +119,8 @@ func ListDailyBill_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// ListDealerRechargeRecordV2_Example 查询平台企业预付业务服务费记录
-func ListDealerRechargeRecordV2_Example(client api.DataService) {
+// ListDealerRechargeRecordV2Example 查询平台企业预付业务服务费记录
+func ListDealerRechargeRecordV2Example(client api.DataService) {
 	req := &api.ListDealerRechargeRecordV2Request{
 		BeginAt: "2022-01-01",
 		EndAt:   "2022-04-01",
@@ -141,8 +141,8 @@ func ListDealerRechargeRecordV2_Example(client api.DataService) {
 	fmt.Println(resp)
 }
 
-// ListBalanceDailyStatement_Example 获取余额日账单
-func ListBalanceDailyStatement_Example(client api.DataService) {
+// ListBalanceDailyStatementExample 获取余额日账单
+func ListBalanceDailyStatementExample(client api.DataService) {
 	req := &api.ListBalanceDailyStatementRequest{
 		StatementDate: "2022-03-23",
 	}
@@ -166,13 +166,13 @@ func ListBalanceDailyStatement_Example(client api.DataService) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.DataService){
-		GetDailyBillFileV2_Example,
-		ListDailyOrder_Example,
-		GetOrderDownloadsUrl_Example,
-		GetDailyOrderFileV2_Example,
-		ListDailyBill_Example,
-		ListDealerRechargeRecordV2_Example,
-		ListBalanceDailyStatement_Example,
+		GetDailyBillFileV2Example,
+		ListDailyOrderExample,
+		GetOrderDownloadsUrlExample,
+		GetDailyOrderFileV2Example,
+		ListDailyBillExample,
+		ListDealerRechargeRecordV2Example,
+		ListBalanceDailyStatementExample,
 	} {
 		example(client)
 	}

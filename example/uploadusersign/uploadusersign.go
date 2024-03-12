@@ -10,8 +10,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// UploadUserSign_Example 用户签约信息上传
-func UploadUserSign_Example(client api.UploadUserSignService) {
+// UploadUserSignExample 用户签约信息上传
+func UploadUserSignExample(client api.UploadUserSignService) {
 	req := &api.UploadUserSignRequest{
 		BrokerID:  base.BrokerID,
 		DealerID:  base.DealerID,
@@ -36,8 +36,8 @@ func UploadUserSign_Example(client api.UploadUserSignService) {
 	fmt.Println(resp)
 }
 
-// GetUploadUserSignStatus_Example 获取用户签约状态
-func GetUploadUserSignStatus_Example(client api.UploadUserSignService) {
+// GetUploadUserSignStatusExample 获取用户签约状态
+func GetUploadUserSignStatusExample(client api.UploadUserSignService) {
 	req := &api.GetUploadUserSignStatusRequest{
 		BrokerID: base.BrokerID,
 		DealerID: base.DealerID,
@@ -59,8 +59,8 @@ func GetUploadUserSignStatus_Example(client api.UploadUserSignService) {
 	fmt.Println(resp)
 }
 
-// NotifyUploadUserSign_Example 签约成功状态回调通知
-func NotifyUploadUserSign_Example() {
+// NotifyUploadUserSignExample 签约成功状态回调通知
+func NotifyUploadUserSignExample() {
 	// 除本实现方式外，还可采用其他 http 请求框架实现
 	http.HandleFunc("notify/uploadusersign", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.ParseForm() == nil {
@@ -85,8 +85,8 @@ func NotifyUploadUserSign_Example() {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.UploadUserSignService){
-		UploadUserSign_Example,
-		GetUploadUserSignStatus_Example,
+		UploadUserSignExample,
+		GetUploadUserSignStatusExample,
 	} {
 		example(client)
 	}
