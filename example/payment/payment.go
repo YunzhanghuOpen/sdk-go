@@ -11,8 +11,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// CreateBankpayOrder_Example 创建银行卡支付订单示例
-func CreateBankpayOrder_Example(client api.Payment) {
+// CreateBankpayOrderExample 创建银行卡支付订单示例
+func CreateBankpayOrderExample(client api.Payment) {
 	req := &api.CreateBankpayOrderRequest{
 		BrokerID:  base.BrokerID,
 		DealerID:  base.DealerID,
@@ -49,8 +49,8 @@ func CreateBankpayOrder_Example(client api.Payment) {
 
 }
 
-// CreateAlipayOrder_Example 创建支付宝支付订单示例
-func CreateAlipayOrder_Example(client api.Payment) {
+// CreateAlipayOrderExample 创建支付宝支付订单示例
+func CreateAlipayOrderExample(client api.Payment) {
 	req := &api.CreateAlipayOrderRequest{
 		BrokerID:  base.BrokerID,
 		DealerID:  base.DealerID,
@@ -87,8 +87,8 @@ func CreateAlipayOrder_Example(client api.Payment) {
 
 }
 
-// CreateWxpayOrder_Example 创建微信支付订单示例
-func CreateWxpayOrder_Example(client api.Payment) {
+// CreateWxpayOrderExample 创建微信支付订单示例
+func CreateWxpayOrderExample(client api.Payment) {
 	req := &api.CreateWxpayOrderRequest{
 		BrokerID:  base.BrokerID,
 		DealerID:  base.DealerID,
@@ -125,8 +125,8 @@ func CreateWxpayOrder_Example(client api.Payment) {
 
 }
 
-// GetOrder_Example 订单查询
-func GetOrder_Example(client api.Payment) {
+// GetOrderExample 订单查询
+func GetOrderExample(client api.Payment) {
 	//  注意:
 	// 	建议下单请求结束后30秒再进行订单查询操作。
 	// 	若响应码code = 2018，表示订单不存在，则可使用原订单号重新下单，切记不可更换其他单号重试，否则将存在资损风险。
@@ -156,8 +156,8 @@ func GetOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// GetDealerVARechargeAccount_Example 查询平台企业汇款信息
-func GetDealerVARechargeAccount_Example(client api.Payment) {
+// GetDealerVARechargeAccountExample 查询平台企业汇款信息
+func GetDealerVARechargeAccountExample(client api.Payment) {
 	req := &api.GetDealerVARechargeAccountRequest{
 		BrokerID: base.BrokerID,
 		DealerID: base.DealerID,
@@ -177,8 +177,8 @@ func GetDealerVARechargeAccount_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// ListAccount_Example 查询平台企业余额
-func ListAccount_Example(client api.Payment) {
+// ListAccountExample 查询平台企业余额
+func ListAccountExample(client api.Payment) {
 	req := &api.ListAccountRequest{
 		DealerID: base.DealerID,
 	}
@@ -197,8 +197,8 @@ func ListAccount_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// GetEleReceiptFile_Example 查询电子回单
-func GetEleReceiptFile_Example(client api.Payment) {
+// GetEleReceiptFileExample 查询电子回单
+func GetEleReceiptFileExample(client api.Payment) {
 	req := &api.GetEleReceiptFileRequest{
 		OrderID: "123456",
 		Ref:     "",
@@ -218,8 +218,8 @@ func GetEleReceiptFile_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// CancelOrder_Example 取消待支付订单
-func CancelOrder_Example(client api.Payment) {
+// CancelOrderExample 取消待支付订单
+func CancelOrderExample(client api.Payment) {
 	req := &api.CancelOrderRequest{
 		DealerID: base.DealerID,
 		OrderID:  "123456",
@@ -241,8 +241,8 @@ func CancelOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// CreateBatchOrder_Example 批次下单
-func CreateBatchOrder_Example(client api.Payment) {
+// CreateBatchOrderExample 批次下单
+func CreateBatchOrderExample(client api.Payment) {
 	orderList := []*api.BatchOrderInfo{
 		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "110121202202222221", Pay: "1", CardNo: "8888888888888888881"},
 		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "赵四", IDCard: "110121202202222222", Pay: "1", CardNo: "8888888888888888882"},
@@ -280,8 +280,8 @@ func CreateBatchOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// ConfirmBatchOrder_Example 批次确认
-func ConfirmBatchOrder_Example(client api.Payment) {
+// ConfirmBatchOrderExample 批次确认
+func ConfirmBatchOrderExample(client api.Payment) {
 	req := &api.ConfirmBatchOrderRequest{
 		BrokerID: base.BrokerID,
 		DealerID: base.DealerID,
@@ -304,8 +304,8 @@ func ConfirmBatchOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// QueryBatchOrder_Example 查询批次订单信息
-func QueryBatchOrder_Example(client api.Payment) {
+// QueryBatchOrderExample 查询批次订单信息
+func QueryBatchOrderExample(client api.Payment) {
 	req := &api.QueryBatchOrderRequest{
 		BatchID:  "2022102200000001",
 		DealerID: base.DealerID,
@@ -326,8 +326,8 @@ func QueryBatchOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// CancelBatchOrder_Example 批次撤销
-func CancelBatchOrder_Example(client api.Payment) {
+// CancelBatchOrderExample 批次撤销
+func CancelBatchOrderExample(client api.Payment) {
 	req := &api.CancelBatchOrderRequest{
 		BrokerID: base.BrokerID,
 		DealerID: base.DealerID,
@@ -349,8 +349,8 @@ func CancelBatchOrder_Example(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// NotifyOrder_Example 订单回调样例
-func NotifyOrder_Example() {
+// NotifyOrderExample 订单回调样例
+func NotifyOrderExample() {
 	// 除本实现方式外，还可采用其他 http 请求框架实现
 	http.HandleFunc("notify/order", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.ParseForm() == nil {
@@ -375,16 +375,16 @@ func NotifyOrder_Example() {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Payment){
-		CreateBankpayOrder_Example,
-		CreateAlipayOrder_Example,
-		CreateWxpayOrder_Example,
-		GetOrder_Example,
-		GetDealerVARechargeAccount_Example,
-		ListAccount_Example,
-		GetEleReceiptFile_Example,
-		CancelOrder_Example,
-		CreateBatchOrder_Example,
-		ConfirmBatchOrder_Example,
+		CreateBankpayOrderExample,
+		CreateAlipayOrderExample,
+		CreateWxpayOrderExample,
+		GetOrderExample,
+		GetDealerVARechargeAccountExample,
+		ListAccountExample,
+		GetEleReceiptFileExample,
+		CancelOrderExample,
+		CreateBatchOrderExample,
+		ConfirmBatchOrderExample,
 	} {
 		example(client)
 	}

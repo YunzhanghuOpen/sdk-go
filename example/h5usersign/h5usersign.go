@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// H5UserPresign_Example H5 预申请签约
-func H5UserPresign_Example(client api.H5UserSignService) {
+// H5UserPresignExample H5 预申请签约
+func H5UserPresignExample(client api.H5UserSignService) {
 	req := &api.H5UserPresignRequest{
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
@@ -32,8 +32,8 @@ func H5UserPresign_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-// H5UserSign_Example H5 签约
-func H5UserSign_Example(client api.H5UserSignService) {
+// H5UserSignExample H5 签约
+func H5UserSignExample(client api.H5UserSignService) {
 	req := &api.H5UserSignRequest{
 		Token: "X06603X195",
 		URL:   "https://www.example.com",
@@ -52,8 +52,8 @@ func H5UserSign_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-// GeH5UserSignStatus_Example 获取用户签约状态
-func GeH5UserSignStatus_Example(client api.H5UserSignService) {
+// GeH5UserSignStatusExample 获取用户签约状态
+func GeH5UserSignStatusExample(client api.H5UserSignService) {
 	req := &api.GetH5UserSignStatusRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -74,8 +74,8 @@ func GeH5UserSignStatus_Example(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
-// H5UserRelease_Example H5 对接测试解约接口
-func H5UserRelease_Example(client api.H5UserSignService) {
+// H5UserReleaseExample H5 对接测试解约接口
+func H5UserReleaseExample(client api.H5UserSignService) {
 	req := &api.H5UserReleaseRequest{
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
@@ -101,10 +101,10 @@ func H5UserRelease_Example(client api.H5UserSignService) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.H5UserSignService){
-		H5UserPresign_Example,
-		H5UserSign_Example,
-		GeH5UserSignStatus_Example,
-		H5UserRelease_Example,
+		H5UserPresignExample,
+		H5UserSignExample,
+		GeH5UserSignStatusExample,
+		H5UserReleaseExample,
 	} {
 		example(client)
 	}

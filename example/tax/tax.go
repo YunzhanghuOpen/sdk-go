@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// GetTaxFile_Example 下载个税扣缴明细表
-func GetTaxFile_Example(client api.Tax) {
+// GetTaxFileExample 下载个税扣缴明细表
+func GetTaxFileExample(client api.Tax) {
 	req := &api.GetTaxFileRequest{
 		DealerID:  base.DealerID,
 		EntID:     "accumulus_tj",
@@ -39,8 +39,8 @@ func GetTaxFile_Example(client api.Tax) {
 	}
 }
 
-// GetUserCross_Example 查询纳税人是否为跨集团用户
-func GetUserCross_Example(client api.Tax) {
+// GetUserCrossExample 查询纳税人是否为跨集团用户
+func GetUserCrossExample(client api.Tax) {
 	req := &api.GetUserCrossRequest{
 		DealerID: base.DealerID,
 		EntID:    "accumulus_tj",
@@ -66,8 +66,8 @@ func GetUserCross_Example(client api.Tax) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Tax){
-		GetTaxFile_Example,
-		GetUserCross_Example,
+		GetTaxFileExample,
+		GetUserCrossExample,
 	} {
 		example(client)
 	}
