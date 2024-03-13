@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// H5GetStartUrl_Example 预启动
-func H5GetStartUrl_Example(client api.BizlicXjjH5Service) {
+// H5GetStartUrlExample 预启动
+func H5GetStartUrlExample(client api.BizlicXjjH5Service) {
 	req := &api.H5GetStartUrlRequest{
 		DealerID:     base.DealerID,
 		BrokerID:     base.BrokerID,
@@ -35,8 +35,8 @@ func H5GetStartUrl_Example(client api.BizlicXjjH5Service) {
 	fmt.Println(resp)
 }
 
-// H5EcoCityAicStatus_Example 查询个体工商户状态
-func H5EcoCityAicStatus_Example(client api.BizlicXjjH5Service) {
+// H5EcoCityAicStatusExample 查询个体工商户状态
+func H5EcoCityAicStatusExample(client api.BizlicXjjH5Service) {
 	req := &api.H5EcoCityAicStatusRequest{
 		DealerID:     base.DealerID,
 		BrokerID:     base.BrokerID,
@@ -62,8 +62,8 @@ func H5EcoCityAicStatus_Example(client api.BizlicXjjH5Service) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.BizlicXjjH5Service){
-		H5GetStartUrl_Example,
-		H5EcoCityAicStatus_Example,
+		H5GetStartUrlExample,
+		H5EcoCityAicStatusExample,
 	} {
 		example(client)
 	}

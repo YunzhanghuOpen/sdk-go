@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// H5PreCollectBizlicMsg_Example 工商实名信息录入
-func H5PreCollectBizlicMsg_Example(client api.BizlicXjjH5APIService) {
+// H5PreCollectBizlicMsgExample 工商实名信息录入
+func H5PreCollectBizlicMsgExample(client api.BizlicXjjH5APIService) {
 	req := &api.H5PreCollectBizlicMsgRequest{
 		DealerID:            base.DealerID,
 		BrokerID:            base.BrokerID,
@@ -40,8 +40,8 @@ func H5PreCollectBizlicMsg_Example(client api.BizlicXjjH5APIService) {
 	fmt.Println(resp)
 }
 
-// H5APIGetStartUrl_Example 预启动
-func H5APIGetStartUrl_Example(client api.BizlicXjjH5APIService) {
+// H5APIGetStartUrlExample 预启动
+func H5APIGetStartUrlExample(client api.BizlicXjjH5APIService) {
 	req := &api.H5APIGetStartUrlRequest{
 		DealerID:     base.DealerID,
 		BrokerID:     base.BrokerID,
@@ -66,8 +66,8 @@ func H5APIGetStartUrl_Example(client api.BizlicXjjH5APIService) {
 	fmt.Println(resp)
 }
 
-// H5APIEcoCityAicStatus_Example 查询个体工商户状态
-func H5APIEcoCityAicStatus_Example(client api.BizlicXjjH5APIService) {
+// H5APIEcoCityAicStatusExample 查询个体工商户状态
+func H5APIEcoCityAicStatusExample(client api.BizlicXjjH5APIService) {
 	req := &api.H5APIEcoCityAicStatusRequest{
 		DealerID:     base.DealerID,
 		BrokerID:     base.BrokerID,
@@ -93,9 +93,9 @@ func H5APIEcoCityAicStatus_Example(client api.BizlicXjjH5APIService) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.BizlicXjjH5APIService){
-		H5PreCollectBizlicMsg_Example,
-		H5APIGetStartUrl_Example,
-		H5APIEcoCityAicStatus_Example,
+		H5PreCollectBizlicMsgExample,
+		H5APIGetStartUrlExample,
+		H5APIEcoCityAicStatusExample,
 	} {
 		example(client)
 	}

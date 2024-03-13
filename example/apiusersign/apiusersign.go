@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// ApiUseSignContract_Example 获取协议预览 URL
-func ApiUserSignContract_Example(client api.ApiUserSignService) {
+// ApiUseSignContractExample 获取协议预览 URL
+func ApiUserSignContractExample(client api.ApiUserSignService) {
 	req := &api.ApiUserSignContractRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -31,8 +31,8 @@ func ApiUserSignContract_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-// ApiUserSign_Example 用户签约
-func ApiUserSign_Example(client api.ApiUserSignService) {
+// ApiUserSignExample 用户签约
+func ApiUserSignExample(client api.ApiUserSignService) {
 	req := &api.ApiUserSignRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -56,8 +56,8 @@ func ApiUserSign_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-// GetApiUserSignStatus_Example 获取用户签约状态
-func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
+// GetApiUserSignStatusExample 获取用户签约状态
+func GetApiUserSignStatusExample(client api.ApiUserSignService) {
 	req := &api.GetApiUserSignStatusRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -80,8 +80,8 @@ func GetApiUserSignStatus_Example(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-// ApiUserSignRelease_Example 用户解约（测试账号专用接口）
-func ApiUserSignRelease_Example(client api.ApiUserSignService) {
+// ApiUserSignReleaseExample 用户解约（测试账号专用接口）
+func ApiUserSignReleaseExample(client api.ApiUserSignService) {
 	req := &api.ApiUserSignReleaseRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -109,10 +109,10 @@ func ApiUserSignRelease_Example(client api.ApiUserSignService) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.ApiUserSignService){
-		ApiUserSignContract_Example,
-		ApiUserSign_Example,
-		GetApiUserSignStatus_Example,
-		ApiUserSignRelease_Example,
+		ApiUserSignContractExample,
+		ApiUserSignExample,
+		GetApiUserSignStatusExample,
+		ApiUserSignReleaseExample,
 	} {
 		example(client)
 	}

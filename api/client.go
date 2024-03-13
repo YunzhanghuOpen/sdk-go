@@ -18,15 +18,16 @@ type Client struct {
 	UploadUserSignService // 签约信息上传
 	BizlicXjjH5Service    // 新经济个体户注册 H5
 	BizlicXjjH5APIService // 新经济个体户注册 H5+API
+	CustomService         // 通用请求接口
 }
 
 // Config Client 配置
 type Config struct {
-	Host       string // 服务地址 必传  生产环境地址 https://api-service.yunzhanghu.com  沙箱环境地址 https://api-service.yunzhanghu.com/sandbox
-	DealerID   string // 平台企业 ID 必传
-	PrivateKey string // 平台企业 私钥 必传
-	AppKey     string // 平台企业 appKey 必传
-	Des3Key    string // 平台企业 des3Key 必传
+	Host       string // 请求域名，必传。参见“API 文档 > 接口定义 > 请求 URL”
+	DealerID   string // 平台企业 ID，必传。登录云账户综合服务平台，选择“业务中心 > 业务管理 > 对接信息”获取
+	PrivateKey string // 平台企业私钥，必传。同时登录云账户综合服务平台，选择“业务中心 > 业务管理 > 对接信息”，单击页面右上角的“编辑”，完成平台企业公钥配置
+	AppKey     string // App Key，必传。登录云账户综合服务平台，选择“业务中心 > 业务管理 > 对接信息”获取
+	Des3Key    string // 3DES Key，必传。登录云账户综合服务平台，选择“业务中心 > 业务管理 > 对接信息”获取
 }
 
 // New 新建 Client
@@ -73,5 +74,6 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		UploadUserSignService: NewUploadUserSignService(co),
 		BizlicXjjH5Service:    NewBizlicXjjH5Service(co),
 		BizlicXjjH5APIService: NewBizlicXjjH5APIService(co),
+		CustomService:         NewCustomService(co),
 	}, nil
 }

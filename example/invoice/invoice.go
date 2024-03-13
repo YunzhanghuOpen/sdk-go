@@ -9,8 +9,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// ApplyInvoice_Example 开票申请
-func ApplyInvoice_Example(client api.Invoice) {
+// ApplyInvoiceExample 开票申请
+func ApplyInvoiceExample(client api.Invoice) {
 	req := &api.ApplyInvoiceRequest{
 		DealerID:       base.DealerID,
 		BrokerID:       base.BrokerID,
@@ -34,8 +34,8 @@ func ApplyInvoice_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// GetInvoiceAmount_Example 查询可开票额度和开票信息
-func GetInvoiceAmount_Example(client api.Invoice) {
+// GetInvoiceAmountExample 查询可开票额度和开票信息
+func GetInvoiceAmountExample(client api.Invoice) {
 	req := &api.GetInvoiceAmountRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -56,8 +56,8 @@ func GetInvoiceAmount_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// GetInvoiceFile_Example 下载 PDF 版发票
-func GetInvoiceFile_Example(client api.Invoice) {
+// GetInvoiceFileExample 下载 PDF 版发票
+func GetInvoiceFileExample(client api.Invoice) {
 	req := &api.GetInvoiceFileRequest{
 		InvoiceApplyID: "test1234567890",
 	}
@@ -77,8 +77,8 @@ func GetInvoiceFile_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// GetInvoiceStat_Example 查询平台企业已开具和待开具发票金额
-func GetInvoiceStat_Example(client api.Invoice) {
+// GetInvoiceStatExample 查询平台企业已开具和待开具发票金额
+func GetInvoiceStatExample(client api.Invoice) {
 	req := &api.GetInvoiceStatRequest{
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
@@ -100,8 +100,8 @@ func GetInvoiceStat_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// GetInvoiceStatus_Example 查询开票申请状态
-func GetInvoiceStatus_Example(client api.Invoice) {
+// GetInvoiceStatusExample 查询开票申请状态
+func GetInvoiceStatusExample(client api.Invoice) {
 	req := &api.GetInvoiceStatusRequest{
 		InvoiceApplyID: "test1234567890",
 	}
@@ -122,7 +122,7 @@ func GetInvoiceStatus_Example(client api.Invoice) {
 }
 
 // GetInvoiceInformation 查询发票信息
-func GetInvoiceInformation_Example(client api.Invoice) {
+func GetInvoiceInformationExample(client api.Invoice) {
 	req := &api.GetInvoiceInformationRequest{
 		InvoiceApplyID: "test1234567890",
 		ApplicationID:  "111",
@@ -143,8 +143,8 @@ func GetInvoiceInformation_Example(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// SendReminderEmail_Example 发送发票扫描件压缩包下载链接邮件
-func SendReminderEmail_Example(client api.Invoice) {
+// SendReminderEmailExample 发送发票扫描件压缩包下载链接邮件
+func SendReminderEmailExample(client api.Invoice) {
 	req := &api.SendReminderEmailRequest{
 		InvoiceApplyID: "test1234567890",
 	}
@@ -168,13 +168,13 @@ func SendReminderEmail_Example(client api.Invoice) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Invoice){
-		ApplyInvoice_Example,
-		GetInvoiceAmount_Example,
-		GetInvoiceFile_Example,
-		GetInvoiceStat_Example,
-		GetInvoiceStatus_Example,
-		GetInvoiceInformation_Example,
-		SendReminderEmail_Example,
+		ApplyInvoiceExample,
+		GetInvoiceAmountExample,
+		GetInvoiceFileExample,
+		GetInvoiceStatExample,
+		GetInvoiceStatusExample,
+		GetInvoiceInformationExample,
+		SendReminderEmailExample,
 	} {
 		example(client)
 	}

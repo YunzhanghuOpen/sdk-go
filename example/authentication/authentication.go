@@ -12,8 +12,8 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// IDCardVerify_Example 身份证实名验证
-func IDCardVerify_Example(client api.Authentication) {
+// IDCardVerifyExample 身份证实名验证
+func IDCardVerifyExample(client api.Authentication) {
 	req := &api.IDCardVerifyRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -34,8 +34,8 @@ func IDCardVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// GetBankCardInfo_Example 银行卡信息查询接口
-func GetBankCardInfo_Example(client api.Authentication) {
+// GetBankCardInfoExample 银行卡信息查询接口
+func GetBankCardInfoExample(client api.Authentication) {
 	req := &api.GetBankCardInfoRequest{
 		CardNo: "8888888888888888888",
 	}
@@ -55,8 +55,8 @@ func GetBankCardInfo_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// BankCardThreeVerify_Example 银行卡三要素验证
-func BankCardThreeVerify_Example(client api.Authentication) {
+// BankCardThreeVerifyExample 银行卡三要素验证
+func BankCardThreeVerifyExample(client api.Authentication) {
 	req := &api.BankCardThreeVerifyRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -78,8 +78,8 @@ func BankCardThreeVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// BankCardFourAuthConfirm_Example 银行卡四要素确认鉴权（上传短信验证码）
-func BankCardFourAuthConfirm_Example(client api.Authentication) {
+// BankCardFourAuthConfirmExample 银行卡四要素确认鉴权（上传短信验证码）
+func BankCardFourAuthConfirmExample(client api.Authentication) {
 	req := &api.BankCardFourAuthConfirmRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -104,8 +104,8 @@ func BankCardFourAuthConfirm_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// BankCardFourAuthVerify_Example 银行卡四要素鉴权请求（下发短信验证码）
-func BankCardFourAuthVerify_Example(client api.Authentication) {
+// BankCardFourAuthVerifyExample 银行卡四要素鉴权请求（下发短信验证码）
+func BankCardFourAuthVerifyExample(client api.Authentication) {
 	req := &api.BankCardFourAuthVerifyRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -128,8 +128,8 @@ func BankCardFourAuthVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// BankCardFourVerify_Example 银行卡四要素验证
-func BankCardFourVerify_Example(client api.Authentication) {
+// BankCardFourVerifyExample 银行卡四要素验证
+func BankCardFourVerifyExample(client api.Authentication) {
 	req := &api.BankCardFourVerifyRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -152,8 +152,8 @@ func BankCardFourVerify_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// UserExemptedInfo_Example 上传免验证用户名单信息
-func UserExemptedInfo_Example(client api.Authentication) {
+// UserExemptedInfoExample 上传免验证用户名单信息
+func UserExemptedInfoExample(client api.Authentication) {
 	srcByte, err := ioutil.ReadFile("example/authentication/test.png")
 	if err != nil {
 		log.Fatal(err)
@@ -189,8 +189,8 @@ func UserExemptedInfo_Example(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// UserWhiteCheck_Example 查看免验证用户名单是否存在
-func UserWhiteCheck_Example(client api.Authentication) {
+// UserWhiteCheckExample 查看免验证用户名单是否存在
+func UserWhiteCheckExample(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",
 		IDCard:   "110121202202222222",
@@ -215,14 +215,14 @@ func UserWhiteCheck_Example(client api.Authentication) {
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.Authentication){
-		BankCardFourAuthConfirm_Example,
-		BankCardFourAuthVerify_Example,
-		BankCardFourVerify_Example,
-		BankCardThreeVerify_Example,
-		GetBankCardInfo_Example,
-		IDCardVerify_Example,
-		UserExemptedInfo_Example,
-		UserWhiteCheck_Example,
+		BankCardFourAuthConfirmExample,
+		BankCardFourAuthVerifyExample,
+		BankCardFourVerifyExample,
+		BankCardThreeVerifyExample,
+		GetBankCardInfoExample,
+		IDCardVerifyExample,
+		UserExemptedInfoExample,
+		UserWhiteCheckExample,
 	} {
 		example(client)
 	}
