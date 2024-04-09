@@ -45,7 +45,7 @@ func GetUserCrossExample(client api.Tax) {
 		DealerID: base.DealerID,
 		EntID:    "accumulus_tj",
 		Year:     "2022",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 	}
 	resp, err := client.GetUserCross(context.TODO(), req)
 	if err != nil {

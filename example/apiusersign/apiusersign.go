@@ -37,7 +37,7 @@ func ApiUserSignExample(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 		CardType: "idcard",
 	}
 	resp, err := client.ApiUserSign(context.TODO(), req)
@@ -62,7 +62,7 @@ func GetApiUserSignStatusExample(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 	}
 	resp, err := client.GetApiUserSignStatus(context.TODO(), req)
 	if err != nil {
@@ -86,7 +86,7 @@ func ApiUserSignReleaseExample(client api.ApiUserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 		CardType: "idcard",
 	}
 	resp, err := client.ApiUserSignRelease(context.TODO(), req)

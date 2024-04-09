@@ -14,7 +14,7 @@
 
 使用云账户 SDK for Go 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。   
 获取方式：使用开户邮件中的账号登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择“业务中心 > 业务管理 > 对接信息”，查看并获取以上配置信息。
-![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi.png?isAttachment=false&fileID=9487bd54b93a5abf49003c2b8ce7e069bfa24220&signature=X%2BR7PocQgPqSpR2xM1TgYU6lAapr%2FB9p3aFof03Gcfw%3D)
+![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi-3.png?isAttachment=false&fileID=4d073f5df6ccd7f16db1f3f21016dec959381154&signature=9pXBRSdwjXtnLesLnv4ASa7Hxmhu46PaBJXb%2BQxVvpg%3D)
 
 ### 2、生成密钥
 
@@ -39,7 +39,7 @@ Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
 ### 3、配置密钥
 
 登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择"业务中心 > 业务管理 > 对接信息"，单击页面右上角的"编辑"，配置平台企业公钥。
-![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/dujiexinxi-2.png?isAttachment=false&fileID=84e3cd1684a61c1e32eb0e7b7f43390cd053206b&signature=mqW8Zbk7h3gYXfzjR99pK%2B0pgVLcLly3VjBB2KsqDvQ%3D)
+![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi-4.png?isAttachment=false&fileID=6f4c1927c490566e68cfb608cc951c2dbb14132d&signature=KVHB%2B6cIkAkHxSKNpBsrKy%2FQU%2FRFDnE4G6dDvw%2BROHU%3D)
 
 
 ## 安装 Go SDK
@@ -134,8 +134,8 @@ func main() {
 		DealerID:  dealerID,
 		OrderID:   orderID,
 		RealName:  "张三",
-		IDCard:    "110121202202222222",
-		CardNo:    "8888888888888888888",
+		IDCard:    "11010519491231002X",
+		CardNo:    "6228888888888888888",
 		PayRemark: "银行卡支付",
 		NotifyURL: "https://wwww.example.com", // 需填写自己实现的回调接口
 		Pay:       "99.99",

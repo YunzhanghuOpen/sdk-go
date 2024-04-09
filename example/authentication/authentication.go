@@ -16,7 +16,7 @@ import (
 func IDCardVerifyExample(client api.Authentication) {
 	req := &api.IDCardVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 	}
 	resp, err := client.IDCardVerify(context.TODO(), req)
 	if err != nil {
@@ -37,7 +37,7 @@ func IDCardVerifyExample(client api.Authentication) {
 // GetBankCardInfoExample 银行卡信息查询接口
 func GetBankCardInfoExample(client api.Authentication) {
 	req := &api.GetBankCardInfoRequest{
-		CardNo: "8888888888888888888",
+		CardNo: "6228888888888888888",
 	}
 	resp, err := client.GetBankCardInfo(context.TODO(), req)
 	if err != nil {
@@ -59,8 +59,8 @@ func GetBankCardInfoExample(client api.Authentication) {
 func BankCardThreeVerifyExample(client api.Authentication) {
 	req := &api.BankCardThreeVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
-		CardNo:   "8888888888888888888",
+		IDCard:   "11010519491231002X",
+		CardNo:   "6228888888888888888",
 	}
 	resp, err := client.BankCardThreeVerify(context.TODO(), req)
 	if err != nil {
@@ -82,11 +82,11 @@ func BankCardThreeVerifyExample(client api.Authentication) {
 func BankCardFourAuthConfirmExample(client api.Authentication) {
 	req := &api.BankCardFourAuthConfirmRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
-		CardNo:   "8888888888888888888",
+		IDCard:   "11010519491231002X",
+		CardNo:   "6228888888888888888",
 		Mobile:   "188****8888",
 		Captcha:  "011099",
-		Ref:      "11111111",
+		Ref:      "rx0g4iiLWoWA==",
 	}
 	resp, err := client.BankCardFourAuthConfirm(context.TODO(), req)
 	if err != nil {
@@ -108,8 +108,8 @@ func BankCardFourAuthConfirmExample(client api.Authentication) {
 func BankCardFourAuthVerifyExample(client api.Authentication) {
 	req := &api.BankCardFourAuthVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
-		CardNo:   "8888888888888888888",
+		IDCard:   "11010519491231002X",
+		CardNo:   "6228888888888888888",
 		Mobile:   "188****8888",
 	}
 	resp, err := client.BankCardFourAuthVerify(context.TODO(), req)
@@ -132,8 +132,8 @@ func BankCardFourAuthVerifyExample(client api.Authentication) {
 func BankCardFourVerifyExample(client api.Authentication) {
 	req := &api.BankCardFourVerifyRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
-		CardNo:   "8888888888888888888",
+		IDCard:   "11010519491231002X",
+		CardNo:   "6228888888888888888",
 		Mobile:   "188****8888",
 	}
 	resp, err := client.BankCardFourVerify(context.TODO(), req)
@@ -171,7 +171,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 		Birthday:     "20190809",
 		Gender:       "男",
 		NotifyURL:    "https://www.example.com",
-		Ref:          "111122222",
+		Ref:          "1234qwer",
 	}
 	resp, err := client.UserExemptedInfo(context.TODO(), req)
 	if err != nil {
@@ -193,7 +193,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 func UserWhiteCheckExample(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 	}
 	resp, err := client.UserWhiteCheck(context.TODO(), req)
 	if err != nil {

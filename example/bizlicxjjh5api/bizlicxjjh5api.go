@@ -16,7 +16,7 @@ func H5PreCollectBizlicMsgExample(client api.BizlicXjjH5APIService) {
 		BrokerID:            base.BrokerID,
 		DealerUserID:        "123456_01",
 		PhoneNo:             "188****8888",
-		IDCard:              "110121202202222222",
+		IDCard:              "11010519491231002X",
 		RealName:            "张三",
 		IDCardAddress:       "省级行政区名称区县级行政区名称具体住宿地址",
 		IDCardAgency:        "区县公安局名称",

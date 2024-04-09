@@ -15,7 +15,7 @@ func H5UserPresignExample(client api.H5UserSignService) {
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
 		RealName:        "张三",
-		IDCard:          "110121202202222222",
+		IDCard:          "11010519491231002X",
 		CertificateType: 0,
 	}
 	resp, err := client.H5UserPresign(context.TODO(), req)
@@ -58,7 +58,7 @@ func GeH5UserSignStatusExample(client api.H5UserSignService) {
 		DealerID: base.DealerID,
 		BrokerID: base.BrokerID,
 		RealName: "张三",
-		IDCard:   "110121202202222222",
+		IDCard:   "11010519491231002X",
 	}
 	resp, err := client.GetH5UserSignStatus(context.TODO(), req)
 	if err != nil {
@@ -80,7 +80,7 @@ func H5UserReleaseExample(client api.H5UserSignService) {
 		DealerID:        base.DealerID,
 		BrokerID:        base.BrokerID,
 		RealName:        "张三",
-		IDCard:          "110121202202222222",
+		IDCard:          "11010519491231002X",
 		CertificateType: 0,
 	}
 	resp, err := client.H5UserRelease(context.TODO(), req)
