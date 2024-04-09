@@ -18,8 +18,8 @@ func CreateBankpayOrderExample(client api.Payment) {
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "110121202202222222",
-		CardNo:    "8888888888888888888",
+		IDCard:    "11010519491231002X",
+		CardNo:    "6228888888888888888",
 		PhoneNo:   "188****8888",
 		PayRemark: "银行卡支付",
 		NotifyURL: "https://www.example.com",
@@ -56,8 +56,8 @@ func CreateAlipayOrderExample(client api.Payment) {
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "110121202202222222",
-		CardNo:    "username@example.com",
+		IDCard:    "11010519491231002X",
+		CardNo:    "188****8888",
 		PhoneNo:   "188****8888",
 		PayRemark: "支付宝支付",
 		NotifyURL: "https://www.example.com",
@@ -94,8 +94,8 @@ func CreateWxpayOrderExample(client api.Payment) {
 		DealerID:  base.DealerID,
 		OrderID:   time.Now().Format("20050102150405"),
 		RealName:  "张三",
-		IDCard:    "110121202202222222",
-		Openid:    "wx11111111111111111111111",
+		IDCard:    "11010519491231002X",
+		Openid:    "o4GgauInH_RCEdvrrNGrntXDuXXX",
 		PhoneNo:   "188****8888",
 		PayRemark: "微信支付",
 		NotifyURL: "https://www.example.com",
@@ -244,17 +244,16 @@ func CancelOrderExample(client api.Payment) {
 // CreateBatchOrderExample 批次下单
 func CreateBatchOrderExample(client api.Payment) {
 	orderList := []*api.BatchOrderInfo{
-		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "110121202202222221", Pay: "1", CardNo: "8888888888888888881"},
-		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "赵四", IDCard: "110121202202222222", Pay: "1", CardNo: "8888888888888888882"},
-		&api.BatchOrderInfo{OrderID: "202210220003", RealName: "小白", IDCard: "110121202202222223", Pay: "1", CardNo: "8888888888888888883"},
+		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "440524188001010014", Pay: "1", CardNo: "6228888888888888887"},
+		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "李四", IDCard: "11010519491231002X", Pay: "1", CardNo: "6228888888888888888"},
 	}
 	req := &api.CreateBatchOrderRequest{
 		BrokerID:   base.BrokerID,
 		DealerID:   base.DealerID,
 		BatchID:    "2022102200000001",
 		Channel:    "银行卡",
-		TotalCount: "3",
-		TotalPay:   "3",
+		TotalCount: "2",
+		TotalPay:   "2",
 		OrderList:  orderList,
 	}
 	resp, err := client.CreateBatchOrder(context.TODO(), req)

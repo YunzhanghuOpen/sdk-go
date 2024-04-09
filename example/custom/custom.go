@@ -41,7 +41,7 @@ func CustomServiceExample(client api.CustomService) {
 		DealerID:  base.DealerID,
 		OrderID:   "202009010016562012987",
 		RealName:  "张三",
-		IDCard:    "11010519891231002X",
+		IDCard:    "11010519491231002X",
 		CardNo:    "6228888888888888888",
 		PhoneNo:   "188****8888",
 		PayRemark: "",
