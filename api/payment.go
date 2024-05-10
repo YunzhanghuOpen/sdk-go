@@ -314,6 +314,8 @@ type GetOrderResponse struct {
 	StatusMessage string `json:"status_message,omitempty"`
 	// 订单详细状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
 	// 综合服务主体支付金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
 	// 综合服务平台流水号
@@ -478,6 +480,8 @@ type NotifyOrderData struct {
 	StatusMessage string `json:"status_message,omitempty"`
 	// 订单详细状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
 	// 综合服务主体支付金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
 	// 综合服务平台流水号
@@ -723,6 +727,8 @@ type QueryBatchOrderInfo struct {
 	StatusMessage string `json:"status_message,omitempty"`
 	// 订单详情状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
 	// 综合服务主体支付金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
 	// 综合服务平台流水号

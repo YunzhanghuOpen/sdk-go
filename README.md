@@ -61,6 +61,8 @@ go get github.com/YunzhanghuOpen/sdk-go
 - 个体工商户注册
    - [云账户新经济 H5](example/bizlicxjjh5/bizlicxjjh5.go)
    - [云账户新经济 H5+API](example/bizlicxjjh5api/bizlicxjjh5api.go)
+   - [云账户共享大额 H5](example/bizlicgxv2h5/bizlicgxv2h5.go)
+   - [云账户共享大额 H5+API](example/bizlicgxv2h5api/bizlicgxv2h5api.go)
 - [实时下单接口](example/payment/payment.go)
 - [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)
