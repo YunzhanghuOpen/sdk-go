@@ -214,6 +214,8 @@ type DealerOrderInfo struct {
 	StatusDetail string `json:"status_detail,omitempty"`
 	// 订单详细状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
 	// 短周期授信账单号
 	StatementID string `json:"statement_id,omitempty"`
 	// 服务费账单号
