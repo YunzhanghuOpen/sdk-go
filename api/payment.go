@@ -30,6 +30,8 @@ type Payment interface {
 	QueryBatchOrder(context.Context, *QueryBatchOrderRequest) (*QueryBatchOrderResponse, error)
 	// CancelBatchOrder 批次撤销
 	CancelBatchOrder(context.Context, *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error)
+	// RiskCheckAmount 用户结算金额校验
+	RiskCheckAmount(context.Context, *RiskCheckAmountRequest) (*RiskCheckAmountResponse, error)
 }
 
 // paymentImpl Payment 接口实现
@@ -156,6 +158,16 @@ func (c *paymentImpl) QueryBatchOrder(ctx context.Context, in *QueryBatchOrderRe
 func (c *paymentImpl) CancelBatchOrder(ctx context.Context, in *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error) {
 	out := new(CancelBatchOrderResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/cancel-batch", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// RiskCheckAmount 用户结算金额校验
+func (c *paymentImpl) RiskCheckAmount(ctx context.Context, in *RiskCheckAmountRequest) (*RiskCheckAmountResponse, error) {
+	out := new(RiskCheckAmountResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/risk-check/amount", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -769,4 +781,24 @@ type CancelBatchOrderRequest struct {
 
 // CancelBatchOrderResponse 批次撤销返回
 type CancelBatchOrderResponse struct {
+}
+
+// RiskCheckAmountRequest 用户结算金额校验请求
+type RiskCheckAmountRequest struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty"`
+	// 校验金额
+	Amount string `json:"amount,omitempty"`
+}
+
+// RiskCheckAmountResponse 用户结算金额校验返回
+type RiskCheckAmountResponse struct {
+	// 是否超过月限额
+	IsOverWholeUserMonthQuota bool `json:"is_over_whole_user_month_quota,omitempty"`
+	// 是否超过年限额
+	IsOverWholeUserYearQuota bool `json:"is_over_whole_user_year_quota,omitempty"`
 }
