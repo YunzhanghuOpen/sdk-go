@@ -241,15 +241,15 @@ func CancelOrderExample(client api.Payment) {
 	fmt.Println(resp)
 }
 
-// RiskCheckAmountExample 用户结算金额校验
-func RiskCheckAmountExample(client api.Payment) {
-	req := &api.RiskCheckAmountRequest{
+// CheckUserAmountExample 用户结算金额校验
+func CheckUserAmountExample(client api.Payment) {
+	req := &api.CheckUserAmountRequest{
 		BrokerID: base.BrokerID,
 		RealName: "张三",
 		IDCard:   "11010519491231002X",
 		Amount:   "10000000.00",
 	}
-	resp, err := client.RiskCheckAmount(context.TODO(), req)
+	resp, err := client.CheckUserAmount(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
@@ -405,7 +405,7 @@ func Example() {
 		ListAccountExample,
 		GetEleReceiptFileExample,
 		CancelOrderExample,
-		RiskCheckAmountExample,
+		CheckUserAmountExample,
 		CreateBatchOrderExample,
 		ConfirmBatchOrderExample,
 	} {
