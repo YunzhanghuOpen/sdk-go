@@ -67,7 +67,7 @@ go get github.com/YunzhanghuOpen/sdk-go
 - [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)
 - [发票接口](example/invoice/invoice.go)
-- [个税扣缴明细表下载接口](example/tax/tax.go)
+- [个税申报明细表下载接口](example/tax/tax.go)
 
 
 ### 示例
