@@ -22,6 +22,8 @@ type Payment interface {
 	GetEleReceiptFile(context.Context, *GetEleReceiptFileRequest) (*GetEleReceiptFileResponse, error)
 	// CancelOrder 取消待支付订单
 	CancelOrder(context.Context, *CancelOrderRequest) (*CancelOrderResponse, error)
+	// RetryOrder 重试挂起状态订单
+	RetryOrder(context.Context, *RetryOrderRequest) (*RetryOrderResponse, error)
 	// CreateBatchOrder 批次下单
 	CreateBatchOrder(context.Context, *CreateBatchOrderRequest) (*CreateBatchOrderResponse, error)
 	// ConfirmBatchOrder 批次确认
@@ -116,6 +118,16 @@ func (c *paymentImpl) GetEleReceiptFile(ctx context.Context, in *GetEleReceiptFi
 func (c *paymentImpl) CancelOrder(ctx context.Context, in *CancelOrderRequest) (*CancelOrderResponse, error) {
 	out := new(CancelOrderResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/order/fail", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// RetryOrder 重试挂起状态订单
+func (c *paymentImpl) RetryOrder(ctx context.Context, in *RetryOrderRequest) (*RetryOrderResponse, error) {
+	out := new(RetryOrderResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/order/retry", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -388,6 +400,24 @@ type CancelOrderRequest struct {
 
 // CancelOrderResponse 取消待支付订单返回
 type CancelOrderResponse struct {
+	Ok string `json:"ok,omitempty"`
+}
+
+// RetryOrderRequest 重试挂起状态订单请求
+type RetryOrderRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 支付路径名
+	Channel string `json:"channel,omitempty"`
+}
+
+// RetryOrderResponse 重试挂起状态订单返回
+type RetryOrderResponse struct {
+	// 请求标识
 	Ok string `json:"ok,omitempty"`
 }
 

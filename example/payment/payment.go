@@ -241,6 +241,29 @@ func CancelOrderExample(client api.Payment) {
 	fmt.Println(resp)
 }
 
+// RetryOrderExample 重试挂起状态订单
+func RetryOrderExample(client api.Payment) {
+	req := &api.RetryOrderRequest{
+		DealerID: base.DealerID,
+		OrderID:  "202009010016562012987",
+		Ref:      "176826728298982",
+		Channel:  "bankpay",
+	}
+	resp, err := client.RetryOrder(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // CreateBatchOrderExample 批次下单
 func CreateBatchOrderExample(client api.Payment) {
 	orderList := []*api.BatchOrderInfo{
@@ -382,6 +405,7 @@ func Example() {
 		ListAccountExample,
 		GetEleReceiptFileExample,
 		CancelOrderExample,
+		RetryOrderExample,
 		CreateBatchOrderExample,
 		ConfirmBatchOrderExample,
 	} {
