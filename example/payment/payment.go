@@ -270,7 +270,7 @@ func CheckUserAmountExample(client api.Payment) {
 		BrokerID: base.BrokerID,
 		RealName: "张三",
 		IDCard:   "11010519491231002X",
-		Amount:   "10000000.00",
+		Amount:   "10000.00",
 	}
 	resp, err := client.CheckUserAmount(context.TODO(), req)
 	if err != nil {
