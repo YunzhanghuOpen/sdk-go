@@ -9,7 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/base"
 )
 
-// GetTaxFileExample 下载个税扣缴明细表
+// GetTaxFileExample 下载个税申报明细表
 func GetTaxFileExample(client api.Tax) {
 	req := &api.GetTaxFileRequest{
 		DealerID:  base.DealerID,

@@ -4,9 +4,9 @@ import (
 	"context"
 )
 
-// Tax 个人所得税扣缴明细表
+// Tax 个人所得税申报明细表
 type Tax interface {
-	// GetTaxFile 下载个人所得税扣缴明细表
+	// GetTaxFile 下载个人所得税申报明细表
 	GetTaxFile(context.Context, *GetTaxFileRequest) (*GetTaxFileResponse, error)
 	// GetUserCross 查询纳税人是否为跨集团用户
 	GetUserCross(context.Context, *GetUserCrossRequest) (*GetUserCrossResponse, error)
@@ -22,7 +22,7 @@ func NewTax(cc Invoker) Tax {
 	return &taxImpl{cc}
 }
 
-// GetTaxFile 下载个人所得税扣缴明细表
+// GetTaxFile 下载个人所得税申报明细表
 func (c *taxImpl) GetTaxFile(ctx context.Context, in *GetTaxFileRequest) (*GetTaxFileResponse, error) {
 	out := new(GetTaxFileResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/tax/v1/taxfile/download", false, in, out)
@@ -42,7 +42,7 @@ func (c *taxImpl) GetUserCross(ctx context.Context, in *GetUserCrossRequest) (*G
 	return out, nil
 }
 
-// GetTaxFileRequest 下载个人所得税扣缴明细表请求
+// GetTaxFileRequest 下载个人所得税申报明细表请求
 type GetTaxFileRequest struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
@@ -52,7 +52,7 @@ type GetTaxFileRequest struct {
 	YearMonth string `json:"year_month,omitempty"`
 }
 
-// GetTaxFileResponse 下载个人所得税扣缴明细表返回
+// GetTaxFileResponse 下载个人所得税申报明细表返回
 type GetTaxFileResponse struct {
 	// 文件详情
 	FileInfo []*FileInfo `json:"file_info,omitempty"`
