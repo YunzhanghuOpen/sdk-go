@@ -16,9 +16,9 @@ type Authentication interface {
 	BankCardThreeVerify(context.Context, *BankCardThreeVerifyRequest) (*BankCardThreeVerifyResponse, error)
 	// IDCardVerify 身份证实名验证
 	IDCardVerify(context.Context, *IDCardVerifyRequest) (*IDCardVerifyResponse, error)
-	// UserExemptedInfo 上传免验证用户名单信息
+	// UserExemptedInfo 上传非居民身份证验证名单信息
 	UserExemptedInfo(context.Context, *UserExemptedInfoRequest) (*UserExemptedInfoResponse, error)
-	// UserWhiteCheck 查看免验证用户名单是否存在
+	// UserWhiteCheck 查看用户是否在非居民身份证验证名单中
 	UserWhiteCheck(context.Context, *UserWhiteCheckRequest) (*UserWhiteCheckResponse, error)
 	// GetBankCardInfo 银行卡信息查询接口
 	GetBankCardInfo(context.Context, *GetBankCardInfoRequest) (*GetBankCardInfoResponse, error)
@@ -84,7 +84,7 @@ func (c *authenticationImpl) IDCardVerify(ctx context.Context, in *IDCardVerifyR
 	return out, nil
 }
 
-// UserExemptedInfo 上传免验证用户名单信息
+// UserExemptedInfo 上传非居民身份证验证名单信息
 func (c *authenticationImpl) UserExemptedInfo(ctx context.Context, in *UserExemptedInfoRequest) (*UserExemptedInfoResponse, error) {
 	out := new(UserExemptedInfoResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/user/exempted/info", false, in, out)
@@ -94,7 +94,7 @@ func (c *authenticationImpl) UserExemptedInfo(ctx context.Context, in *UserExemp
 	return out, nil
 }
 
-// UserWhiteCheck 查看免验证用户名单是否存在
+// UserWhiteCheck 查看用户是否在非居民身份证验证名单中
 func (c *authenticationImpl) UserWhiteCheck(ctx context.Context, in *UserWhiteCheckRequest) (*UserWhiteCheckResponse, error) {
 	out := new(UserWhiteCheckResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/user/white/check", false, in, out)
@@ -194,7 +194,7 @@ type IDCardVerifyRequest struct {
 type IDCardVerifyResponse struct {
 }
 
-// UserExemptedInfoRequest 上传免验证用户名单信息请求
+// UserExemptedInfoRequest 上传非居民身份证验证名单信息请求
 type UserExemptedInfoRequest struct {
 	// 证件类型码
 	CardType string `json:"card_type,omitempty"`
@@ -222,13 +222,13 @@ type UserExemptedInfoRequest struct {
 	Ref string `json:"ref,omitempty"`
 }
 
-// UserExemptedInfoResponse 上传免验证用户名单信息返回
+// UserExemptedInfoResponse 上传非居民身份证验证名单信息返回
 type UserExemptedInfoResponse struct {
 	// 是否上传成功
 	Ok string `json:"ok,omitempty"`
 }
 
-// NotifyUserExemptedInfoRequest 上传免验证用户名单信息审核结果通知
+// NotifyUserExemptedInfoRequest 非居民身份证验证名单审核结果回调通知
 type NotifyUserExemptedInfoRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -246,7 +246,7 @@ type NotifyUserExemptedInfoRequest struct {
 	Comment string `json:"comment,omitempty"`
 }
 
-// UserWhiteCheckRequest 查看免验证用户名单是否存在请求
+// UserWhiteCheckRequest 查看用户是否在非居民身份证验证名单中请求
 type UserWhiteCheckRequest struct {
 	// 证件号码
 	IDCard string `json:"id_card,omitempty"`
@@ -254,7 +254,7 @@ type UserWhiteCheckRequest struct {
 	RealName string `json:"real_name,omitempty"`
 }
 
-// UserWhiteCheckResponse 查看免验证用户名单是否存在返回
+// UserWhiteCheckResponse 查看用户是否在非居民身份证验证名单中返回
 type UserWhiteCheckResponse struct {
 	Ok bool `json:"ok,omitempty"`
 }

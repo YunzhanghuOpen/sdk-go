@@ -152,7 +152,7 @@ func BankCardFourVerifyExample(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// UserExemptedInfoExample 上传免验证用户名单信息
+// UserExemptedInfoExample 上传非居民身份证验证名单信息
 func UserExemptedInfoExample(client api.Authentication) {
 	srcByte, err := ioutil.ReadFile("example/authentication/test.png")
 	if err != nil {
@@ -189,7 +189,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 	fmt.Println(resp)
 }
 
-// UserWhiteCheckExample 查看免验证用户名单是否存在
+// UserWhiteCheckExample 查看用户是否在非居民身份证验证名单中
 func UserWhiteCheckExample(client api.Authentication) {
 	req := &api.UserWhiteCheckRequest{
 		RealName: "张三",

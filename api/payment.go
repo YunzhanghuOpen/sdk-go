@@ -22,6 +22,8 @@ type Payment interface {
 	GetEleReceiptFile(context.Context, *GetEleReceiptFileRequest) (*GetEleReceiptFileResponse, error)
 	// CancelOrder 取消待支付订单
 	CancelOrder(context.Context, *CancelOrderRequest) (*CancelOrderResponse, error)
+	// RetryOrder 重试挂起状态订单
+	RetryOrder(context.Context, *RetryOrderRequest) (*RetryOrderResponse, error)
 	// CreateBatchOrder 批次下单
 	CreateBatchOrder(context.Context, *CreateBatchOrderRequest) (*CreateBatchOrderResponse, error)
 	// ConfirmBatchOrder 批次确认
@@ -30,6 +32,8 @@ type Payment interface {
 	QueryBatchOrder(context.Context, *QueryBatchOrderRequest) (*QueryBatchOrderResponse, error)
 	// CancelBatchOrder 批次撤销
 	CancelBatchOrder(context.Context, *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error)
+	// CheckUserAmount 用户结算金额校验
+	CheckUserAmount(context.Context, *CheckUserAmountRequest) (*CheckUserAmountResponse, error)
 }
 
 // paymentImpl Payment 接口实现
@@ -122,6 +126,16 @@ func (c *paymentImpl) CancelOrder(ctx context.Context, in *CancelOrderRequest) (
 	return out, nil
 }
 
+// RetryOrder 重试挂起状态订单
+func (c *paymentImpl) RetryOrder(ctx context.Context, in *RetryOrderRequest) (*RetryOrderResponse, error) {
+	out := new(RetryOrderResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/order/retry", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CreateBatchOrder 批次下单
 func (c *paymentImpl) CreateBatchOrder(ctx context.Context, in *CreateBatchOrderRequest) (*CreateBatchOrderResponse, error) {
 	out := new(CreateBatchOrderResponse)
@@ -156,6 +170,16 @@ func (c *paymentImpl) QueryBatchOrder(ctx context.Context, in *QueryBatchOrderRe
 func (c *paymentImpl) CancelBatchOrder(ctx context.Context, in *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error) {
 	out := new(CancelBatchOrderResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/cancel-batch", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CheckUserAmount 用户结算金额校验
+func (c *paymentImpl) CheckUserAmount(ctx context.Context, in *CheckUserAmountRequest) (*CheckUserAmountResponse, error) {
+	out := new(CheckUserAmountResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/risk-check/amount", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -388,6 +412,24 @@ type CancelOrderRequest struct {
 
 // CancelOrderResponse 取消待支付订单返回
 type CancelOrderResponse struct {
+	Ok string `json:"ok,omitempty"`
+}
+
+// RetryOrderRequest 重试挂起状态订单请求
+type RetryOrderRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 支付路径名
+	Channel string `json:"channel,omitempty"`
+}
+
+// RetryOrderResponse 重试挂起状态订单返回
+type RetryOrderResponse struct {
+	// 请求标识
 	Ok string `json:"ok,omitempty"`
 }
 
@@ -769,4 +811,24 @@ type CancelBatchOrderRequest struct {
 
 // CancelBatchOrderResponse 批次撤销返回
 type CancelBatchOrderResponse struct {
+}
+
+// CheckUserAmountRequest 用户结算金额校验请求
+type CheckUserAmountRequest struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty"`
+	// 校验金额
+	Amount string `json:"amount,omitempty"`
+}
+
+// CheckUserAmountResponse 用户结算金额校验返回
+type CheckUserAmountResponse struct {
+	// 是否超过月限额
+	IsOverWholeUserMonthQuota bool `json:"is_over_whole_user_month_quota,omitempty"`
+	// 是否超过年限额
+	IsOverWholeUserYearQuota bool `json:"is_over_whole_user_year_quota,omitempty"`
 }
