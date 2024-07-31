@@ -18,7 +18,6 @@ func UploadUserSignExample(client api.UploadUserSignService) {
 		RealName:  "张三",
 		IDCard:    "11010519491231002X",
 		Phone:     "188****8888",
-		IsAbroad:  false,
 		NotifyURL: "https://www.example.com",
 	}
 	resp, err := client.UploadUserSign(context.TODO(), req)
