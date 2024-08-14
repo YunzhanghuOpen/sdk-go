@@ -1,0 +1,7 @@
+include:                                # include包含模板配置
+  - project: "laboratory/gitlab-ci"
+    ref: sdk-test
+    file: "/sdk-test.gitlab-ci.yml"
+
+
+image: docker.yunzhanghu.net/base/golang122-sdk-unittest:v1.0.1
