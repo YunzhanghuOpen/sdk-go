@@ -34,20 +34,16 @@ type Config struct {
 
 // New 新建 Client
 func New(cfg *Config, options ...core.Option) (*Client, error) {
+	if cfg == nil {
+		return nil, errors.New("config is empty")
+	}
+
 	if cfg.Host == "" {
 		return nil, errors.New("config.host is empty")
 	}
 
 	if cfg.DealerID == "" {
 		return nil, errors.New("config.dealerID is empty")
-	}
-
-	if cfg.PrivateKey == "" {
-		return nil, errors.New("config.privateKey is empty")
-	}
-
-	if cfg.AppKey == "" {
-		return nil, errors.New("config.appKey is empty")
 	}
 
 	if cfg.Des3Key == "" {
@@ -58,12 +54,14 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		core.WithHost(cfg.Host),
 		core.WithDealerID(cfg.DealerID),
 		core.WithDes3Encoding(cfg.Des3Key),
-		core.WithRsaSign(cfg.PrivateKey, cfg.AppKey),
 	}
 	opts = append(opts, options...)
 	co, err := core.New(opts...)
 	if err != nil {
 		return nil, err
+	}
+	if !co.IsSetSigner() {
+		core.WithRsaSign(cfg.PrivateKey, cfg.AppKey)(co)
 	}
 	return &Client{
 		Payment:                NewPayment(co),
