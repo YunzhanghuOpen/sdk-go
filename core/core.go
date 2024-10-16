@@ -1,6 +1,7 @@
 package core
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -42,6 +43,11 @@ func New(option ...Option) (*Core, error) {
 	return o, nil
 }
 
+// IsSetSigner 是否设置signer
+func (o *Core) IsSetSigner() bool {
+	return o.signer != nil
+}
+
 // WithHost 设置访问地址
 func WithHost(host string) Option {
 	return func(o *Core) {
@@ -66,6 +72,14 @@ func EnDebug() Option {
 // WithRsaSign RSA 签名
 func WithRsaSign(privateKey, appKey string) Option {
 	return func(o *Core) {
+		if privateKey == "" {
+			o.err = errors.New("config.privateKey is empty")
+			return
+		}
+		if appKey == "" {
+			o.err = errors.New("config.appKey is empty")
+			return
+		}
 		signer, err := crypto.NewRsaSigner(privateKey, appKey)
 		if err != nil {
 			o.err = fmt.Errorf("rsa privatekey wrong error: %w", err)
@@ -79,6 +93,10 @@ func WithRsaSign(privateKey, appKey string) Option {
 // WithHmacSign HMAC 签名
 func WithHmacSign(appKey string) Option {
 	return func(o *Core) {
+		if appKey == "" {
+			o.err = errors.New("config.appKey is empty")
+			return
+		}
 		signer, err := crypto.NewHmacSigner(appKey)
 		if err != nil {
 			o.err = fmt.Errorf("rsa privatekey wrong error: %w", err)
