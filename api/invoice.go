@@ -244,6 +244,8 @@ type InformationDataInfo struct {
 	PriceTaxAmount string `json:"price_tax_amount,omitempty"`
 	// 开票日期
 	InvoicedDate string `json:"invoiced_date,omitempty"`
+	// 发票状态
+	Status string `json:"status,omitempty"`
 }
 
 // BankNameAccount 系统支持的开户行及账号
