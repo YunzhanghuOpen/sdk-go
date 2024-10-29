@@ -163,7 +163,7 @@ type ApplyInvoiceRequest struct {
 	// 发票备注
 	Remark string `json:"remark,omitempty"`
 	// 发票接收邮箱
-	ReceiveEmails string `json:"receive_emails,omitempty"`
+	ReceiveEmails []string `json:"receive_emails,omitempty"`
 	// 发票介质
 	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
