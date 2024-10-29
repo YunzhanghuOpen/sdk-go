@@ -18,7 +18,7 @@ type Invoice interface {
 	GetInvoiceInformation(context.Context, *GetInvoiceInformationRequest) (*GetInvoiceInformationResponse, error)
 	// GetInvoiceFile 下载 PDF 版发票
 	GetInvoiceFile(context.Context, *GetInvoiceFileRequest) (*GetInvoiceFileResponse, error)
-	// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
+	// SendReminderEmail 发送发票开具成功通知邮件
 	SendReminderEmail(context.Context, *SendReminderEmailRequest) (*SendReminderEmailResponse, error)
 }
 
@@ -92,7 +92,7 @@ func (c *invoiceImpl) GetInvoiceFile(ctx context.Context, in *GetInvoiceFileRequ
 	return out, nil
 }
 
-// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
+// SendReminderEmail 发送发票开具成功通知邮件
 func (c *invoiceImpl) SendReminderEmail(ctx context.Context, in *SendReminderEmailRequest) (*SendReminderEmailResponse, error) {
 	out := new(SendReminderEmailResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/invoice/v2/invoice/reminder/email", false, in, out)
@@ -278,7 +278,7 @@ type GetInvoiceFileResponse struct {
 	Name string `json:"name,omitempty"`
 }
 
-// SendReminderEmailRequest 发送发票扫描件压缩包下载链接邮件请求
+// SendReminderEmailRequest 发送发票开具成功通知邮件请求
 type SendReminderEmailRequest struct {
 	// 发票申请编号
 	InvoiceApplyID string `json:"invoice_apply_id,omitempty"`
@@ -286,7 +286,7 @@ type SendReminderEmailRequest struct {
 	ApplicationID string `json:"application_id,omitempty"`
 }
 
-// SendReminderEmailResponse 发送发票扫描件压缩包下载链接邮件返回
+// SendReminderEmailResponse 发送发票开具成功通知邮件返回
 type SendReminderEmailResponse struct {
 }
 
