@@ -148,7 +148,7 @@ func GetInvoiceInformationExample(client api.Invoice) {
 	fmt.Println(resp)
 }
 
-// SendReminderEmailExample 发送发票扫描件压缩包下载链接邮件
+// SendReminderEmailExample 发送发票开具成功通知邮件
 func SendReminderEmailExample(client api.Invoice) {
 	req := &api.SendReminderEmailRequest{
 		InvoiceApplyID: "test1234567890",
