@@ -17,6 +17,11 @@ func ApplyInvoiceExample(client api.Invoice) {
 		InvoiceApplyID: "111",
 		Amount:         "10000",
 		InvoiceType:    "2",
+		BankNameAccount: "交通银行北京东大桥支行 12343456654321",
+		GoodsServicesName: "*测试分类*test测试内容",
+		Remark: "发票备注",
+		ReceiveEmails: []string{"username1@example.com"},
+		InvoiceMedia: "1",
 	}
 	resp, err := client.ApplyInvoice(context.TODO(), req)
 	if err != nil {

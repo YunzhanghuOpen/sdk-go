@@ -162,6 +162,10 @@ type ApplyInvoiceRequest struct {
 	GoodsServicesName string `json:"goods_services_name,omitempty"`
 	// 发票备注
 	Remark string `json:"remark,omitempty"`
+	// 发票接收邮箱
+	ReceiveEmails []string `json:"receive_emails,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
 
 // ApplyInvoiceResponse 发票开具申请返回
@@ -210,6 +214,10 @@ type GetInvoiceStatusResponse struct {
 	PostType string `json:"post_type,omitempty"`
 	// 快递单号
 	WaybillNumber []string `json:"waybill_number,omitempty"`
+	// 驳回原因
+	RejectReason string `json:"reject_reason,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
 
 // GetInvoiceInformationRequest 查询发票信息请求
@@ -244,6 +252,8 @@ type InformationDataInfo struct {
 	PriceTaxAmount string `json:"price_tax_amount,omitempty"`
 	// 开票日期
 	InvoicedDate string `json:"invoiced_date,omitempty"`
+	// 发票状态
+	Status string `json:"status,omitempty"`
 }
 
 // BankNameAccount 系统支持的开户行及账号
@@ -326,4 +336,6 @@ type NotifyInvoiceDoneRequest struct {
 	WaybillNumber []string `json:"waybill_number,omitempty"`
 	// 驳回原因
 	RejectReason string `json:"reject_reason,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
