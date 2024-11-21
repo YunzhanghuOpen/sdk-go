@@ -18,7 +18,7 @@ type Invoice interface {
 	GetInvoiceInformation(context.Context, *GetInvoiceInformationRequest) (*GetInvoiceInformationResponse, error)
 	// GetInvoiceFile 下载 PDF 版发票
 	GetInvoiceFile(context.Context, *GetInvoiceFileRequest) (*GetInvoiceFileResponse, error)
-	// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
+	// SendReminderEmail 发送发票开具成功通知邮件
 	SendReminderEmail(context.Context, *SendReminderEmailRequest) (*SendReminderEmailResponse, error)
 }
 
@@ -92,7 +92,7 @@ func (c *invoiceImpl) GetInvoiceFile(ctx context.Context, in *GetInvoiceFileRequ
 	return out, nil
 }
 
-// SendReminderEmail 发送发票扫描件压缩包下载链接邮件
+// SendReminderEmail 发送发票开具成功通知邮件
 func (c *invoiceImpl) SendReminderEmail(ctx context.Context, in *SendReminderEmailRequest) (*SendReminderEmailResponse, error) {
 	out := new(SendReminderEmailResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/invoice/v2/invoice/reminder/email", false, in, out)
@@ -162,6 +162,10 @@ type ApplyInvoiceRequest struct {
 	GoodsServicesName string `json:"goods_services_name,omitempty"`
 	// 发票备注
 	Remark string `json:"remark,omitempty"`
+	// 发票接收邮箱
+	ReceiveEmails []string `json:"receive_emails,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
 
 // ApplyInvoiceResponse 发票开具申请返回
@@ -210,6 +214,10 @@ type GetInvoiceStatusResponse struct {
 	PostType string `json:"post_type,omitempty"`
 	// 快递单号
 	WaybillNumber []string `json:"waybill_number,omitempty"`
+	// 驳回原因
+	RejectReason string `json:"reject_reason,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
 
 // GetInvoiceInformationRequest 查询发票信息请求
@@ -244,6 +252,8 @@ type InformationDataInfo struct {
 	PriceTaxAmount string `json:"price_tax_amount,omitempty"`
 	// 开票日期
 	InvoicedDate string `json:"invoiced_date,omitempty"`
+	// 发票状态
+	Status string `json:"status,omitempty"`
 }
 
 // BankNameAccount 系统支持的开户行及账号
@@ -278,7 +288,7 @@ type GetInvoiceFileResponse struct {
 	Name string `json:"name,omitempty"`
 }
 
-// SendReminderEmailRequest 发送发票扫描件压缩包下载链接邮件请求
+// SendReminderEmailRequest 发送发票开具成功通知邮件请求
 type SendReminderEmailRequest struct {
 	// 发票申请编号
 	InvoiceApplyID string `json:"invoice_apply_id,omitempty"`
@@ -286,7 +296,7 @@ type SendReminderEmailRequest struct {
 	ApplicationID string `json:"application_id,omitempty"`
 }
 
-// SendReminderEmailResponse 发送发票扫描件压缩包下载链接邮件返回
+// SendReminderEmailResponse 发送发票开具成功通知邮件返回
 type SendReminderEmailResponse struct {
 }
 
@@ -326,4 +336,6 @@ type NotifyInvoiceDoneRequest struct {
 	WaybillNumber []string `json:"waybill_number,omitempty"`
 	// 驳回原因
 	RejectReason string `json:"reject_reason,omitempty"`
+	// 发票介质
+	InvoiceMedia string `json:"invoice_media,omitempty"`
 }
