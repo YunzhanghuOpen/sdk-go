@@ -14,7 +14,7 @@
 
 使用云账户 SDK for Go 前，您需先获取 dealer_id、broker_id、3DES Key、App Key 信息。   
 获取方式：使用开户邮件中的账号登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择“业务中心 > 业务管理 > 对接信息”，查看并获取以上配置信息。
-![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi-3.png?isAttachment=false&fileID=4d073f5df6ccd7f16db1f3f21016dec959381154&signature=9pXBRSdwjXtnLesLnv4ASa7Hxmhu46PaBJXb%2BQxVvpg%3D)
+![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/2025-02-10-duijiexinxi.png?isAttachment=false&fileID=aed58af41aedcc178a160094cf57bea52b5ead65&signature=FGeLvvOykgSldgmDzR%2F%2FxLDH%2FDL049Bz5OWR8XnyohE%3D)
 
 ### 2、生成密钥
 
