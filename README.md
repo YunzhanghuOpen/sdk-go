@@ -39,7 +39,7 @@ Openssl-> rsa -in private_key.pem -pubout -out pubkey.pem
 ### 3、配置密钥
 
 登录[【云账户综合服务平台】](https://service.yunzhanghu.com)，选择"业务中心 > 业务管理 > 对接信息"，单击页面右上角的"编辑"，配置平台企业公钥。
-![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/duijiexinxi-4.png?isAttachment=false&fileID=6f4c1927c490566e68cfb608cc951c2dbb14132d&signature=KVHB%2B6cIkAkHxSKNpBsrKy%2FQU%2FRFDnE4G6dDvw%2BROHU%3D)
+![配置平台企业公钥信息](https://yos.yunzhanghu.com/getobject/2025-02-11-dealerpublickey.png?isAttachment=false&fileID=6359c3b70c1a93aad5d230c76095a8baa61f4627&signature=pDmxtJYTn9Rghn1POO3XAWHXo1wIBenFXAu9ABEyGbk%3D)
 
 
 ## 安装 Go SDK
@@ -61,8 +61,6 @@ go get github.com/YunzhanghuOpen/sdk-go
 - 个体工商户注册
    - [云账户新经济 H5](example/bizlicxjjh5/bizlicxjjh5.go)
    - [云账户新经济 H5+API](example/bizlicxjjh5api/bizlicxjjh5api.go)
-   - [云账户共享大额 H5](example/bizlicgxv2h5/bizlicgxv2h5.go)
-   - [云账户共享大额 H5+API](example/bizlicgxv2h5api/bizlicgxv2h5api.go)
 - [实时下单接口](example/payment/payment.go)
 - [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)
