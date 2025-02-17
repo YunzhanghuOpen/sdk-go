@@ -190,11 +190,11 @@ func ListBalanceDailyStatementExample(client api.DataService) {
 // ListDailyOrderSummaryExample 查询日订单汇总数据
 func ListDailyOrderSummaryExample(client api.DataService) {
 	req := &api.ListDailyOrderSummaryRequest{
-		DealerID: base.DealerID,
-		BrokerID: base.BrokerID,
-		Channel: "支付宝",
-		BeginAt: "2025-02-01",
-		EndAt: "2025-02-07",
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "支付宝",
+		BeginAt:    "2025-02-01",
+		EndAt:      "2025-02-07",
 		FilterType: "apply",
 	}
 	resp, err := client.ListDailyOrderSummary(context.TODO(), req)
@@ -216,10 +216,10 @@ func ListDailyOrderSummaryExample(client api.DataService) {
 // ListMonthlyOrderSummaryExample 查询月订单汇总数据
 func ListMonthlyOrderSummaryExample(client api.DataService) {
 	req := &api.ListMonthlyOrderSummaryRequest{
-		DealerID: base.DealerID,
-		BrokerID: base.BrokerID,
-		Channel: "银行卡",
-		Month: "2025-01",
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "银行卡",
+		Month:      "2025-01",
 		FilterType: "apply",
 	}
 	resp, err := client.ListMonthlyOrderSummary(context.TODO(), req)
