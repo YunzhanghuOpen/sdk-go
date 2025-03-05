@@ -187,6 +187,57 @@ func ListBalanceDailyStatementExample(client api.DataService) {
 	fmt.Println(resp)
 }
 
+// ListDailyOrderSummaryExample 查询日订单汇总数据
+func ListDailyOrderSummaryExample(client api.DataService) {
+	req := &api.ListDailyOrderSummaryRequest{
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "支付宝",
+		BeginAt:    "2025-02-01",
+		EndAt:      "2025-02-07",
+		FilterType: "apply",
+	}
+	resp, err := client.ListDailyOrderSummary(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
+// ListMonthlyOrderSummaryExample 查询月订单汇总数据
+func ListMonthlyOrderSummaryExample(client api.DataService) {
+	req := &api.ListMonthlyOrderSummaryRequest{
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "银行卡",
+		Month:      "2025-01",
+		FilterType: "apply",
+	}
+	resp, err := client.ListMonthlyOrderSummary(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
@@ -199,6 +250,8 @@ func Example() {
 		ListDailyBillExample,
 		ListDealerRechargeRecordV2Example,
 		ListBalanceDailyStatementExample,
+		ListDailyOrderSummaryExample,
+		ListMonthlyOrderSummaryExample,
 	} {
 		example(client)
 	}
