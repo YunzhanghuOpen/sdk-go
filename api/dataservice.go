@@ -8,6 +8,8 @@ import (
 type DataService interface {
 	// ListDailyOrder 查询日订单数据
 	ListDailyOrder(context.Context, *ListDailyOrderRequest) (*ListDailyOrderResponse, error)
+	// ListDailyOrderV2 查询日订单数据（支付和退款订单）
+	ListDailyOrderV2(context.Context, *ListDailyOrderV2Request) (*ListDailyOrderV2Response, error)
 	// GetDailyOrderFile 查询日订单文件
 	GetDailyOrderFile(context.Context, *GetDailyOrderFileRequest) (*GetDailyOrderFileResponse, error)
 	// GetDailyOrderFileV2 查询日订单文件（支付和退款订单）
@@ -20,6 +22,10 @@ type DataService interface {
 	ListDealerRechargeRecordV2(context.Context, *ListDealerRechargeRecordV2Request) (*ListDealerRechargeRecordV2Response, error)
 	// ListBalanceDailyStatement 查询余额日账单数据
 	ListBalanceDailyStatement(context.Context, *ListBalanceDailyStatementRequest) (*ListBalanceDailyStatementResponse, error)
+	// ListDailyOrderSummary 查询日订单汇总数据
+	ListDailyOrderSummary(context.Context, *ListDailyOrderSummaryRequest) (*ListDailyOrderSummaryResponse, error)
+	// ListMonthlyOrderSummary 查询月订单汇总数据
+	ListMonthlyOrderSummary(context.Context, *ListMonthlyOrderSummaryRequest) (*ListMonthlyOrderSummaryResponse, error)
 }
 
 // dataServiceImpl DataService 接口实现
@@ -36,6 +42,16 @@ func NewDataService(cc Invoker) DataService {
 func (c *dataServiceImpl) ListDailyOrder(ctx context.Context, in *ListDailyOrderRequest) (*ListDailyOrderResponse, error) {
 	out := new(ListDailyOrderResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v1/orders", in.DataType == "encryption", in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ListDailyOrderV2 查询日订单数据（支付和退款订单）
+func (c *dataServiceImpl) ListDailyOrderV2(ctx context.Context, in *ListDailyOrderV2Request) (*ListDailyOrderV2Response, error) {
+	out := new(ListDailyOrderV2Response)
+	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v2/orders", in.DataType == "encryption", in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -96,6 +112,26 @@ func (c *dataServiceImpl) ListDealerRechargeRecordV2(ctx context.Context, in *Li
 func (c *dataServiceImpl) ListBalanceDailyStatement(ctx context.Context, in *ListBalanceDailyStatementRequest) (*ListBalanceDailyStatementResponse, error) {
 	out := new(ListBalanceDailyStatementResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v1/statements-daily", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ListDailyOrderSummary 查询日订单汇总数据
+func (c *dataServiceImpl) ListDailyOrderSummary(ctx context.Context, in *ListDailyOrderSummaryRequest) (*ListDailyOrderSummaryResponse, error) {
+	out := new(ListDailyOrderSummaryResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v2/order/daily-summary", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ListMonthlyOrderSummary 查询月订单汇总数据
+func (c *dataServiceImpl) ListMonthlyOrderSummary(ctx context.Context, in *ListMonthlyOrderSummaryRequest) (*ListMonthlyOrderSummaryResponse, error) {
+	out := new(ListMonthlyOrderSummaryResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/dataservice/v2/order/monthly-summary", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -230,6 +266,80 @@ type DealerOrderInfo struct {
 	FinishedTime string `json:"finished_time,omitempty"`
 }
 
+// ListDailyOrderV2Request 查询日订单数据（支付和退款订单）请求
+type ListDailyOrderV2Request struct {
+	// 订单查询日期, yyyy-MM-dd 格式
+	OrderDate string `json:"order_date,omitempty"`
+	// 偏移量
+	Offset int32 `json:"offset,omitempty"`
+	// 每页返回条数
+	Length int32 `json:"length,omitempty"`
+	// 支付路径名，bankpay：银行卡 alipay：支付宝 wxpay：微信
+	Channel string `json:"channel,omitempty"`
+	// 当且仅当参数值为 encryption 时，对返回的 data 进行加密
+	DataType string `json:"data_type,omitempty"`
+}
+
+// ListDailyOrderV2Response 查询日订单数据（支付和退款订单）返回
+type ListDailyOrderV2Response struct {
+	// 总条数
+	TotalNum int32 `json:"total_num,omitempty"`
+	// 条目明细
+	List []*DealerOrderInfoV2 `json:"list,omitempty"`
+}
+
+// DealerOrderInfoV2 平台企业支付订单信息（支付和退款订单）
+type DealerOrderInfoV2 struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 订单类型
+	OrderType string `json:"order_type,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 收款账号
+	CardNo string `json:"card_no,omitempty"`
+	// 综合服务主体订单金额
+	BrokerAmount string `json:"broker_amount,omitempty"`
+	// 综合服务主体加成服务费
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 支付路径流水号
+	Bill string `json:"bill,omitempty"`
+	// 订单状态码
+	Status string `json:"status,omitempty"`
+	// 订单状态码描述
+	StatusMessage string `json:"status_message,omitempty"`
+	// 订单详情状态码
+	StatusDetail string `json:"status_detail,omitempty"`
+	// 订单详细状态码描述
+	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
+	// 短周期授信账单号
+	StatementID string `json:"statement_id,omitempty"`
+	// 加成服务费账单号
+	FeeStatementID string `json:"fee_statement_id,omitempty"`
+	// 余额账单号
+	BalStatementID string `json:"bal_statement_id,omitempty"`
+	// 支付路径
+	Channel string `json:"channel,omitempty"`
+	// 订单接收时间
+	CreatedAt string `json:"created_at,omitempty"`
+	// 订单完成时间
+	FinishedTime string `json:"finished_time,omitempty"`
+	// 退款类型
+	RefundType string `json:"refund_type,omitempty"`
+	// 原支付流水号
+	PayRef string `json:"pay_ref,omitempty"`
+}
+
 // ListDailyBillRequest 查询日流水数据请求
 type ListDailyBillRequest struct {
 	// 流水查询日期
@@ -344,4 +454,100 @@ type StatementDetail struct {
 	ProjectID string `json:"project_id,omitempty"`
 	// 项目名称
 	ProjectName string `json:"project_name,omitempty"`
+}
+
+// ListDailyOrderSummaryRequest 查询日订单汇总数据请求
+type ListDailyOrderSummaryRequest struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 支付路径，银行卡、支付宝、微信
+	Channel string `json:"channel,omitempty"`
+	// 订单查询开始日期，格式：yyyy-MM-dd
+	BeginAt string `json:"begin_at,omitempty"`
+	// 订单查询结束日期，格式：yyyy-MM-dd
+	EndAt string `json:"end_at,omitempty"`
+	// 筛选类型，apply：按订单创建时间汇总 complete：按订单完成时间汇总
+	FilterType string `json:"filter_type,omitempty"`
+}
+
+// ListDailyOrderSummaryResponse 查询日订单汇总数据返回
+type ListDailyOrderSummaryResponse struct {
+	// 汇总数据列表
+	SummaryList []*ListDailyOrderSummary `json:"summary_list,omitempty"`
+}
+
+// ListDailyOrderSummary 日订单汇总数据详情
+type ListDailyOrderSummary struct {
+	// 订单查询日期，格式：yyyy-MM-dd
+	Date string `json:"date,omitempty"`
+	// 成功订单汇总
+	Success *DailyOrderSummary `json:"success,omitempty"`
+	// 处理中订单汇总
+	Processing *DailyOrderSummary `json:"processing,omitempty"`
+	// 失败订单汇总
+	Failed *DailyOrderSummary `json:"failed,omitempty"`
+}
+
+// DailyOrderSummary 日订单汇总详情
+type DailyOrderSummary struct {
+	// 订单数量
+	OrderNum int32 `json:"order_num,omitempty"`
+	// 订单金额
+	Pay string `json:"pay,omitempty"`
+	// 加成服务费金额
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 加成服务费实收金额
+	BrokerRealFee string `json:"broker_real_fee,omitempty"`
+	// 已抵扣加成服务费金额
+	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
+	// 用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+}
+
+// ListMonthlyOrderSummaryRequest 查询月订单汇总数据请求
+type ListMonthlyOrderSummaryRequest struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 支付路径，银行卡、支付宝、微信
+	Channel string `json:"channel,omitempty"`
+	// 汇总月份，格式：yyyy-MM
+	Month string `json:"month,omitempty"`
+	// 筛选类型，apply：按订单创建时间汇总 complete：按订单完成时间汇总
+	FilterType string `json:"filter_type,omitempty"`
+}
+
+// ListMonthlyOrderSummaryResponse 查询月订单汇总数据返回
+type ListMonthlyOrderSummaryResponse struct {
+	// 汇总数据列表
+	Summary *ListMonthlyOrderSummary `json:"summary,omitempty"`
+}
+
+// ListMonthlyOrderSummary 月订单汇总数据详情
+type ListMonthlyOrderSummary struct {
+	// 成功订单汇总
+	Success *MonthlyOrderSummary `json:"success,omitempty"`
+	// 处理中订单汇总
+	Processing *MonthlyOrderSummary `json:"processing,omitempty"`
+	// 失败订单汇总
+	Failed *MonthlyOrderSummary `json:"failed,omitempty"`
+}
+
+// MonthlyOrderSummary 月订单汇总详情
+type MonthlyOrderSummary struct {
+	// 订单数量
+	OrderNum int32 `json:"order_num,omitempty"`
+	// 订单金额
+	Pay string `json:"pay,omitempty"`
+	// 加成服务费金额
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 加成服务费实收金额
+	BrokerRealFee string `json:"broker_real_fee,omitempty"`
+	// 已抵扣加成服务费金额
+	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
+	// 用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
 }

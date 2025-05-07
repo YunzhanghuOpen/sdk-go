@@ -54,6 +54,31 @@ func ListDailyOrderExample(client api.DataService) {
 	fmt.Println(resp)
 }
 
+// ListDailyOrderV2Example 查询日订单数据（支付和退款订单）
+func ListDailyOrderV2Example(client api.DataService) {
+	req := &api.ListDailyOrderV2Request{
+		OrderDate: "2024-09-05",
+		Offset:    0,
+		Length:    100,
+		Channel:   "alipay",
+		DataType:  "",
+	}
+	resp, err := client.ListDailyOrderV2(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // GetOrderDownloadsUrlExample 查询日订单文件
 func GetOrderDownloadsUrlExample(client api.DataService) {
 	req := &api.GetDailyOrderFileRequest{
@@ -162,17 +187,71 @@ func ListBalanceDailyStatementExample(client api.DataService) {
 	fmt.Println(resp)
 }
 
+// ListDailyOrderSummaryExample 查询日订单汇总数据
+func ListDailyOrderSummaryExample(client api.DataService) {
+	req := &api.ListDailyOrderSummaryRequest{
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "支付宝",
+		BeginAt:    "2025-02-01",
+		EndAt:      "2025-02-07",
+		FilterType: "apply",
+	}
+	resp, err := client.ListDailyOrderSummary(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
+// ListMonthlyOrderSummaryExample 查询月订单汇总数据
+func ListMonthlyOrderSummaryExample(client api.DataService) {
+	req := &api.ListMonthlyOrderSummaryRequest{
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Channel:    "银行卡",
+		Month:      "2025-01",
+		FilterType: "apply",
+	}
+	resp, err := client.ListMonthlyOrderSummary(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.DataService){
 		GetDailyBillFileV2Example,
 		ListDailyOrderExample,
+		ListDailyOrderV2Example,
 		GetOrderDownloadsUrlExample,
 		GetDailyOrderFileV2Example,
 		ListDailyBillExample,
 		ListDealerRechargeRecordV2Example,
 		ListBalanceDailyStatementExample,
+		ListDailyOrderSummaryExample,
+		ListMonthlyOrderSummaryExample,
 	} {
 		example(client)
 	}
