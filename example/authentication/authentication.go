@@ -167,7 +167,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 		BrokerID:     base.BrokerID,
 		DealerID:     base.DealerID,
 		UserImages:   []string{base64str, base64str},
-		ImageURLs:    []string{"https://www.example.com/imange01.png"},
+		ImageURLs:    []string{"https://www.example.com/image01.png"},
 		Country:      "CHN",
 		Birthday:     "20190809",
 		Gender:       "男",
