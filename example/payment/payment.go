@@ -290,8 +290,8 @@ func CheckUserAmountExample(client api.Payment) {
 // CreateBatchOrderExample 批次下单
 func CreateBatchOrderExample(client api.Payment) {
 	orderList := []*api.BatchOrderInfo{
-		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "440524188001010014", Pay: "1", CardNo: "6228888888888888887"},
-		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "李四", IDCard: "11010519491231002X", Pay: "1", CardNo: "6228888888888888888"},
+		&api.BatchOrderInfo{OrderID: "202210220001", RealName: "张三", IDCard: "440524188001010014", Pay: "1", CardNo: "6228888888888888887", PhoneNo: "188****8888"},
+		&api.BatchOrderInfo{OrderID: "202210220002", RealName: "李四", IDCard: "11010519491231002X", Pay: "1", CardNo: "6228888888888888888", PhoneNo: "188****8888"},
 	}
 	req := &api.CreateBatchOrderRequest{
 		BrokerID:   base.BrokerID,
