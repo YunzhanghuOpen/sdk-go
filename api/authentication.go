@@ -220,6 +220,8 @@ type UserExemptedInfoRequest struct {
 	NotifyURL string `json:"notify_url,omitempty"`
 	// 请求流水号
 	Ref string `json:"ref,omitempty"`
+	// 证件照片 URL 地址
+	ImageURLs []string `json:"image_urls,omitempty"`
 }
 
 // UserExemptedInfoResponse 上传非居民身份证验证名单信息返回
