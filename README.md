@@ -139,7 +139,7 @@ func main() {
 		PayRemark: "银行卡支付",
 		NotifyURL: "https://wwww.example.com", // 需填写自己实现的回调接口
 		Pay:       "99.99",
-        PhoneNo: "188****8888",
+		PhoneNo: "188****8888",
 	}
 
 	// requestID := fmt.Sprint(rand.Int63()) // 此处必需注入 requestID，便于问题发现及排查，也可以使用 requestIDMiddle 中间件实现
