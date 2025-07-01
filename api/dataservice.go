@@ -238,9 +238,9 @@ type DealerOrderInfo struct {
 	CardNo string `json:"card_no,omitempty"`
 	// 综合服务主体订单金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
-	// 应收综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 实收综合服务主体加成服务费
+	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
 	// 支付路径流水号
 	Bill string `json:"bill,omitempty"`
@@ -310,9 +310,9 @@ type DealerOrderInfoV2 struct {
 	CardNo string `json:"card_no,omitempty"`
 	// 综合服务主体订单金额
 	BrokerAmount string `json:"broker_amount,omitempty"`
-	// 应收综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 实收综合服务主体加成服务费
+	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
 	// 支付路径流水号
 	Bill string `json:"bill,omitempty"`
@@ -444,7 +444,7 @@ type StatementDetail struct {
 	Amount string `json:"amount,omitempty"`
 	// 退汇金额
 	ReexAmount string `json:"reex_amount,omitempty"`
-	// 实收综合服务主体加成服务费
+	// 实收综合服务主体加成服务费金额
 	FeeAmount string `json:"fee_amount,omitempty"`
 	// 实收加成服务费抵扣金额
 	DeductRebateFeeAmount string `json:"deduct_rebate_fee_amount,omitempty"`
@@ -500,21 +500,21 @@ type DailyOrderSummary struct {
 	OrderNum int32 `json:"order_num,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
-	// 应收综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
 	// 应收余额账户支出加成服务费
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
-	// 应收用户加成服务费
+	// 应收用户加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
-	// 实收综合服务主体加成服务费
+	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
-	// 实收余额账户支出加成服务费
+	// 实收余额账户支出加成服务费金额
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费
+	// 实收用户加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 }
 
@@ -554,20 +554,20 @@ type MonthlyOrderSummary struct {
 	OrderNum int32 `json:"order_num,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
-	// 应收综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
 	// 应收余额账户支出加成服务费
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
-	// 应收用户加成服务费
+	// 应收用户加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
-	// 实收综合服务主体加成服务费
+	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
-	// 实收余额账户支出加成服务费
+	// 实收余额账户支出加成服务费金额
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费
+	// 实收用户加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 }
