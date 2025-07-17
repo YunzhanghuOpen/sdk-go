@@ -432,6 +432,7 @@ func Example() {
 		CheckUserAmountExample,
 		CreateBatchOrderExample,
 		ConfirmBatchOrderExample,
+		QueryBatchOrderExample,
 	} {
 		example(client)
 	}
