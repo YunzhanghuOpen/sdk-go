@@ -352,16 +352,24 @@ type GetOrderResponse struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// 订单完成时间，精确到秒
 	FinishedTime string `json:"finished_time,omitempty"`
-	// 综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 余额账户支出加成服务费
+	// 应收余额账户支出加成服务费金额
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
-	// 抵扣账户支出加成服务费
+	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 应收用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+	// 实收综合服务主体加成服务费金额
+	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
+	// 实收余额账户支出加成服务费金额
+	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
+	// 实收加成服务费抵扣金额
+	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
+	// 实收用户加成服务费金额
+	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
-	// 用户加成服务费
-	UserFee string `json:"user_fee,omitempty"`
 	// 银行名称
 	BankName string `json:"bank_name,omitempty"`
 	// 项目标识
@@ -536,16 +544,24 @@ type NotifyOrderData struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// 订单完成时间，精确到秒
 	FinishedTime string `json:"finished_time,omitempty"`
-	// 综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 余额账户支出加成服务费
+	// 应收余额账户支出加成服务费金额
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
-	// 抵扣账户支出加成服务费
+	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 应收用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+	// 实收综合服务主体加成服务费金额
+	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
+	// 实收余额账户支出加成服务费金额
+	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
+	// 实收加成服务费抵扣金额
+	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
+	// 实收用户加成服务费金额
+	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
-	// 用户加成服务费
-	UserFee string `json:"user_fee,omitempty"`
 	// 银行名称
 	BankName string `json:"bank_name,omitempty"`
 	// 项目标识
@@ -783,16 +799,24 @@ type QueryBatchOrderInfo struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// 订单完成时间
 	FinishedTime string `json:"finished_time,omitempty"`
-	// 综合服务主体加成服务费
+	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 余额账户支出加成服务费
+	// 应收余额账户支出加成服务费金额
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
-	// 加成服务费抵扣金额
+	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 应收用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+	// 实收综合服务主体加成服务费金额
+	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
+	// 实收余额账户支出加成服务费金额
+	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
+	// 实收加成服务费抵扣金额
+	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
+	// 实收用户加成服务费金额
+	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
-	// 用户加成服务费
-	UserFee string `json:"user_fee,omitempty"`
 	// 银行名称
 	BankName string `json:"bank_name,omitempty"`
 	// 业务线标识

@@ -41,15 +41,15 @@ func GetUserCollectPhoneStatusExample(client api.UserCollectService) {
 	fmt.Println(string(data))
 }
 
-// GetUserCollectPhoneURLExample 获取收集手机号码页面
-func GetUserCollectPhoneURLExample(client api.UserCollectService) {
-	req := &api.GetUserCollectPhoneURLRequest{
+// GetUserCollectPhoneUrlExample 获取收集手机号码页面
+func GetUserCollectPhoneUrlExample(client api.UserCollectService) {
+	req := &api.GetUserCollectPhoneUrlRequest{
 		Token:       "testToken",
 		Color:       "",
 		URL:         "https://www.example.com",
 		RedirectURL: "",
 	}
-	resp, err := client.GetUserCollectPhoneURL(context.TODO(), req)
+	resp, err := client.GetUserCollectPhoneUrl(context.TODO(), req)
 	if err != nil {
 		e, ok := errorx.FromError(err)
 		if !ok {
@@ -96,7 +96,7 @@ func Example() {
 	client := base.NewClient()
 	for _, example := range []func(api.UserCollectService){
 		GetUserCollectPhoneStatusExample,
-		GetUserCollectPhoneURLExample,
+		GetUserCollectPhoneUrlExample,
 	} {
 		example(client)
 	}

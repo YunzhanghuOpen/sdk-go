@@ -8,8 +8,8 @@ import (
 type UserCollectService interface {
 	// GetUserCollectPhoneStatus 查询手机号码绑定状态
 	GetUserCollectPhoneStatus(context.Context, *GetUserCollectPhoneStatusRequest) (*GetUserCollectPhoneStatusResponse, error)
-	// GetUserCollectPhoneURL 获取收集手机号码页面
-	GetUserCollectPhoneURL(context.Context, *GetUserCollectPhoneURLRequest) (*GetUserCollectPhoneURLResponse, error)
+	// GetUserCollectPhoneUrl 获取收集手机号码页面
+	GetUserCollectPhoneUrl(context.Context, *GetUserCollectPhoneUrlRequest) (*GetUserCollectPhoneUrlResponse, error)
 }
 
 // userCollectServiceImpl UserCollectService 接口实现
@@ -32,9 +32,9 @@ func (c *userCollectServiceImpl) GetUserCollectPhoneStatus(ctx context.Context, 
 	return out, nil
 }
 
-// GetUserCollectPhoneURL 获取收集手机号码页面
-func (c *userCollectServiceImpl) GetUserCollectPhoneURL(ctx context.Context, in *GetUserCollectPhoneURLRequest) (*GetUserCollectPhoneURLResponse, error) {
-	out := new(GetUserCollectPhoneURLResponse)
+// GetUserCollectPhoneUrl 获取收集手机号码页面
+func (c *userCollectServiceImpl) GetUserCollectPhoneUrl(ctx context.Context, in *GetUserCollectPhoneUrlRequest) (*GetUserCollectPhoneUrlResponse, error) {
+	out := new(GetUserCollectPhoneUrlResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/user/v1/collect/phone/url", false, in, out)
 	if err != nil {
 		return nil, err
@@ -63,11 +63,11 @@ type GetUserCollectPhoneStatusResponse struct {
 	// 手机号码收集 Token
 	Token string `json:"token,omitempty"`
 	// 绑定状态
-	Status string `json:"status,omitempty"`
+	Status int32 `json:"status,omitempty"`
 }
 
-// GetUserCollectPhoneURLRequest 获取收集手机号码页面请求
-type GetUserCollectPhoneURLRequest struct {
+// GetUserCollectPhoneUrlRequest 获取收集手机号码页面请求
+type GetUserCollectPhoneUrlRequest struct {
 	// 手机号码收集 Token
 	Token string `json:"token,omitempty"`
 	// 主题颜色
@@ -78,8 +78,8 @@ type GetUserCollectPhoneURLRequest struct {
 	RedirectURL string `json:"redirect_url,omitempty"`
 }
 
-// GetUserCollectPhoneURLResponse 获取收集手机号码页面返回
-type GetUserCollectPhoneURLResponse struct {
+// GetUserCollectPhoneUrlResponse 获取收集手机号码页面返回
+type GetUserCollectPhoneUrlResponse struct {
 	// 收集手机号码页面 URL
 	URL string `json:"url,omitempty"`
 }
@@ -89,5 +89,5 @@ type NotifyUserCollectPhoneRequest struct {
 	// 平台企业用户 ID
 	DealerUserID string `json:"dealer_user_id,omitempty"`
 	// 手机号码绑定状态
-	Status string `json:"status,omitempty"`
+	Status int32 `json:"status,omitempty"`
 }
