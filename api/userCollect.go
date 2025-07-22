@@ -51,9 +51,9 @@ type GetUserCollectPhoneStatusRequest struct {
 	// 平台企业用户 ID
 	DealerUserID string `json:"dealer_user_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"real_name"`
 	// 证件类型编码
 	CertificateType int32 `json:"certificate_type,omitempty"`
 }
