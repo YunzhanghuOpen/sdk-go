@@ -53,7 +53,7 @@ type GetUserCollectPhoneStatusRequest struct {
 	// 姓名
 	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号码
-	IDCard string `json:"id_card,omitempty" mask:"real_name"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 证件类型编码
 	CertificateType int32 `json:"certificate_type,omitempty"`
 }
