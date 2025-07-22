@@ -38,6 +38,9 @@ func GetUserCollectPhoneStatusExample(client api.UserCollectService) {
 	}
 	// 操作成功
 	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println(string(data))
 }
 
@@ -66,6 +69,9 @@ func GetUserCollectPhoneUrlExample(client api.UserCollectService) {
 	}
 	// 操作成功
 	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Println(string(data))
 }
 
