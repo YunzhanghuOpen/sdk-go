@@ -1,4 +1,4 @@
-package userCollect
+package usercollect
 
 import (
 	"context"
