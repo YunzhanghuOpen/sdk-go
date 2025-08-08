@@ -7,4 +7,6 @@ const (
 	ProductHost = "https://api-service.yunzhanghu.com"
 	// 沙箱环境域名
 	SandboxHost = "https://api-service.yunzhanghu.com/sandbox"
+	// 用户信息收集
+	UserCollectHost = "https://api-user.yunzhanghu.com"
 )

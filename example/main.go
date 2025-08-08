@@ -13,6 +13,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/invoice"
 	"github.com/YunzhanghuOpen/sdk-go/example/payment"
 	"github.com/YunzhanghuOpen/sdk-go/example/tax"
+	"github.com/YunzhanghuOpen/sdk-go/example/usercollect"
 )
 
 func main() {
@@ -28,4 +29,5 @@ func main() {
 	bizlicgxv2h5.Example()
 	bizlicgxv2h5api.Example()
 	custom.Example()
+	usercollect.Example()
 }

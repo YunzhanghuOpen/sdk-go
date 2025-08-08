@@ -21,6 +21,7 @@ type Client struct {
 	BizlicGxV2H5Service    // 共享大额个体户注册 H5
 	BizlicGxV2H5APIService // 共享大额个体户注册 H5+API
 	CustomService          // 通用请求接口
+	UserCollectService     // 用户信息收集
 }
 
 // Config Client 配置
@@ -77,5 +78,6 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		BizlicGxV2H5Service:    NewBizlicGxV2H5Service(co),
 		BizlicGxV2H5APIService: NewBizlicGxV2H5APIService(co),
 		CustomService:          NewCustomService(co),
+		UserCollectService:     NewUserCollectService(co),
 	}, nil
 }
