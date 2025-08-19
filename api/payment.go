@@ -34,6 +34,8 @@ type Payment interface {
 	CancelBatchOrder(context.Context, *CancelBatchOrderRequest) (*CancelBatchOrderResponse, error)
 	// CheckUserAmount 用户结算金额校验
 	CheckUserAmount(context.Context, *CheckUserAmountRequest) (*CheckUserAmountResponse, error)
+	// GetOrderLxlw 查询劳务模式单笔订单信息
+	GetOrderLxlw(context.Context, *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error)
 }
 
 // paymentImpl Payment 接口实现
@@ -180,6 +182,16 @@ func (c *paymentImpl) CancelBatchOrder(ctx context.Context, in *CancelBatchOrder
 func (c *paymentImpl) CheckUserAmount(ctx context.Context, in *CheckUserAmountRequest) (*CheckUserAmountResponse, error) {
 	out := new(CheckUserAmountResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/risk-check/amount", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GetOrderLxlw 查询劳务模式单笔订单信息
+func (c *paymentImpl) GetOrderLxlw(ctx context.Context, in *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error) {
+	out := new(GetOrderLxlwResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-order", in.DataType == "encryption", in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -855,4 +867,186 @@ type CheckUserAmountResponse struct {
 	IsOverWholeUserMonthQuota bool `json:"is_over_whole_user_month_quota,omitempty"`
 	// 是否超过年限额
 	IsOverWholeUserYearQuota bool `json:"is_over_whole_user_year_quota,omitempty"`
+}
+
+// GetOrderLxlwRequest 查询劳务模式单笔订单信息请求
+type GetOrderLxlwRequest struct {
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 支付路径
+	Channel string `json:"channel,omitempty"`
+	// 数据类型
+	DataType string `json:"data_type,omitempty"`
+}
+
+// GetOrderLxlwResponse 查询劳务模式单笔订单信息返回
+type GetOrderLxlwResponse struct {
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 订单金额
+	Pay string `json:"pay,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 收款人账号
+	CardNo string `json:"card_no,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty"`
+	// 手机号
+	PhoneNo string `json:"phone_no,omitempty"`
+	// 订单状态码
+	Status string `json:"status,omitempty"`
+	// 订单详细状态码
+	StatusDetail string `json:"status_detail,omitempty"`
+	// 订单状态码描述
+	StatusMessage string `json:"status_message,omitempty"`
+	// 订单详情状态码描述
+	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
+	// 综合服务主体支付金额
+	BrokerAmount string `json:"broker_amount,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 支付交易流水号
+	BrokerBankBill string `json:"broker_bank_bill,omitempty"`
+	// 支付路径
+	WithdrawPlatform string `json:"withdraw_platform,omitempty"`
+	// 订单接收时间，精确到秒
+	CreatedAt string `json:"created_at,omitempty"`
+	// 订单完成时间，精确到秒
+	FinishedTime string `json:"finished_time,omitempty"`
+	// 应收综合服务主体加成服务费金额
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 应收余额账户支出加成服务费金额
+	BrokerRealFee string `json:"broker_real_fee,omitempty"`
+	// 应收加成服务费抵扣金额
+	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 应收用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+	// 实收综合服务主体加成服务费金额
+	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
+	// 实收余额账户支出加成服务费金额
+	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
+	// 实收加成服务费抵扣金额
+	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
+	// 实收用户加成服务费金额
+	ReceivedUserFee string `json:"received_user_fee,omitempty"`
+	// 订单备注
+	PayRemark string `json:"pay_remark,omitempty"`
+	// 银行名称
+	BankName string `json:"bank_name,omitempty"`
+	// 业务线标识
+	ProjectID string `json:"project_id,omitempty"`
+	// 新就业形态劳动者 ID，该字段已废弃
+	AnchorID string `json:"anchor_id,omitempty"`
+	// 描述信息，该字段已废弃
+	Notes string `json:"notes,omitempty"`
+	// 系统支付金额，该字段已废弃
+	SysAmount string `json:"sys_amount,omitempty"`
+	// 税费，该字段已废弃
+	Tax string `json:"tax,omitempty"`
+	// 系统支付费用，该字段已废弃
+	SysFee string `json:"sys_fee,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+}
+
+// TaxDetail 缴税明细
+type TaxDetail struct {
+	// 应纳个税
+	PersonalTax string `json:"personal_tax,omitempty"`
+	// 应纳增值税
+	ValueAddedTax string `json:"value_added_tax,omitempty"`
+	// 应纳附加税费
+	AdditionalTax string `json:"additional_tax,omitempty"`
+	// 实纳个税
+	ReceivedPersonalTax string `json:"received_personal_tax,omitempty"`
+	// 实纳增值税
+	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
+	// 实纳附加税费
+	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
+}
+
+// NotifyOrderLxlwRequest 劳务模式订单支付状态回调通知
+type NotifyOrderLxlwRequest struct {
+	// 通知 ID
+	NotifyID string `json:"notify_id,omitempty"`
+	// 通知时间
+	NotifyTime string `json:"notify_time,omitempty"`
+	// 返回数据
+	Data *NotifyOrderLxlwData `json:"data,omitempty"`
+}
+
+// NotifyOrderLxlwData 劳务模式订单支付状态回调通知数据
+type NotifyOrderLxlwData struct {
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 订单金额
+	Pay string `json:"pay,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty"`
+	// 收款人账号
+	CardNo string `json:"card_no,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty"`
+	// 手机号
+	PhoneNo string `json:"phone_no,omitempty"`
+	// 订单状态码
+	Status string `json:"status,omitempty"`
+	// 订单详情状态码
+	StatusDetail string `json:"status_detail,omitempty"`
+	// 订单状态码描述
+	StatusMessage string `json:"status_message,omitempty"`
+	// 订单详情状态码描述
+	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 订单状态补充信息
+	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
+	// 综合服务主体支付金额
+	BrokerAmount string `json:"broker_amount,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 支付交易流水号
+	BrokerBankBill string `json:"broker_bank_bill,omitempty"`
+	// 支付路径
+	WithdrawPlatform string `json:"withdraw_platform,omitempty"`
+	// 订单接收时间，精确到秒
+	CreatedAt string `json:"created_at,omitempty"`
+	// 订单完成时间，精确到秒
+	FinishedTime string `json:"finished_time,omitempty"`
+	// 应收综合服务主体加成服务费金额
+	BrokerFee string `json:"broker_fee,omitempty"`
+	// 应收余额账户支出加成服务费金额
+	BrokerRealFee string `json:"broker_real_fee,omitempty"`
+	// 应收加成服务费抵扣金额
+	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
+	// 应收用户加成服务费金额
+	UserFee string `json:"user_fee,omitempty"`
+	// 实收综合服务主体加成服务费金额
+	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
+	// 实收余额账户支出加成服务费金额
+	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
+	// 实收加成服务费抵扣金额
+	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
+	// 实收用户加成服务费金额
+	ReceivedUserFee string `json:"received_user_fee,omitempty"`
+	// 订单备注
+	PayRemark string `json:"pay_remark,omitempty"`
+	// 银行名称
+	BankName string `json:"bank_name,omitempty"`
+	// 业务线标识
+	ProjectID string `json:"project_id,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
 }
