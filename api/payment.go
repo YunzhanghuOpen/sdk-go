@@ -890,13 +890,13 @@ type GetOrderLxlwResponse struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 收款人账号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 手机号
-	PhoneNo string `json:"phone_no,omitempty"`
+	PhoneNo string `json:"phone_no,omitempty" mask:"phone_no"`
 	// 订单状态码
 	Status string `json:"status,omitempty"`
 	// 订单详细状态码
@@ -994,13 +994,13 @@ type NotifyOrderLxlwData struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 收款人账号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 手机号
-	PhoneNo string `json:"phone_no,omitempty"`
+	PhoneNo string `json:"phone_no,omitempty" mask:"phone_no"`
 	// 订单状态码
 	Status string `json:"status,omitempty"`
 	// 订单详情状态码

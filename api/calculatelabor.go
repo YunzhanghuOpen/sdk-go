@@ -115,9 +115,9 @@ type CalcTaxRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
 }
