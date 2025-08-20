@@ -1,4 +1,4 @@
-package caculatorlabor
+package calculatelabor
 
 import (
 	"context"
@@ -11,7 +11,7 @@ import (
 )
 
 // LaborCaculatorExample 连续劳务税费试算（计算器）
-func LaborCaculatorExample(client api.CaculatorLaborService) {
+func LaborCaculatorExample(client api.CalculateLaborService) {
 	monthSettlementList := []*api.MonthSettlement{
 		{
 			Month:             1,
@@ -51,8 +51,8 @@ func LaborCaculatorExample(client api.CaculatorLaborService) {
 	fmt.Println(string(data))
 }
 
-// CalcTax 订单税费计算
-func CalcTaxExample(client api.CaculatorLaborService) {
+// CalcTax 订单税费试算
+func CalcTaxExample(client api.CalculateLaborService) {
 	req := &api.CalcTaxRequest{
 		BrokerID: base.BrokerID,
 		DealerID: base.DealerID,
@@ -86,7 +86,7 @@ func CalcTaxExample(client api.CaculatorLaborService) {
 // Example 样例
 func Example() {
 	client := base.NewClient()
-	for _, example := range []func(api.CaculatorLaborService){
+	for _, example := range []func(api.CalculateLaborService){
 		LaborCaculatorExample,
 		CalcTaxExample,
 	} {

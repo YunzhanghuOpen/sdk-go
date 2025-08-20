@@ -4,26 +4,26 @@ import (
 	"context"
 )
 
-// CaculatorLaborService 连续劳务税费试算
-type CaculatorLaborService interface {
+// CalculateLaborService 连续劳务税费试算
+type CalculateLaborService interface {
 	// LaborCaculator 连续劳务税费试算（计算器）
 	LaborCaculator(context.Context, *LaborCaculatorRequest) (*LaborCaculatorResponse, error)
 	// CalcTax 订单税费试算
 	CalcTax(context.Context, *CalcTaxRequest) (*CalcTaxResponse, error)
 }
 
-// caculatorLaborServiceImpl CaculatorLaborService 接口实现
-type caculatorLaborServiceImpl struct {
+// calculateLaborServiceImpl CalculateLaborService 接口实现
+type calculateLaborServiceImpl struct {
 	cc Invoker
 }
 
-// NewCaculatorLaborService 创建客户端
-func NewCaculatorLaborService(cc Invoker) CaculatorLaborService {
-	return &caculatorLaborServiceImpl{cc}
+// NewCalculateLaborService 创建客户端
+func NewCalculateLaborService(cc Invoker) CalculateLaborService {
+	return &calculateLaborServiceImpl{cc}
 }
 
 // LaborCaculator 连续劳务税费试算（计算器）
-func (c *caculatorLaborServiceImpl) LaborCaculator(ctx context.Context, in *LaborCaculatorRequest) (*LaborCaculatorResponse, error) {
+func (c *calculateLaborServiceImpl) LaborCaculator(ctx context.Context, in *LaborCaculatorRequest) (*LaborCaculatorResponse, error) {
 	out := new(LaborCaculatorResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/tax/v1/labor-caculator", false, in, out)
 	if err != nil {
@@ -33,7 +33,7 @@ func (c *caculatorLaborServiceImpl) LaborCaculator(ctx context.Context, in *Labo
 }
 
 // CalcTax 订单税费试算
-func (c *caculatorLaborServiceImpl) CalcTax(ctx context.Context, in *CalcTaxRequest) (*CalcTaxResponse, error) {
+func (c *calculateLaborServiceImpl) CalcTax(ctx context.Context, in *CalcTaxRequest) (*CalcTaxResponse, error) {
 	out := new(CalcTaxResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/calc-tax", false, in, out)
 	if err != nil {
