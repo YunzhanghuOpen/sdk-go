@@ -120,6 +120,7 @@ func NotifyDecoder(mess, timestamp, data, sign, signType string, out interface{}
 		return err
 	}
 	req := &out
+	fmt.Println(string(b))
 	return json.Unmarshal(b, req)
 }
 

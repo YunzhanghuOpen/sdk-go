@@ -7,6 +7,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/bizlicgxv2h5api"
 	"github.com/YunzhanghuOpen/sdk-go/example/bizlicxjjh5"
 	"github.com/YunzhanghuOpen/sdk-go/example/bizlicxjjh5api"
+	"github.com/YunzhanghuOpen/sdk-go/example/calculatelabor"
 	"github.com/YunzhanghuOpen/sdk-go/example/custom"
 	"github.com/YunzhanghuOpen/sdk-go/example/dataservice"
 	"github.com/YunzhanghuOpen/sdk-go/example/h5usersign"
@@ -30,4 +31,5 @@ func main() {
 	bizlicgxv2h5api.Example()
 	custom.Example()
 	usercollect.Example()
+	calculatelabor.Example()
 }
