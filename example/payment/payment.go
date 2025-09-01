@@ -2,6 +2,7 @@ package payment
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -394,6 +395,33 @@ func CancelBatchOrderExample(client api.Payment) {
 	fmt.Println(resp)
 }
 
+// GetOrderLxlwExample 查询劳务模式单笔订单信息
+func GetOrderLxlwExample(client api.Payment) {
+	req := &api.GetOrderLxlwRequest{
+		OrderID:  "140490814193549",
+		Channel:  "银行卡",
+		DataType: "",
+	}
+	resp, err := client.GetOrderLxlw(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+}
+
 // NotifyOrderExample 订单回调样例
 func NotifyOrderExample() {
 	// 除本实现方式外，还可采用其他 http 请求框架实现
@@ -406,6 +434,27 @@ func NotifyOrderExample() {
 			signType := r.PostForm.Get("sign_type")
 
 			req := api.NotifyOrderRequestV2{}
+			err := base.NotifyDecoder(mess, timestamp, data, sign, signType, &req)
+			if err != nil {
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte(err.Error()))
+				return
+			}
+		}
+	}))
+}
+
+// NotifyOrderLxlwExample 连续劳务订单回调样例
+func NotifyOrderLxlwExample() {
+	// 除本实现方式外，还可采用其他 http 请求框架实现
+	http.HandleFunc("notify/order", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.ParseForm() == nil {
+			data := r.PostForm.Get("data")
+			timestamp := r.PostForm.Get("timestamp")
+			mess := r.PostForm.Get("mess")
+			sign := r.PostForm.Get("sign")
+			signType := r.PostForm.Get("sign_type")
+			req := api.NotifyOrderLxlwRequest{}
 			err := base.NotifyDecoder(mess, timestamp, data, sign, signType, &req)
 			if err != nil {
 				w.WriteHeader(http.StatusOK)
@@ -433,6 +482,7 @@ func Example() {
 		CreateBatchOrderExample,
 		ConfirmBatchOrderExample,
 		QueryBatchOrderExample,
+		GetOrderLxlwExample,
 	} {
 		example(client)
 	}
