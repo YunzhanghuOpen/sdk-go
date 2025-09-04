@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -140,4 +141,59 @@ func DecodeZipPwd(pwdStr string) (string, error) {
 		return "", err
 	}
 	return string(b), nil
+}
+
+// NewRsaSigner 新建 RSA 签名验签
+func NewRsaSigner() crypto.Signer {
+	v, err := crypto.NewRsaSigner(YunPrivateKey, AppKey)
+	if err != nil {
+		panic(err)
+	}
+	return v
+}
+
+// NewHmacSigner 新建 HMAC 签名
+func NewHmacSigner() crypto.Signer {
+	v, err := crypto.NewHmacSigner(AppKey)
+	if err != nil {
+		panic(err)
+	}
+	return v
+}
+
+// mapToURLParams map转换为url
+func mapToURLParams(params map[string]string) string {
+	values := url.Values{}
+	for k, v := range params {
+		values.Add(k, v)
+	}
+	return values.Encode()
+}
+
+// GetCustomerLink 获取客服链接
+func GetCustomerLink(signType, baseurl, memberID string) (string, error) {
+	sv, ok := map[string]func() crypto.Signer{
+		"SHA256": NewHmacSigner,
+		"RSA":    NewRsaSigner,
+	}[strings.ToUpper(signType)]
+	if !ok {
+		return "", errors.New("wrong sign type")
+	}
+
+	data := fmt.Sprintf("member_id=%s", memberID)
+	mess := fmt.Sprint(time.Now().Nanosecond())
+	timestamp := fmt.Sprint(time.Now().Unix())
+	sign, err := sv().Sign(mess, timestamp, data)
+	if err != nil {
+		return "", err
+	}
+
+	m := mapToURLParams(map[string]string{
+		"member_id": memberID,
+		"mess":      mess,
+		"timestamp": timestamp,
+		"sign":      sign,
+		"sign_type": signType,
+	})
+	return fmt.Sprintf("%s?%s", baseurl, m), nil
 }
