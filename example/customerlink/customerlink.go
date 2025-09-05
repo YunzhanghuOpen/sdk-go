@@ -8,7 +8,7 @@ import (
 
 // Example 样例
 func Example() {
-	link, err := base.GetCustomerLink("RSA", "https://sign-h5.yunzhanghu.com/pages/customer-link/EBSFceSJ", "11111")
+	link, err := base.GetCustomerLink("rsa", "https://www.example.com", "testmemberid")
 	if err != nil {
 		// 发生异常
 		fmt.Println(err)
