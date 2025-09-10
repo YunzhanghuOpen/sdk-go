@@ -9,6 +9,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/bizlicxjjh5api"
 	"github.com/YunzhanghuOpen/sdk-go/example/calculatelabor"
 	"github.com/YunzhanghuOpen/sdk-go/example/custom"
+	"github.com/YunzhanghuOpen/sdk-go/example/customerlink"
 	"github.com/YunzhanghuOpen/sdk-go/example/dataservice"
 	"github.com/YunzhanghuOpen/sdk-go/example/h5usersign"
 	"github.com/YunzhanghuOpen/sdk-go/example/invoice"
@@ -32,4 +33,5 @@ func main() {
 	custom.Example()
 	usercollect.Example()
 	calculatelabor.Example()
+	customerlink.Example()
 }
