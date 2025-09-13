@@ -59,6 +59,7 @@ func CalcTaxExample(client api.CalculateLaborService) {
 		RealName: "张三",
 		IDCard:   "11010519491231002X",
 		Pay:      "99",
+		TaxType:  "before_tax",
 	}
 	resp, err := client.CalcTax(context.TODO(), req)
 	if err != nil {

@@ -120,6 +120,8 @@ type CalcTaxRequest struct {
 	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
+	// 测算类型
+	TaxType string `json:"tax_type,omitempty"`
 }
 
 // CalcTaxResponse 订单税费试算返回
@@ -132,6 +134,24 @@ type CalcTaxResponse struct {
 	AfterTaxAmount string `json:"after_tax_amount,omitempty"`
 	// 税费明细
 	TaxDetail *CalcTaxDetail `json:"tax_detail,omitempty"`
+	// 税前订单金额
+	BeforeTaxAmount string `json:"before_tax_amount,omitempty"`
+	// 用户税费总额
+	UserTax string `json:"user_tax,omitempty"`
+	// 平台企业税费总额
+	DealerTax string `json:"dealer_tax,omitempty"`
+	// 云账户税费总额
+	BrokerTax string `json:"broker_tax,omitempty"`
+	// 用户服务费
+	UserFee string `json:"user_fee,omitempty"`
+	// 结果
+	Status string `json:"status,omitempty"`
+	// 结果详细状态码
+	StatusDetail string `json:"status_detail,omitempty"`
+	// 结果说明
+	StatusMessage string `json:"status_message,omitempty"`
+	//结果详细状态码描述
+	StatusDetailMessage string `json:"status_detail_message,omitempty"`
 }
 
 // CalcTaxDetail 税费明细
@@ -142,4 +162,26 @@ type CalcTaxDetail struct {
 	ValueAddedTax string `json:"value_added_tax,omitempty"`
 	// 应纳附加税费
 	AdditionalTax string `json:"additional_tax,omitempty"`
+	// 用户预扣个税
+	UserPersonalTax string `json:"user_personal_tax,omitempty"`
+	// 平台企业预扣个税
+	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
+	// 云账户预扣个税
+	BrokerPersonalTax string `json:"broker_personal_tax,omitempty"`
+	// 用户预扣增值税
+	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
+	// 平台企业预扣增值税
+	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
+	// 云账户预扣增值税
+	BrokerValueAddedTax string `json:"broker_value_added_tax,omitempty"`
+	// 用户预扣附加税费
+	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
+	// 平台企业预扣附加税费
+	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
+	// 云账户预扣附加税费
+	BrokerAdditionalTax string `json:"broker_additional_tax,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
