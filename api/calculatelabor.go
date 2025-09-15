@@ -118,7 +118,7 @@ type CalcTaxRequest struct {
 	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号
 	IDCard string `json:"id_card,omitempty" mask:"id_card"`
-	// 订单金额
+	// 测算金额
 	Pay string `json:"pay,omitempty"`
 	// 测算类型
 	TaxType string `json:"tax_type,omitempty"`
@@ -126,13 +126,13 @@ type CalcTaxRequest struct {
 
 // CalcTaxResponse 订单税费试算返回
 type CalcTaxResponse struct {
-	// 订单金额
+	// 测算金额
 	Pay string `json:"pay,omitempty"`
 	// 税费总额
 	Tax string `json:"tax,omitempty"`
-	// 税后金额
+	// 税后结算金额
 	AfterTaxAmount string `json:"after_tax_amount,omitempty"`
-	// 税费明细
+	// 缴税明细
 	TaxDetail *CalcTaxDetail `json:"tax_detail,omitempty"`
 	// 税前订单金额
 	BeforeTaxAmount string `json:"before_tax_amount,omitempty"`
@@ -156,11 +156,11 @@ type CalcTaxResponse struct {
 
 // CalcTaxDetail 税费明细
 type CalcTaxDetail struct {
-	// 应纳个税
+	// 预扣个税
 	PersonalTax string `json:"personal_tax,omitempty"`
-	// 应纳增值税
+	// 预扣增值税
 	ValueAddedTax string `json:"value_added_tax,omitempty"`
-	// 应纳附加税费
+	// 预扣附加税费
 	AdditionalTax string `json:"additional_tax,omitempty"`
 	// 用户预扣个税
 	UserPersonalTax string `json:"user_personal_tax,omitempty"`
