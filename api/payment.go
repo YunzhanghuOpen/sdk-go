@@ -414,6 +414,18 @@ type GetOrderResponse struct {
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -598,6 +610,20 @@ type NotifyOrderData struct {
 	ProjectID string `json:"project_id,omitempty"`
 	// 平台企业用户 ID
 	UserID string `json:"user_id,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -979,6 +1005,14 @@ type GetOrderLxlwResponse struct {
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // TaxDetail 缴税明细

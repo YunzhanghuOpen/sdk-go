@@ -25,9 +25,9 @@ func CreateBankpayOrderExample(client api.Payment) {
 		PayRemark:          "银行卡支付",
 		NotifyURL:          "https://www.example.com",
 		Pay:                "99.99",
-		DealerPlatformName: "",
-		DealerUserNickname: "",
-		DealerUserID:       "",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateBankpayOrder(context.TODO(), req)
 	if err != nil {
@@ -66,9 +66,9 @@ func CreateAlipayOrderExample(client api.Payment) {
 		PayRemark:          "支付宝支付",
 		NotifyURL:          "https://www.example.com",
 		Pay:                "99.99",
-		DealerPlatformName: "",
-		DealerUserNickname: "",
-		DealerUserID:       "",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateAlipayOrder(context.TODO(), req)
 	if err != nil {
@@ -107,9 +107,9 @@ func CreateWxpayOrderExample(client api.Payment) {
 		PayRemark:          "微信支付",
 		NotifyURL:          "https://www.example.com",
 		Pay:                "99.99",
-		DealerPlatformName: "",
-		DealerUserNickname: "",
-		DealerUserID:       "",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateWxpayOrder(context.TODO(), req)
 	if err != nil {
