@@ -15,16 +15,19 @@ import (
 // CreateBankpayOrderExample 创建银行卡支付订单示例
 func CreateBankpayOrderExample(client api.Payment) {
 	req := &api.CreateBankpayOrderRequest{
-		BrokerID:  base.BrokerID,
-		DealerID:  base.DealerID,
-		OrderID:   time.Now().Format("20050102150405"),
-		RealName:  "张三",
-		IDCard:    "11010519491231002X",
-		CardNo:    "6228888888888888888",
-		PhoneNo:   "188****8888",
-		PayRemark: "银行卡支付",
-		NotifyURL: "https://www.example.com",
-		Pay:       "99.99",
+		BrokerID:           base.BrokerID,
+		DealerID:           base.DealerID,
+		OrderID:            time.Now().Format("20050102150405"),
+		RealName:           "张三",
+		IDCard:             "11010519491231002X",
+		CardNo:             "6228888888888888888",
+		PhoneNo:            "188****8888",
+		PayRemark:          "银行卡支付",
+		NotifyURL:          "https://www.example.com",
+		Pay:                "99.99",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateBankpayOrder(context.TODO(), req)
 	if err != nil {
@@ -53,16 +56,19 @@ func CreateBankpayOrderExample(client api.Payment) {
 // CreateAlipayOrderExample 创建支付宝支付订单示例
 func CreateAlipayOrderExample(client api.Payment) {
 	req := &api.CreateAlipayOrderRequest{
-		BrokerID:  base.BrokerID,
-		DealerID:  base.DealerID,
-		OrderID:   time.Now().Format("20050102150405"),
-		RealName:  "张三",
-		IDCard:    "11010519491231002X",
-		CardNo:    "188****8888",
-		PhoneNo:   "188****8888",
-		PayRemark: "支付宝支付",
-		NotifyURL: "https://www.example.com",
-		Pay:       "99.99",
+		BrokerID:           base.BrokerID,
+		DealerID:           base.DealerID,
+		OrderID:            time.Now().Format("20050102150405"),
+		RealName:           "张三",
+		IDCard:             "11010519491231002X",
+		CardNo:             "188****8888",
+		PhoneNo:            "188****8888",
+		PayRemark:          "支付宝支付",
+		NotifyURL:          "https://www.example.com",
+		Pay:                "99.99",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateAlipayOrder(context.TODO(), req)
 	if err != nil {
@@ -91,16 +97,19 @@ func CreateAlipayOrderExample(client api.Payment) {
 // CreateWxpayOrderExample 创建微信支付订单示例
 func CreateWxpayOrderExample(client api.Payment) {
 	req := &api.CreateWxpayOrderRequest{
-		BrokerID:  base.BrokerID,
-		DealerID:  base.DealerID,
-		OrderID:   time.Now().Format("20050102150405"),
-		RealName:  "张三",
-		IDCard:    "11010519491231002X",
-		Openid:    "o4GgauInH_RCEdvrrNGrntXDuXXX",
-		PhoneNo:   "188****8888",
-		PayRemark: "微信支付",
-		NotifyURL: "https://www.example.com",
-		Pay:       "99.99",
+		BrokerID:           base.BrokerID,
+		DealerID:           base.DealerID,
+		OrderID:            time.Now().Format("20050102150405"),
+		RealName:           "张三",
+		IDCard:             "11010519491231002X",
+		Openid:             "o4GgauInH_RCEdvrrNGrntXDuXXX",
+		PhoneNo:            "188****8888",
+		PayRemark:          "微信支付",
+		NotifyURL:          "https://www.example.com",
+		Pay:                "99.99",
+		DealerPlatformName: "互联网平台名称test",
+		DealerUserNickname: "usernickname",
+		DealerUserID:       "userId1234567890",
 	}
 	resp, err := client.CreateWxpayOrder(context.TODO(), req)
 	if err != nil {
