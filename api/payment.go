@@ -220,8 +220,14 @@ type CreateBankpayOrderRequest struct {
 	PayRemark string `json:"pay_remark,omitempty"`
 	// 回调地址
 	NotifyURL string `json:"notify_url,omitempty"`
-	// 项目标识
+	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // CreateBankpayOrderResponse 银行卡实时支付返回
@@ -256,10 +262,16 @@ type CreateAlipayOrderRequest struct {
 	PayRemark string `json:"pay_remark,omitempty"`
 	// 回调地址
 	NotifyURL string `json:"notify_url,omitempty"`
-	// 项目标识
+	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
 	// 校验支付宝账户姓名，固定值：Check
 	CheckName string `json:"check_name,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // CreateAlipayOrderResponse 支付宝实时支付返回
@@ -298,10 +310,16 @@ type CreateWxpayOrderRequest struct {
 	WxAppID string `json:"wx_app_id,omitempty"`
 	// 微信支付模式，固定值：transfer
 	WxpayMode string `json:"wxpay_mode,omitempty"`
-	// 项目标识
+	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
 	// 描述信息，该字段已废弃
 	Notes string `json:"notes,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // CreateWxpayOrderResponse 微信实时支付返回
@@ -396,6 +414,18 @@ type GetOrderResponse struct {
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -580,6 +610,20 @@ type NotifyOrderData struct {
 	ProjectID string `json:"project_id,omitempty"`
 	// 平台企业用户 ID
 	UserID string `json:"user_id,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -683,7 +727,7 @@ type BatchOrderInfo struct {
 	Openid string `json:"openid,omitempty"`
 	// 手机号
 	PhoneNo string `json:"phone_no,omitempty"`
-	// 项目标识
+	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
@@ -691,6 +735,12 @@ type BatchOrderInfo struct {
 	PayRemark string `json:"pay_remark,omitempty"`
 	// 回调地址
 	NotifyURL string `json:"notify_url,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // CreateBatchOrderResponse 批次下单返回
@@ -955,22 +1005,54 @@ type GetOrderLxlwResponse struct {
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
 }
 
 // TaxDetail 缴税明细
 type TaxDetail struct {
-	// 应纳个税
+	// 预扣个税
 	PersonalTax string `json:"personal_tax,omitempty"`
-	// 应纳增值税
+	// 预扣增值税
 	ValueAddedTax string `json:"value_added_tax,omitempty"`
-	// 应纳附加税费
+	// 预扣附加税费
 	AdditionalTax string `json:"additional_tax,omitempty"`
-	// 实纳个税
+	// 实缴个税
 	ReceivedPersonalTax string `json:"received_personal_tax,omitempty"`
-	// 实纳增值税
+	// 实缴增值税
 	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
-	// 实纳附加税费
+	// 实缴附加税费
 	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
+	// 用户预扣个税
+	UserPersonalTax string `json:"user_personal_tax,omitempty"`
+	// 平台企业预扣个税
+	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
+	// 用户预扣增值税
+	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
+	// 平台企业预扣增值税
+	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
+	// 用户预扣附加税费
+	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
+	// 平台企业预扣附加税费
+	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
+	// 用户实缴个税
+	UserReceivedPersonalTax string `json:"user_received_personal_tax,omitempty"`
+	// 平台企业实缴个税
+	DealerReceivedPersonalTax string `json:"dealer_received_personal_tax,omitempty"`
+	// 用户实缴增值税
+	UserReceivedValueAddedTax string `json:"user_received_value_added_tax,omitempty"`
+	// 平台企业实缴增值税
+	DealerReceivedValueAddedTax string `json:"dealer_received_value_added_tax,omitempty"`
+	// 用户实缴附加税费
+	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
+	// 平台企业实缴附加税费
+	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
 }
 
 // NotifyOrderLxlwRequest 劳务模式订单支付状态回调通知
@@ -1049,4 +1131,14 @@ type NotifyOrderLxlwData struct {
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 }
