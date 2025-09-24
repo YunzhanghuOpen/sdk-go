@@ -366,7 +366,7 @@ type GetOrderResponse struct {
 	StatusDetail string `json:"status_detail,omitempty"`
 	// 订单状态码描述
 	StatusMessage string `json:"status_message,omitempty"`
-	// 订单详细状态码描述
+	// 订单详情状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
 	// 订单状态补充信息
 	SupplementalDetailMessage string `json:"supplemental_detail_message,omitempty"`
@@ -402,7 +402,7 @@ type GetOrderResponse struct {
 	PayRemark string `json:"pay_remark,omitempty"`
 	// 银行名称
 	BankName string `json:"bank_name,omitempty"`
-	// 项目标识
+	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
 	// 新就业形态劳动者 ID，该字段已废弃
 	AnchorID string `json:"anchor_id,omitempty"`
@@ -426,6 +426,10 @@ type GetOrderResponse struct {
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
 	// 用户唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 用户实收金额（追缴前）
+	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
+	// 已追缴增附税（本笔订单）
+	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -536,7 +540,7 @@ type GetEleReceiptFileResponse struct {
 	URL string `json:"url,omitempty"`
 }
 
-// NotifyOrderRequest 订单支付状态回调通知V2
+// NotifyOrderRequestV2 订单支付状态回调通知V2
 type NotifyOrderRequestV2 struct {
 	// 通知 ID
 	NotifyID string `json:"notify_id,omitempty"`
@@ -624,6 +628,10 @@ type NotifyOrderData struct {
 	Tax string `json:"tax,omitempty"`
 	// 实缴税费总额
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 用户实收金额（追缴前）
+	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
+	// 已追缴增附税（本笔订单）
+	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -883,6 +891,16 @@ type QueryBatchOrderInfo struct {
 	BankName string `json:"bank_name,omitempty"`
 	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
+	// 互联网平台名称
+	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
+	// 用户名称/昵称
+	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
+	// 用户唯一标识码
+	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // CancelBatchOrderRequest 批次撤销请求
@@ -1013,6 +1031,10 @@ type GetOrderLxlwResponse struct {
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
 	// 用户唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 用户实收金额（追缴前）
+	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
+	// 已追缴增附税（本笔订单）
+	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 }
 
 // TaxDetail 缴税明细
@@ -1053,6 +1075,10 @@ type TaxDetail struct {
 	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
 	// 平台企业实缴附加税费
 	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // NotifyOrderLxlwRequest 劳务模式订单支付状态回调通知
@@ -1141,4 +1167,8 @@ type NotifyOrderLxlwData struct {
 	Tax string `json:"tax,omitempty"`
 	// 实缴税费总额
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 用户实收金额（追缴前）
+	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
+	// 已追缴增附税（本笔订单）
+	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 }
