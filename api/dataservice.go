@@ -266,6 +266,12 @@ type DealerOrderInfo struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// 完成时间
 	FinishedTime string `json:"finished_time,omitempty"`
+	// 预扣税费总额
+	TaxAmount string `json:"tax_amount,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *OrderTaxDetail `json:"tax_detail,omitempty"`
 }
 
 // ListDailyOrderV2Request 查询日订单数据（支付和退款订单）请求
@@ -342,6 +348,12 @@ type DealerOrderInfoV2 struct {
 	RefundType string `json:"refund_type,omitempty"`
 	// 原支付流水号
 	PayRef string `json:"pay_ref,omitempty"`
+	// 预扣税费总额
+	TaxAmount string `json:"tax_amount,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 缴税明细
+	TaxDetail *OrderTaxDetail `json:"tax_detail,omitempty"`
 }
 
 // ListDailyBillRequest 查询日流水数据请求
@@ -458,6 +470,8 @@ type StatementDetail struct {
 	ProjectID string `json:"project_id,omitempty"`
 	// 项目名称
 	ProjectName string `json:"project_name,omitempty"`
+	// 实纳税费金额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 }
 
 // ListDailyOrderSummaryRequest 查询日订单汇总数据请求
@@ -502,7 +516,7 @@ type DailyOrderSummary struct {
 	Pay string `json:"pay,omitempty"`
 	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 应收余额账户支出加成服务费
+	// 应收余额账户支出加成服务费金额
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
@@ -516,6 +530,46 @@ type DailyOrderSummary struct {
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
 	// 实收用户加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 预扣个税
+	PersonalTax string `json:"personal_tax,omitempty"`
+	// 预扣增值税
+	ValueAddedTax string `json:"value_added_tax,omitempty"`
+	// 预扣附加税费
+	AdditionalTax string `json:"additional_tax,omitempty"`
+	// 实缴个税
+	ReceivedPersonalTax string `json:"received_personal_tax,omitempty"`
+	// 实缴增值税
+	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
+	// 实缴附加税费
+	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
+	// 用户预扣个税
+	UserPersonalTax string `json:"user_personal_tax,omitempty"`
+	// 平台企业预扣个税
+	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
+	// 用户预扣增值税
+	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
+	// 平台企业预扣增值税
+	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
+	// 用户预扣附加税费
+	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
+	// 平台企业预扣附加税费
+	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
+	// 用户实缴个税
+	UserReceivedPersonalTax string `json:"user_received_personal_tax,omitempty"`
+	// 平台企业实缴个税
+	DealerReceivedPersonalTax string `json:"dealer_received_personal_tax,omitempty"`
+	// 用户实缴增值税
+	UserReceivedValueAddedTax string `json:"user_received_value_added_tax,omitempty"`
+	// 平台企业实缴增值税
+	DealerReceivedValueAddedTax string `json:"dealer_received_value_added_tax,omitempty"`
+	// 用户实缴附加税费
+	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
+	// 平台企业实缴附加税费
+	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
 }
 
 // ListMonthlyOrderSummaryRequest 查询月订单汇总数据请求
@@ -556,7 +610,7 @@ type MonthlyOrderSummary struct {
 	Pay string `json:"pay,omitempty"`
 	// 应收综合服务主体加成服务费金额
 	BrokerFee string `json:"broker_fee,omitempty"`
-	// 应收余额账户支出加成服务费
+	// 应收余额账户支出加成服务费金额
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerRebateFee string `json:"broker_rebate_fee,omitempty"`
@@ -570,4 +624,84 @@ type MonthlyOrderSummary struct {
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
 	// 实收用户加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 预扣个税
+	PersonalTax string `json:"personal_tax,omitempty"`
+	// 预扣增值税
+	ValueAddedTax string `json:"value_added_tax,omitempty"`
+	// 预扣附加税费
+	AdditionalTax string `json:"additional_tax,omitempty"`
+	// 实缴个税
+	ReceivedPersonalTax string `json:"received_personal_tax,omitempty"`
+	// 实缴增值税
+	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
+	// 实缴附加税费
+	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
+	// 用户预扣个税
+	UserPersonalTax string `json:"user_personal_tax,omitempty"`
+	// 平台企业预扣个税
+	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
+	// 用户预扣增值税
+	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
+	// 平台企业预扣增值税
+	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
+	// 用户预扣附加税费
+	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
+	// 平台企业预扣附加税费
+	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
+	// 用户实缴个税
+	UserReceivedPersonalTax string `json:"user_received_personal_tax,omitempty"`
+	// 平台企业实缴个税
+	DealerReceivedPersonalTax string `json:"dealer_received_personal_tax,omitempty"`
+	// 用户实缴增值税
+	UserReceivedValueAddedTax string `json:"user_received_value_added_tax,omitempty"`
+	// 平台企业实缴增值税
+	DealerReceivedValueAddedTax string `json:"dealer_received_value_added_tax,omitempty"`
+	// 用户实缴附加税费
+	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
+	// 平台企业实缴附加税费
+	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
+}
+
+// OrderTaxDetail 缴税明细
+type OrderTaxDetail struct {
+	// 预扣个税
+	PersonalTax string `json:"personal_tax,omitempty"`
+	// 预扣增值税
+	ValueAddedTax string `json:"value_added_tax,omitempty"`
+	// 预扣附加税费
+	AdditionalTax string `json:"additional_tax,omitempty"`
+	// 实缴个税
+	ReceivedPersonalTax string `json:"received_personal_tax,omitempty"`
+	// 实缴增值税
+	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
+	// 实缴附加税费
+	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
+	// 用户预扣个税
+	UserPersonalTax string `json:"user_personal_tax,omitempty"`
+	// 平台企业预扣个税
+	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
+	// 用户预扣增值税
+	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
+	// 平台企业预扣增值税
+	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
+	// 用户预扣附加税费
+	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
+	// 平台企业预扣附加税费
+	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
+	// 用户实缴个税
+	UserReceivedPersonalTax string `json:"user_received_personal_tax,omitempty"`
+	// 平台企业实缴个税
+	DealerReceivedPersonalTax string `json:"dealer_received_personal_tax,omitempty"`
+	// 用户实缴增值税
+	UserReceivedValueAddedTax string `json:"user_received_value_added_tax,omitempty"`
+	// 平台企业实缴增值税
+	DealerReceivedValueAddedTax string `json:"dealer_received_value_added_tax,omitempty"`
+	// 用户实缴附加税费
+	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
+	// 平台企业实缴附加税费
+	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
 }

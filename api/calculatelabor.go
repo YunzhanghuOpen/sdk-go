@@ -10,6 +10,10 @@ type CalculateLaborService interface {
 	LaborCaculator(context.Context, *LaborCaculatorRequest) (*LaborCaculatorResponse, error)
 	// CalcTax 订单税费试算
 	CalcTax(context.Context, *CalcTaxRequest) (*CalcTaxResponse, error)
+	// CalculationYearH5Url 连续劳务年度税费测算-H5
+	CalculationYearH5Url(context.Context, *CalculationYearH5UrlRequest) (*CalculationYearH5UrlResponse, error)
+	// CalculationH5Url 连续劳务单笔结算税费测算-H5
+	CalculationH5Url(context.Context, *CalculationH5UrlRequest) (*CalculationH5UrlResponse, error)
 }
 
 // calculateLaborServiceImpl CalculateLaborService 接口实现
@@ -36,6 +40,26 @@ func (c *calculateLaborServiceImpl) LaborCaculator(ctx context.Context, in *Labo
 func (c *calculateLaborServiceImpl) CalcTax(ctx context.Context, in *CalcTaxRequest) (*CalcTaxResponse, error) {
 	out := new(CalcTaxResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/calc-tax", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CalculationYearH5Url 连续劳务年度税费测算-H5
+func (c *calculateLaborServiceImpl) CalculationYearH5Url(ctx context.Context, in *CalculationYearH5UrlRequest) (*CalculationYearH5UrlResponse, error) {
+	out := new(CalculationYearH5UrlResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/labor/service/calculation/year/h5url", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CalculationH5Url 连续劳务单笔结算税费测算-H5
+func (c *calculateLaborServiceImpl) CalculationH5Url(ctx context.Context, in *CalculationH5UrlRequest) (*CalculationH5UrlResponse, error) {
+	out := new(CalculationH5UrlResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/labor/service/calculation/h5url", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -150,8 +174,16 @@ type CalcTaxResponse struct {
 	StatusDetail string `json:"status_detail,omitempty"`
 	// 结果说明
 	StatusMessage string `json:"status_message,omitempty"`
-	//结果详细状态码描述
+	// 结果详细状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
+	// 用户实收金额（未扣除追缴的增附税）
+	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
+	// 用户还未缴清的增附税
+	UserRemainingRepaymentAmount string `json:"user_remaining_repayment_amount,omitempty"`
+	// 已追缴增附税（本笔订单）
+	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 待追缴增附税总金额
+	UserTotalRecoverTaxAmount string `json:"user_total_recover_tax_amount,omitempty"`
 }
 
 // CalcTaxDetail 税费明细
@@ -184,4 +216,40 @@ type CalcTaxDetail struct {
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+}
+
+// CalculationYearH5UrlRequest 连续劳务年度税费测算-H5 请求
+type CalculationYearH5UrlRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 主题颜色
+	Color string `json:"color,omitempty"`
+}
+
+// CalculationYearH5UrlResponse 连续劳务年度税费测算-H5 返回
+type CalculationYearH5UrlResponse struct {
+	// 年度劳务测算 H5 页面 URL
+	URL string `json:"url,omitempty"`
+}
+
+// CalculationH5UrlRequest 连续劳务单笔结算税费测算-H5 请求
+type CalculationH5UrlRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
+	// 证件号
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
+	// 主题颜色
+	Color string `json:"color,omitempty"`
+}
+
+// CalculationH5UrlResponse 连续劳务单笔结算税费测算-H5 返回
+type CalculationH5UrlResponse struct {
+	// 连续劳务单笔结算税费测算 H5 页面 URL
+	URL string `json:"url,omitempty"`
 }

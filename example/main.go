@@ -14,6 +14,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/h5usersign"
 	"github.com/YunzhanghuOpen/sdk-go/example/invoice"
 	"github.com/YunzhanghuOpen/sdk-go/example/payment"
+	"github.com/YunzhanghuOpen/sdk-go/example/realname"
 	"github.com/YunzhanghuOpen/sdk-go/example/tax"
 	"github.com/YunzhanghuOpen/sdk-go/example/usercollect"
 )
@@ -34,4 +35,5 @@ func main() {
 	usercollect.Example()
 	calculatelabor.Example()
 	customerlink.Example()
+	realname.Example()
 }
