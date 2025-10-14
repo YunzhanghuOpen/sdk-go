@@ -410,7 +410,7 @@ type GetOrderResponse struct {
 	Notes string `json:"notes,omitempty"`
 	// 系统支付金额，该字段已废弃
 	SysAmount string `json:"sys_amount,omitempty"`
-	// 税费，该字段已废弃
+	// 预扣税费总额
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
@@ -430,6 +430,10 @@ type GetOrderResponse struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 已追缴增附税（本笔订单）
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -632,6 +636,10 @@ type NotifyOrderData struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 已追缴增附税（本笔订单）
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -901,6 +909,14 @@ type QueryBatchOrderInfo struct {
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 实缴税费总额
+	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
+	// 用户实收金额
+	UserRealAmount string `json:"user_real_amount,omitempty"`
+	// 预扣税费总额
+	Tax string `json:"tax,omitempty"`
+	// 缴税明细
+	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
 }
 
 // CancelBatchOrderRequest 批次撤销请求
@@ -1015,7 +1031,7 @@ type GetOrderLxlwResponse struct {
 	Notes string `json:"notes,omitempty"`
 	// 系统支付金额，该字段已废弃
 	SysAmount string `json:"sys_amount,omitempty"`
-	// 税费，该字段已废弃
+	// 预扣税费总额
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
@@ -1035,6 +1051,10 @@ type GetOrderLxlwResponse struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 已追缴增附税（本笔订单）
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // TaxDetail 缴税明细
@@ -1075,10 +1095,6 @@ type TaxDetail struct {
 	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
 	// 平台企业实缴附加税费
 	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
-	// 预扣个税税率
-	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
-	// 预扣个税速算扣除数
-	DeductTax string `json:"deduct_tax,omitempty"`
 }
 
 // NotifyOrderLxlwRequest 劳务模式订单支付状态回调通知
@@ -1171,4 +1187,8 @@ type NotifyOrderLxlwData struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 已追缴增附税（本笔订单）
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 预扣个税税率
+	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
+	// 预扣个税速算扣除数
+	DeductTax string `json:"deduct_tax,omitempty"`
 }
