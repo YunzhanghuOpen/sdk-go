@@ -226,6 +226,10 @@ type CalculationYearH5UrlRequest struct {
 	BrokerID string `json:"broker_id,omitempty"`
 	// 主题颜色
 	Color string `json:"color,omitempty"`
+	// 是否隐藏导航栏 0：展示导航栏（默认） 1：隐藏导航栏
+	NavbarHide int32 `json:"navbar_hide,omitempty"`
+	// 页面标题
+	Title string `json:"title,omitempty"`
 }
 
 // CalculationYearH5UrlResponse 连续劳务年度税费测算-H5 返回
@@ -246,6 +250,10 @@ type CalculationH5UrlRequest struct {
 	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 主题颜色
 	Color string `json:"color,omitempty"`
+	// 是否隐藏导航栏 0：展示导航栏（默认） 1：隐藏导航栏
+	NavbarHide int32 `json:"navbar_hide,omitempty"`
+	// 页面标题
+	Title string `json:"title,omitempty"`
 }
 
 // CalculationH5UrlResponse 连续劳务单笔结算税费测算-H5 返回
