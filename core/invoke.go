@@ -61,8 +61,8 @@ func (o *Core) doForEncryptResp(ctx context.Context, method string, urlStr strin
 		return err
 	}
 
-	if r.Code != errorx.OK {
-		return errorx.New(r.Code, r.Message)
+	if r.Code != errorx.OK && r.Data == "" {
+		return errorx.New(r.Code, r.Message, "")
 	}
 
 	b, err = o.encoder.Decode([]byte(r.Data))
@@ -75,6 +75,10 @@ func (o *Core) doForEncryptResp(ctx context.Context, method string, urlStr strin
 	if err != nil {
 		o.logger.Logf(ctx, "json.Unmarshal failed, err=%v, body=%s", err, string(b))
 		return err
+	}
+
+	if r.Code != errorx.OK {
+		return errorx.New(r.Code, r.Message, resp)
 	}
 	return nil
 }
@@ -101,11 +105,11 @@ func (o *Core) do(ctx context.Context, method string, urlStr string, req interfa
 		return err
 	}
 
-	if r.Code != errorx.OK {
-		return errorx.New(r.Code, r.Message)
+	if r.Code != errorx.OK && len(r.Data) == 0 {
+		return errorx.New(r.Code, r.Message, nil)
 	}
 
-	if len(r.Data) == 0 {
+	if r.Code == errorx.OK && len(r.Data) == 0 {
 		// 返回可能没有 data 字段
 		return nil
 	}
@@ -114,6 +118,9 @@ func (o *Core) do(ctx context.Context, method string, urlStr string, req interfa
 	if err != nil {
 		o.logger.Logf(ctx, "json.Unmarshal failed, err=%v, data=%s", err, string(r.Data))
 		return err
+	}
+	if r.Code != errorx.OK {
+		return errorx.New(r.Code, r.Message, resp)
 	}
 	return nil
 }

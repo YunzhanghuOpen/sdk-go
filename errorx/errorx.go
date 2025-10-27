@@ -10,6 +10,7 @@ const (
 type Error struct {
 	Code    string
 	Message string
+	Data    interface{}
 }
 
 // Error 实现error接口
@@ -18,10 +19,11 @@ func (e *Error) Error() string {
 }
 
 // New 新建Err
-func New(code, msg string) error {
+func New(code, msg string, data interface{}) error {
 	return &Error{
 		Code:    code,
 		Message: msg,
+		Data:    data,
 	}
 }
 
