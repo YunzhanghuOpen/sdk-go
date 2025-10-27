@@ -321,13 +321,17 @@ func CreateBatchOrderExample(client api.Payment) {
 			return
 		}
 		// 失败返回
-		fmt.Println(e.Code, e.Message)
+		errorData, err := json.Marshal(e.Data)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(e.Code, e.Message, string(errorData))
 		if e.Code == "2001" {
 			// 批次号重复
 			// 检查是否已上传过该批次号
 		} else {
 			// 其它错误码详见接口文档附录中响应码列表
-			fmt.Println(e.Code, e.Message)
+			fmt.Println(e.Code, e.Message, e.Data)
 		}
 		return
 	}

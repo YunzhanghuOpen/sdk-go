@@ -87,9 +87,11 @@ func CalcTaxExample(client api.CalculateLaborService) {
 // CalculationYearH5Url 连续劳务年度税费测算-H5
 func CalculationYearH5UrlExample(client api.CalculateLaborService) {
 	req := &api.CalculationYearH5UrlRequest{
-		DealerID: base.DealerID,
-		BrokerID: base.BrokerID,
-		Color:    "#FF3D3D",
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		Color:      "#FF3D3D",
+		NavbarHide: 0,
+		Title:      "云账户",
 	}
 	resp, err := client.CalculationYearH5Url(context.TODO(), req)
 	if err != nil {
@@ -117,11 +119,13 @@ func CalculationYearH5UrlExample(client api.CalculateLaborService) {
 // CalculationH5Url 连续劳务单笔结算税费测算-H5
 func CalculationH5UrlExample(client api.CalculateLaborService) {
 	req := &api.CalculationH5UrlRequest{
-		DealerID: base.DealerID,
-		BrokerID: base.BrokerID,
-		RealName: "张三",
-		IDCard:   "11010519491231002X",
-		Color:    "#FF3D3D",
+		DealerID:   base.DealerID,
+		BrokerID:   base.BrokerID,
+		RealName:   "张三",
+		IDCard:     "11010519491231002X",
+		Color:      "#FF3D3D",
+		NavbarHide: 0,
+		Title:      "云账户",
 	}
 	resp, err := client.CalculationH5Url(context.TODO(), req)
 	if err != nil {

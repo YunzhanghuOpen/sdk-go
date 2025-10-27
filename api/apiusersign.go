@@ -38,7 +38,7 @@ func (c *apiUserSignServiceImpl) ApiUseSignContract(ctx context.Context, in *Api
 	return out, nil
 }
 
-// ApiUserSignContract 获取协议预览 URL v2
+// ApiUserSignContract 获取协议预览 URL V2
 func (c *apiUserSignServiceImpl) ApiUserSignContract(ctx context.Context, in *ApiUserSignContractRequest) (*ApiUserSignContractResponse, error) {
 	out := new(ApiUserSignContractResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/sign/v1/user/contract", false, in, out)
@@ -120,7 +120,7 @@ type ApiUserSignRequest struct {
 	RealName string `json:"real_name,omitempty"`
 	// 证件号码
 	IDCard string `json:"id_card,omitempty"`
-	// 证件类型 idcard：身份证 passport：护照 mtphkm：港澳居民来往内地通行证  mtpt：台湾居民往来大陆通行证 rphkm：中华人民共和国港澳居民居住证 rpt：中华人民共和国台湾居民居住证 fpr：外国人永久居留身份证 ffwp：中华人民共和国外国人就业许可证书
+	// 证件类型 idcard：身份证 passport：护照 mtphkm：港澳居民来往内地通行证 mtpt：台湾居民来往大陆通行证（台胞证） rphkm：中华人民共和国港澳居民居住证 rpt：中华人民共和国台湾居民居住证 fpr：外国人永久居留身份证（外国人永久居留证） fwpa：中华人民共和国外国人工作许可证（A类） fwpb：中华人民共和国外国人工作许可证（B类） fwpc：中华人民共和国外国人工作许可证（C类） mtphkmnc：港澳居民来往内地通行证（非中国国籍）
 	CardType string `json:"card_type,omitempty"`
 }
 
@@ -160,7 +160,7 @@ type ApiUserSignReleaseRequest struct {
 	RealName string `json:"real_name,omitempty"`
 	// 证件号码
 	IDCard string `json:"id_card,omitempty"`
-	// 证件类型 idcard：身份证 passport：护照 mtphkm：港澳居民来往内地通行证  mtpt：台湾居民往来大陆通行证 rphkm：中华人民共和国港澳居民居住证 rpt：中华人民共和国台湾居民居住证 fpr：外国人永久居留身份证 ffwp：中华人民共和国外国人就业许可证书
+	// 证件类型 idcard：身份证 passport：护照 mtphkm：港澳居民来往内地通行证 mtpt：台湾居民来往大陆通行证（台胞证） rphkm：中华人民共和国港澳居民居住证 rpt：中华人民共和国台湾居民居住证 fpr：外国人永久居留身份证（外国人永久居留证） fwpa：中华人民共和国外国人工作许可证（A类） fwpb：中华人民共和国外国人工作许可证（B类） fwpc：中华人民共和国外国人工作许可证（C类） mtphkmnc：港澳居民来往内地通行证（非中国国籍）
 	CardType string `json:"card_type,omitempty"`
 }
 
