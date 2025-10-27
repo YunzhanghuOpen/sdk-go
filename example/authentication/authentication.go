@@ -173,6 +173,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 		Gender:       "男",
 		NotifyURL:    "https://www.example.com",
 		Ref:          "1234qwer",
+		ResidentType: "1",
 	}
 	resp, err := client.UserExemptedInfo(context.TODO(), req)
 	if err != nil {
