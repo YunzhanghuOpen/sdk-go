@@ -1095,6 +1095,12 @@ type TaxDetail struct {
 	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
 	// 平台企业实缴附加税费
 	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
+	// 预扣城建附加税
+	AdditionalUrbanTax string `json:"additional_urban_tax,omitempty"`
+	// 预扣教育附加税
+	AdditionalTuitionTax string `json:"additional_tuition_tax,omitempty"`
+	// 预扣地方教育附加税
+	AdditionalLocalTuitionTax string `json:"additional_local_tuition_tax,omitempty"`
 }
 
 // NotifyOrderLxlwRequest 劳务模式订单支付状态回调通知
