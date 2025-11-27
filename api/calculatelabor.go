@@ -216,6 +216,12 @@ type CalcTaxDetail struct {
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 预扣城建附加税
+	AdditionalUrbanTax string `json:"additional_urban_tax,omitempty"`
+	// 预扣教育附加税
+	AdditionalTuitionTax string `json:"additional_tuition_tax,omitempty"`
+	// 预扣地方教育附加税
+	AdditionalLocalTuitionTax string `json:"additional_local_tuition_tax,omitempty"`
 }
 
 // CalculationYearH5UrlRequest 连续劳务年度税费测算-H5 请求
