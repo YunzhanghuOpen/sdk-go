@@ -24,6 +24,7 @@ type Client struct {
 	UserCollectService     // 用户信息收集
 	CalculateLaborService  // 连续劳务税费试算
 	RealNameService        // 实名信息收集
+	TaxClearRefundService  // 连续劳务税费退补
 }
 
 // Config Client 配置
@@ -83,5 +84,6 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		UserCollectService:     NewUserCollectService(co),
 		CalculateLaborService:  NewCalculateLaborService(co),
 		RealNameService:        NewRealNameService(co),
+		TaxClearRefundService:  NewTaxClearRefundService(co),
 	}, nil
 }

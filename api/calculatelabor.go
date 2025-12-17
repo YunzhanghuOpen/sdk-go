@@ -146,6 +146,8 @@ type CalcTaxRequest struct {
 	Pay string `json:"pay,omitempty"`
 	// 测算类型
 	TaxType string `json:"tax_type,omitempty"`
+	// 税前订单金额返回值类型
+	BeforeTaxAmountType string `json:"before_tax_amount_type,omitempty"`
 }
 
 // CalcTaxResponse 订单税费试算返回
