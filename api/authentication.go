@@ -22,6 +22,8 @@ type Authentication interface {
 	UserWhiteCheck(context.Context, *UserWhiteCheckRequest) (*UserWhiteCheckResponse, error)
 	// GetBankCardInfo 银行卡信息查询接口
 	GetBankCardInfo(context.Context, *GetBankCardInfoRequest) (*GetBankCardInfoResponse, error)
+	// GetUserWhiteApproveInfo 非居民身份证验证名单审核结果查询
+	GetUserWhiteApproveInfo(context.Context, *GetUserWhiteApproveInfoRequest) (*GetUserWhiteApproveInfoResponse, error)
 }
 
 // authenticationImpl Authentication 接口实现
@@ -114,14 +116,24 @@ func (c *authenticationImpl) GetBankCardInfo(ctx context.Context, in *GetBankCar
 	return out, nil
 }
 
+// GetUserWhiteApproveInfo 非居民身份证验证名单审核结果查询
+func (c *authenticationImpl) GetUserWhiteApproveInfo(ctx context.Context, in *GetUserWhiteApproveInfoRequest) (*GetUserWhiteApproveInfoResponse, error) {
+	out := new(GetUserWhiteApproveInfoResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/user/white/approve", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BankCardFourAuthVerifyRequest 银行卡四要素鉴权请求（下发短信验证码）请求
 type BankCardFourAuthVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 银行预留手机号
 	Mobile string `json:"mobile,omitempty"`
 }
@@ -137,9 +149,9 @@ type BankCardFourAuthConfirmRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 银行预留手机号
 	Mobile string `json:"mobile,omitempty"`
 	// 短信验证码
@@ -157,9 +169,9 @@ type BankCardFourVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 银行预留手机号
 	Mobile string `json:"mobile,omitempty"`
 }
@@ -173,9 +185,9 @@ type BankCardThreeVerifyRequest struct {
 	// 银行卡号
 	CardNo string `json:"card_no,omitempty"`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 }
 
 // BankCardThreeVerifyResponse 银行卡三要素验证返回
@@ -185,9 +197,9 @@ type BankCardThreeVerifyResponse struct {
 // IDCardVerifyRequest 身份证实名验证请求
 type IDCardVerifyRequest struct {
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 }
 
 // IDCardVerifyResponse 身份证实名验证返回
@@ -199,9 +211,9 @@ type UserExemptedInfoRequest struct {
 	// 证件类型码
 	CardType string `json:"card_type,omitempty"`
 	// 证件号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 申请备注
 	CommentApply string `json:"comment_apply,omitempty"`
 	// 综合服务主体 ID
@@ -239,9 +251,9 @@ type NotifyUserExemptedInfoRequest struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 审核状态
 	Status string `json:"status,omitempty"`
 	// 流水号
@@ -253,9 +265,9 @@ type NotifyUserExemptedInfoRequest struct {
 // UserWhiteCheckRequest 查看用户是否在非居民身份证验证名单中请求
 type UserWhiteCheckRequest struct {
 	// 证件号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 }
 
 // UserWhiteCheckResponse 查看用户是否在非居民身份证验证名单中返回
@@ -281,4 +293,21 @@ type GetBankCardInfoResponse struct {
 	CardType string `json:"card_type,omitempty"`
 	// 云账户是否支持向该银行支付
 	IsSupport bool `json:"is_support,omitempty"`
+}
+
+// GetUserWhiteApproveInfoRequest 非居民身份证验证名单审核结果查询请求
+type GetUserWhiteApproveInfoRequest struct {
+	// 姓名
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
+	// 证件号码
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
+	// 证件类型编码
+	CardType string `json:"card_type,omitempty"`
+}
+
+type GetUserWhiteApproveInfoResponse struct {
+	// 审核状态 pass：通过 reviewing：审核中 reject：拒绝
+	Status string `json:"status,omitempty"`
+	// 审核信息
+	Comment string `json:"comment,omitempty"`
 }

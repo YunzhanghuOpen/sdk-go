@@ -16,6 +16,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/payment"
 	"github.com/YunzhanghuOpen/sdk-go/example/realname"
 	"github.com/YunzhanghuOpen/sdk-go/example/tax"
+	"github.com/YunzhanghuOpen/sdk-go/example/taxclearrefund"
 	"github.com/YunzhanghuOpen/sdk-go/example/usercollect"
 )
 
@@ -36,4 +37,5 @@ func main() {
 	calculatelabor.Example()
 	customerlink.Example()
 	realname.Example()
+	taxclearrefund.Example()
 }
