@@ -54,12 +54,13 @@ func LaborCaculatorExample(client api.CalculateLaborService) {
 // CalcTax 订单税费试算
 func CalcTaxExample(client api.CalculateLaborService) {
 	req := &api.CalcTaxRequest{
-		BrokerID: base.BrokerID,
-		DealerID: base.DealerID,
-		RealName: "张三",
-		IDCard:   "11010519491231002X",
-		Pay:      "99",
-		TaxType:  "before_tax",
+		BrokerID:            base.BrokerID,
+		DealerID:            base.DealerID,
+		RealName:            "张三",
+		IDCard:              "11010519491231002X",
+		Pay:                 "99",
+		TaxType:             "before_tax",
+		BeforeTaxAmountType: "max",
 	}
 	resp, err := client.CalcTax(context.TODO(), req)
 	if err != nil {
