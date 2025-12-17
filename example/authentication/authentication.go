@@ -213,6 +213,29 @@ func UserWhiteCheckExample(client api.Authentication) {
 	fmt.Println(resp)
 }
 
+// GetUserWhiteApproveInfoExample 非居民身份证验证名单审核结果查询
+func GetUserWhiteApproveInfoExample(client api.Authentication) {
+	req := &api.GetUserWhiteApproveInfoRequest{
+		RealName: "张三",
+		IDCard:   "EA3456789",
+		CardType: "passport",
+	}
+	resp, err := client.GetUserWhiteApproveInfo(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
@@ -225,6 +248,7 @@ func Example() {
 		IDCardVerifyExample,
 		UserExemptedInfoExample,
 		UserWhiteCheckExample,
+		GetUserWhiteApproveInfoExample,
 	} {
 		example(client)
 	}

@@ -18,6 +18,7 @@ func H5UserPresignExample(client api.H5UserSignService) {
 		IDCard:          "11010519491231002X",
 		CertificateType: 0,
 		CollectPhoneNo:  0,
+		PageOpenWay:     1,
 	}
 	resp, err := client.H5UserPresign(context.TODO(), req)
 	if err != nil {

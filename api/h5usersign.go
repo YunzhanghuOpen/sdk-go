@@ -80,6 +80,8 @@ type H5UserPresignRequest struct {
 	CertificateType int32 `json:"certificate_type,omitempty"`
 	// 是否收集手机号码 0：不收集（默认） 1：收集手机号码
 	CollectPhoneNo int32 `json:"collect_phone_no,omitempty"`
+	// 签约页面打开方式 1：微信小程序打开签约页面
+	PageOpenWay int32 `json:"page_open_way,omitempty"`
 }
 
 // H5UserPresignResponse 预申请签约返回
