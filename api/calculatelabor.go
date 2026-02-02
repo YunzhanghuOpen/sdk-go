@@ -148,6 +148,10 @@ type CalcTaxRequest struct {
 	TaxType string `json:"tax_type,omitempty"`
 	// 税前订单金额返回值类型
 	BeforeTaxAmountType string `json:"before_tax_amount_type,omitempty"`
+	// 将追缴税费纳入测算
+	IncludeRecoveryAmount int32 `json:"include_recovery_amount,omitempty"`
+	// 将劳动者服务费纳入测算
+	IncludeUserServiceFee int32 `json:"include_user_service_fee,omitempty"`
 }
 
 // CalcTaxResponse 订单税费试算返回
@@ -156,19 +160,19 @@ type CalcTaxResponse struct {
 	Pay string `json:"pay,omitempty"`
 	// 税费总额
 	Tax string `json:"tax,omitempty"`
-	// 税后结算金额
+	// 劳动者预估到手金额
 	AfterTaxAmount string `json:"after_tax_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *CalcTaxDetail `json:"tax_detail,omitempty"`
 	// 税前订单金额
 	BeforeTaxAmount string `json:"before_tax_amount,omitempty"`
-	// 用户税费总额
+	// 劳动者税费总额
 	UserTax string `json:"user_tax,omitempty"`
 	// 平台企业税费总额
 	DealerTax string `json:"dealer_tax,omitempty"`
 	// 云账户税费总额
 	BrokerTax string `json:"broker_tax,omitempty"`
-	// 用户服务费
+	// 劳动者服务费
 	UserFee string `json:"user_fee,omitempty"`
 	// 结果
 	Status string `json:"status,omitempty"`
@@ -178,14 +182,24 @@ type CalcTaxResponse struct {
 	StatusMessage string `json:"status_message,omitempty"`
 	// 结果详细状态码描述
 	StatusDetailMessage string `json:"status_detail_message,omitempty"`
-	// 用户实收金额（未扣除追缴的增附税）
+	// 劳动者预估应收金额（追缴退回前）
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
-	// 用户还未缴清的增附税
+	// 劳动者还未缴清的增附税
 	UserRemainingRepaymentAmount string `json:"user_remaining_repayment_amount,omitempty"`
-	// 已追缴增附税（本笔订单）
+	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 	// 待追缴增附税总金额
 	UserTotalRecoverTaxAmount string `json:"user_total_recover_tax_amount,omitempty"`
+	// 劳动者还未缴清的个税
+	UserRemainingRepaymentPersonalAmount string `json:"user_remaining_repayment_personal_amount,omitempty"`
+	// 追缴个税
+	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 待追缴个税总金额
+	UserTotalRecoverPersonalTaxAmount string `json:"user_total_recover_personal_tax_amount,omitempty"`
+	// 退回增附税
+	UserRefundTaxAmount string `json:"user_refund_tax_amount,omitempty"`
+	// 退回个税
+	UserRefundPersonalTaxAmount string `json:"user_refund_personal_tax_amount,omitempty"`
 }
 
 // CalcTaxDetail 税费明细
