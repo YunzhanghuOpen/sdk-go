@@ -478,6 +478,34 @@ func NotifyOrderLxlwExample() {
 	}))
 }
 
+// CancelOrderInBatchExample 取消批次中单笔订单
+func CancelOrderInBatchExample(client api.Payment) {
+	req := &api.CancelOrderInBatchRequest{
+		BrokerID: base.BrokerID,
+		DealerID: base.DealerID,
+		BatchID:  "batch2032934858483",
+		OrderID:  "order_id123456",
+	}
+	resp, err := client.CancelOrderInBatch(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
@@ -496,6 +524,7 @@ func Example() {
 		ConfirmBatchOrderExample,
 		QueryBatchOrderExample,
 		GetOrderLxlwExample,
+		CancelOrderInBatchExample,
 	} {
 		example(client)
 	}

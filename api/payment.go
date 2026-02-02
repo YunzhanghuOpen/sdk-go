@@ -36,6 +36,8 @@ type Payment interface {
 	CheckUserAmount(context.Context, *CheckUserAmountRequest) (*CheckUserAmountResponse, error)
 	// GetOrderLxlw 查询劳务模式单笔订单信息
 	GetOrderLxlw(context.Context, *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error)
+	// CancelOrderInBatch 取消批次中单笔订单
+	CancelOrderInBatch(context.Context, *CancelOrderInBatchRequest) (*CancelOrderInBatchResponse, error)
 }
 
 // paymentImpl Payment 接口实现
@@ -192,6 +194,16 @@ func (c *paymentImpl) CheckUserAmount(ctx context.Context, in *CheckUserAmountRe
 func (c *paymentImpl) GetOrderLxlw(ctx context.Context, in *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error) {
 	out := new(GetOrderLxlwResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-order", in.DataType == "encryption", in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CancelOrderInBatch 取消批次中单笔订单
+func (c *paymentImpl) CancelOrderInBatch(ctx context.Context, in *CancelOrderInBatchRequest) (*CancelOrderInBatchResponse, error) {
+	out := new(CancelOrderInBatchResponse)
+	err := c.cc.Invoke(ctx, "POST", "/api/payment/v1/order-batch/cancel-order", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -388,7 +400,7 @@ type GetOrderResponse struct {
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
-	// 应收用户加成服务费金额
+	// 应收劳动者加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
 	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
@@ -396,7 +408,7 @@ type GetOrderResponse struct {
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费金额
+	// 实收劳动者加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -414,7 +426,7 @@ type GetOrderResponse struct {
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
-	// 用户实收金额
+	// 劳动者实收金额
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
@@ -422,18 +434,20 @@ type GetOrderResponse struct {
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 	// 互联网平台名称
 	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
-	// 用户名称/昵称
+	// 劳动者名称/昵称
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
-	// 用户唯一标识码
+	// 劳动者唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
-	// 用户实收金额（追缴前）
+	// 劳动者应收金额（追缴退回前）
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
-	// 已追缴增附税（本笔订单）
+	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 追缴个税
+	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -600,7 +614,7 @@ type NotifyOrderData struct {
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
-	// 应收用户加成服务费金额
+	// 应收劳动者加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
 	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
@@ -608,7 +622,7 @@ type NotifyOrderData struct {
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费金额
+	// 实收劳动者加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -616,30 +630,32 @@ type NotifyOrderData struct {
 	BankName string `json:"bank_name,omitempty"`
 	// 项目标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 平台企业用户 ID
+	// 平台企业劳动者 ID
 	UserID string `json:"user_id,omitempty"`
-	// 用户实收金额
+	// 劳动者实收金额
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
 	// 互联网平台名称
 	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
-	// 用户名称/昵称
+	// 劳动者名称/昵称
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
-	// 用户唯一标识码
+	// 劳动者唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
 	// 预扣税费总额
 	Tax string `json:"tax,omitempty"`
 	// 实缴税费总额
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
-	// 用户实收金额（追缴前）
+	// 劳动者应收金额（追缴退回前）
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
-	// 已追缴增附税（本笔订单）
+	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 追缴个税
+	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -1009,7 +1025,7 @@ type GetOrderLxlwResponse struct {
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
-	// 应收用户加成服务费金额
+	// 应收劳动者加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
 	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
@@ -1017,7 +1033,7 @@ type GetOrderLxlwResponse struct {
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费金额
+	// 实收劳动者加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -1035,7 +1051,7 @@ type GetOrderLxlwResponse struct {
 	Tax string `json:"tax,omitempty"`
 	// 系统支付费用，该字段已废弃
 	SysFee string `json:"sys_fee,omitempty"`
-	// 用户实收金额
+	// 劳动者实收金额
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
@@ -1043,18 +1059,20 @@ type GetOrderLxlwResponse struct {
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 	// 互联网平台名称
 	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
-	// 用户名称/昵称
+	// 劳动者名称/昵称
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
-	// 用户唯一标识码
+	// 劳动者唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
-	// 用户实收金额（追缴前）
+	// 劳动者应收金额（追缴退回前）
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
-	// 已追缴增附税（本笔订单）
+	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 追缴个税
+	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
 }
 
 // TaxDetail 缴税明细
@@ -1071,27 +1089,27 @@ type TaxDetail struct {
 	ReceivedValueAddedTax string `json:"received_value_added_tax,omitempty"`
 	// 实缴附加税费
 	ReceivedAdditionalTax string `json:"received_additional_tax,omitempty"`
-	// 用户预扣个税
+	// 劳动者预扣个税
 	UserPersonalTax string `json:"user_personal_tax,omitempty"`
 	// 平台企业预扣个税
 	DealerPersonalTax string `json:"dealer_personal_tax,omitempty"`
-	// 用户预扣增值税
+	// 劳动者预扣增值税
 	UserValueAddedTax string `json:"user_value_added_tax,omitempty"`
 	// 平台企业预扣增值税
 	DealerValueAddedTax string `json:"dealer_value_added_tax,omitempty"`
-	// 用户预扣附加税费
+	// 劳动者预扣附加税费
 	UserAdditionalTax string `json:"user_additional_tax,omitempty"`
 	// 平台企业预扣附加税费
 	DealerAdditionalTax string `json:"dealer_additional_tax,omitempty"`
-	// 用户实缴个税
+	// 劳动者实缴个税
 	UserReceivedPersonalTax string `json:"user_received_personal_tax,omitempty"`
 	// 平台企业实缴个税
 	DealerReceivedPersonalTax string `json:"dealer_received_personal_tax,omitempty"`
-	// 用户实缴增值税
+	// 劳动者实缴增值税
 	UserReceivedValueAddedTax string `json:"user_received_value_added_tax,omitempty"`
 	// 平台企业实缴增值税
 	DealerReceivedValueAddedTax string `json:"dealer_received_value_added_tax,omitempty"`
-	// 用户实缴附加税费
+	// 劳动者实缴附加税费
 	UserReceivedAdditionalTax string `json:"user_received_additional_tax,omitempty"`
 	// 平台企业实缴附加税费
 	DealerReceivedAdditionalTax string `json:"dealer_received_additional_tax,omitempty"`
@@ -1159,7 +1177,7 @@ type NotifyOrderLxlwData struct {
 	BrokerRealFee string `json:"broker_real_fee,omitempty"`
 	// 应收加成服务费抵扣金额
 	BrokerDeductFee string `json:"broker_deduct_fee,omitempty"`
-	// 应收用户加成服务费金额
+	// 应收劳动者加成服务费金额
 	UserFee string `json:"user_fee,omitempty"`
 	// 实收综合服务主体加成服务费金额
 	ReceivedBrokerFee string `json:"received_broker_fee,omitempty"`
@@ -1167,7 +1185,7 @@ type NotifyOrderLxlwData struct {
 	ReceivedBrokerRealFee string `json:"received_broker_real_fee,omitempty"`
 	// 实收加成服务费抵扣金额
 	ReceivedBrokerDeductFee string `json:"received_broker_deduct_fee,omitempty"`
-	// 实收用户加成服务费金额
+	// 实收劳动者加成服务费金额
 	ReceivedUserFee string `json:"received_user_fee,omitempty"`
 	// 订单备注
 	PayRemark string `json:"pay_remark,omitempty"`
@@ -1175,26 +1193,44 @@ type NotifyOrderLxlwData struct {
 	BankName string `json:"bank_name,omitempty"`
 	// 业务线标识
 	ProjectID string `json:"project_id,omitempty"`
-	// 用户实收金额
+	// 劳动者实收金额
 	UserRealAmount string `json:"user_real_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *TaxDetail `json:"tax_detail,omitempty"`
 	// 互联网平台名称
 	DealerPlatformName string `json:"dealer_platform_name,omitempty"`
-	// 用户名称/昵称
+	// 劳动者名称/昵称
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
-	// 用户唯一标识码
+	// 劳动者唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
 	// 预扣税费总额
 	Tax string `json:"tax,omitempty"`
 	// 实缴税费总额
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
-	// 用户实收金额（追缴前）
+	// 劳动者应收金额（追缴退回前）
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
-	// 已追缴增附税（本笔订单）
+	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 追缴个税
+	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+}
+
+// CancelOrderInBatchRequest 取消批次中单笔订单请求
+type CancelOrderInBatchRequest struct {
+	// 平台企业批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+}
+
+// CancelOrderInBatchResponse 取消批次中单笔订单返回
+type CancelOrderInBatchResponse struct {
 }
