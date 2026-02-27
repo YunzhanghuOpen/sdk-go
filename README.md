@@ -58,9 +58,7 @@ go get github.com/YunzhanghuOpen/sdk-go
    - [H5 签约](example/h5usersign/h5usersign.go)
    - [API 签约](example/apiusersign/apiusersign.go)
    - [签约信息上传](example/uploadusersign/uploadusersign.go)
-- 个体工商户注册
-   - [云账户新经济 H5](example/bizlicxjjh5/bizlicxjjh5.go)
-   - [云账户新经济 H5+API](example/bizlicxjjh5api/bizlicxjjh5api.go)
+- [订单税费试算](example/calculatelabor/calculatelabor.go)   
 - [实时下单接口](example/payment/payment.go)
 - [订单异步回调](example/payment/payment.go)
 - [数据接口](example/dataservice/dataservice.go)

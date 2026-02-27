@@ -12,6 +12,8 @@ type TaxClearRefundService interface {
 	GetClearTaxFile(context.Context, *GetClearTaxFileRequest) (*GetClearTaxFileResponse, error)
 	// GetRefundTaxInfo 查询税费退补完成结果
 	GetRefundTaxInfo(context.Context, *GetRefundTaxInfoRequest) (*RefundTaxData, error)
+	// GetRefundTaxLaborInfo 查询税费退补涉及劳动者
+	GetRefundTaxLaborInfo(context.Context, *GetRefundTaxLaborInfoRequest) (*GetRefundTaxLaborInfoResponse, error)
 }
 
 // taxClearRefundImpl TaxClearRefundService 接口实现
@@ -48,6 +50,16 @@ func (c *taxClearRefundImpl) GetClearTaxFile(ctx context.Context, in *GetClearTa
 func (c *taxClearRefundImpl) GetRefundTaxInfo(ctx context.Context, in *GetRefundTaxInfoRequest) (*RefundTaxData, error) {
 	out := new(RefundTaxData)
 	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-clear-status", false, in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GetRefundTaxLaborInfo 查询税费退补涉及劳动者
+func (c *taxClearRefundImpl) GetRefundTaxLaborInfo(ctx context.Context, in *GetRefundTaxLaborInfoRequest) (*GetRefundTaxLaborInfoResponse, error) {
+	out := new(GetRefundTaxLaborInfoResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-clear-labor-info", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -202,4 +214,56 @@ type GetRefundTaxInfoRequest struct {
 	TaxMonth string `json:"tax_month,omitempty"`
 	// 批次号
 	BatchID string `json:"batch_id,omitempty"`
+}
+
+// GetRefundTaxLaborInfoRequest 查询税费退补涉及劳动者请求
+type GetRefundTaxLaborInfoRequest struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 税款所属期
+	TaxMonth string `json:"tax_month,omitempty"`
+	// 偏移量
+	Offset int32 `json:"offset,omitempty"`
+	// 每页返回条数
+	Length int32 `json:"length,omitempty"`
+}
+
+// GetRefundTaxLaborInfoResponse 查询税费退补涉及劳动者返回
+type GetRefundTaxLaborInfoResponse struct {
+	// 税款所属期
+	TaxMonth string `json:"tax_month,omitempty"`
+	// 批次号
+	BatchID string `json:"batch_id,omitempty"`
+	// 批次生成时间
+	BatchCreateTime string `json:"batch_create_time,omitempty"`
+	// 退补税劳动者数量
+	LaborNum string `json:"labor_num,omitempty"`
+	// 退补税订单数量
+	OrderNum string `json:"order_num,omitempty"`
+	// 总数据条数
+	TotalNum string `json:"total_num,omitempty"`
+	// 退补税劳动者明细
+	LaborRefundInfo []*LaborRefundInfo `json:"labor_refund_info,omitempty"`
+}
+
+// LaborRefundInfo 退补税劳动者明细
+type LaborRefundInfo struct {
+	// 劳动者姓名
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
+	// 劳动者证件号
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
+	// 本批次退补给劳动者税费总额
+	RefundTax string `json:"refund_tax,omitempty"`
+	// 退补税状态
+	TaxRefundStatus string `json:"tax_refund_status,omitempty"`
+	// 劳动者收款账户
+	ReceivingAccount string `json:"receiving_account,omitempty"`
+	// 劳动者收款账号
+	ReceivingChannel string `json:"receiving_channel,omitempty"`
+	// 退补税费时间
+	RefundTaxFinishedTime string `json:"refund_tax_finished_time,omitempty"`
 }
