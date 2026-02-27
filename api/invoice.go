@@ -132,6 +132,10 @@ type GetInvoiceAmountRequest struct {
 	BrokerID string `json:"broker_id,omitempty"`
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
+	// 查询开始日期
+	StartDate string `json:"start_date,omitempty"`
+	// 查询结束日期
+	EndDate string `json:"end_date,omitempty"`
 }
 
 // GetInvoiceAmountResponse 查询可开具发票额度和发票开具信息返回
@@ -166,6 +170,10 @@ type ApplyInvoiceRequest struct {
 	ReceiveEmails []string `json:"receive_emails,omitempty"`
 	// 发票介质
 	InvoiceMedia string `json:"invoice_media,omitempty"`
+	// 查询开始日期
+	StartDate string `json:"start_date,omitempty"`
+	// 查询结束日期
+	EndDate string `json:"end_date,omitempty"`
 }
 
 // ApplyInvoiceResponse 发票开具申请返回

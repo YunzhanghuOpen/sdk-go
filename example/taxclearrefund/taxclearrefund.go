@@ -136,6 +136,36 @@ func GetRefundTaxInfoExample(client api.TaxClearRefundService) {
 	fmt.Println(string(data))
 }
 
+// GetRefundTaxLaborInfoExample 查询税费退补涉及劳动者
+func GetRefundTaxLaborInfoExample(client api.TaxClearRefundService) {
+	req := &api.GetRefundTaxLaborInfoRequest{
+		BrokerID: base.BrokerID,
+		DealerID: base.DealerID,
+		BatchID:  "10313232135454132",
+		TaxMonth: "2025-10",
+		Offset:   0,
+		Length:   500,
+	}
+	resp, err := client.GetRefundTaxLaborInfo(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
@@ -143,6 +173,7 @@ func Example() {
 		GetClearTaxInfoExample,
 		GetClearTaxFileExample,
 		GetRefundTaxInfoExample,
+		GetRefundTaxLaborInfoExample,
 	} {
 		example(client)
 	}
