@@ -236,6 +236,8 @@ type UserExemptedInfoRequest struct {
 	ImageURLs []string `json:"image_urls,omitempty"`
 	// 外籍人员类型
 	ResidentType string `json:"resident_type,omitempty"`
+	// 港澳台通行证号码
+	PermitCard string `json:"permit_card,omitempty"`
 }
 
 // UserExemptedInfoResponse 上传非居民身份证验证名单信息返回

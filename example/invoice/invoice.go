@@ -12,9 +12,9 @@ import (
 // ApplyInvoiceExample 开票申请
 func ApplyInvoiceExample(client api.Invoice) {
 	req := &api.ApplyInvoiceRequest{
+		InvoiceApplyID:    "111",
 		DealerID:          base.DealerID,
 		BrokerID:          base.BrokerID,
-		InvoiceApplyID:    "111",
 		Amount:            "10000",
 		InvoiceType:       "2",
 		BankNameAccount:   "交通银行北京东大桥支行 12343456654321",
@@ -22,6 +22,8 @@ func ApplyInvoiceExample(client api.Invoice) {
 		Remark:            "发票备注",
 		ReceiveEmails:     []string{"username1@example.com"},
 		InvoiceMedia:      "1",
+		StartDate:         "2026-01-01",
+		EndDate:           "2026-01-26",
 	}
 	resp, err := client.ApplyInvoice(context.TODO(), req)
 	if err != nil {
@@ -42,8 +44,10 @@ func ApplyInvoiceExample(client api.Invoice) {
 // GetInvoiceAmountExample 查询可开票额度和开票信息
 func GetInvoiceAmountExample(client api.Invoice) {
 	req := &api.GetInvoiceAmountRequest{
-		DealerID: base.DealerID,
-		BrokerID: base.BrokerID,
+		DealerID:  base.DealerID,
+		BrokerID:  base.BrokerID,
+		StartDate: "2026-01-01",
+		EndDate:   "2026-01-26",
 	}
 	resp, err := client.GetInvoiceAmount(context.TODO(), req)
 	if err != nil {
