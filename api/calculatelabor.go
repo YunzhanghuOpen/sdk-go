@@ -89,7 +89,7 @@ type LaborCaculatorResponse struct {
 	// 综合所得汇算清缴
 	YearTaxInfo *YearTaxInfo `json:"year_tax_info,omitempty"`
 	// 月度税务信息列表
-	MonthTaxList []*MontTax `json:"month_tax_list,omitempty"`
+	MonthTaxList []*MonthTax `json:"month_tax_list,omitempty"`
 }
 
 // YearTaxInfo 综合所得汇算清缴信息
@@ -108,8 +108,8 @@ type YearTaxInfo struct {
 	TotalTaxRate string `json:"total_tax_rate,omitempty"`
 }
 
-// MontTax 月度税务信息
-type MontTax struct {
+// MonthTax 月度税务信息
+type MonthTax struct {
 	// 月份
 	Month int32 `json:"month,omitempty"`
 	// 含增值税收入
