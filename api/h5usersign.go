@@ -71,7 +71,7 @@ func (c *h5UserSignServiceImpl) H5UserRelease(ctx context.Context, in *H5UserRel
 // H5UserReleaseApply 申请解约
 func (c *h5UserSignServiceImpl) H5UserReleaseApply(ctx context.Context, in *H5UserReleaseApplyRequest) (*H5UserReleaseApplyResponse, error) {
 	out := new(H5UserReleaseApplyResponse)
-	err := c.cc.Invoke(ctx, "POST", "/api/sdk/v1/release/h5", false, in, out)
+	err := c.cc.Invoke(ctx, "GET", "/api/sdk/v1/release/h5", false, in, out)
 	if err != nil {
 		return nil, err
 	}
