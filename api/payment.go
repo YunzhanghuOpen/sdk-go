@@ -450,6 +450,8 @@ type GetOrderResponse struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -658,6 +660,8 @@ type NotifyOrderData struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
