@@ -185,9 +185,9 @@ type H5UserReleaseApplyRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
 	// 证件号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
 	// 主题颜色
 	Color string `json:"color,omitempty"`
 	// 回调 URL
