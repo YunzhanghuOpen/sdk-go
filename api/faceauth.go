@@ -51,9 +51,9 @@ type ApplyFaceAuthRequest struct {
 	// 平台企业实名核验 ID
 	VerificationID string `json:"verification_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty  mask:"real_name""`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty  mask:"id_card""`
 	// 回调地址
 	CallbackURL string `json:"callback_url,omitempty"`
 	// 跳转 URL
@@ -87,9 +87,9 @@ type GetFaceAuthResultRequest struct {
 // GetFaceAuthResultResponse 查询人脸识别实名核验结果返回
 type GetFaceAuthResultResponse struct {
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty  mask:"real_name""`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty  mask:"id_card""`
 	// 人脸识别实名核验唯一 ID
 	RecordID string `json:"record_id,omitempty"`
 	// 平台企业实名核验 ID
@@ -115,9 +115,9 @@ type NotifyFaceAuthRequest struct {
 	// 平台企业 ID
 	DealerID string `json:"dealer_id,omitempty"`
 	// 姓名
-	RealName string `json:"real_name,omitempty"`
+	RealName string `json:"real_name,omitempty  mask:"real_name""`
 	// 身份证号码
-	IDCard string `json:"id_card,omitempty"`
+	IDCard string `json:"id_card,omitempty  mask:"id_card""`
 	// 人脸识别实名核验唯一 ID
 	RecordID string `json:"record_id,omitempty"`
 	// 平台企业实名核验 ID
