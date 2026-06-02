@@ -80,7 +80,7 @@ func GetApiUserSignStatusExample(client api.ApiUserSignService) {
 	fmt.Println(resp)
 }
 
-// ApiUserSignReleaseExample 用户解约（测试账号专用接口）
+// ApiUserSignReleaseExample 用户解约
 func ApiUserSignReleaseExample(client api.ApiUserSignService) {
 	req := &api.ApiUserSignReleaseRequest{
 		DealerID: base.DealerID,

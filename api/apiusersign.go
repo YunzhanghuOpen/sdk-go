@@ -14,7 +14,7 @@ type ApiUserSignService interface {
 	ApiUserSign(context.Context, *ApiUserSignRequest) (*ApiUserSignResponse, error)
 	// GetApiUserSignStatus 获取用户签约状态
 	GetApiUserSignStatus(context.Context, *GetApiUserSignStatusRequest) (*GetApiUserSignStatusResponse, error)
-	// ApiUserSignRelease 用户解约（测试账号专用接口）
+	// ApiUserSignRelease 用户解约
 	ApiUserSignRelease(context.Context, *ApiUserSignReleaseRequest) (*ApiUserSignReleaseResponse, error)
 }
 
@@ -68,7 +68,7 @@ func (c *apiUserSignServiceImpl) GetApiUserSignStatus(ctx context.Context, in *G
 	return out, nil
 }
 
-// ApiUserSignRelease 用户解约（测试账号专用接口）
+// ApiUserSignRelease 用户解约
 func (c *apiUserSignServiceImpl) ApiUserSignRelease(ctx context.Context, in *ApiUserSignReleaseRequest) (*ApiUserSignReleaseResponse, error) {
 	out := new(ApiUserSignReleaseResponse)
 	err := c.cc.Invoke(ctx, "POST", "/api/sign/v1/user/release", false, in, out)
@@ -150,7 +150,7 @@ type GetApiUserSignStatusResponse struct {
 	Status string `json:"status,omitempty"`
 }
 
-// ApiUserSignReleaseRequest 用户解约（测试账号专用接口）请求
+// ApiUserSignReleaseRequest 用户解约请求
 type ApiUserSignReleaseRequest struct {
 	// 综合服务主体 ID
 	BrokerID string `json:"broker_id,omitempty"`
@@ -164,7 +164,7 @@ type ApiUserSignReleaseRequest struct {
 	CardType string `json:"card_type,omitempty"`
 }
 
-// ApiUserSignReleaseResponse 用户解约（测试账号专用接口）返回
+// ApiUserSignReleaseResponse 用户解约返回
 type ApiUserSignReleaseResponse struct {
 	// 是否解约成功
 	Status string `json:"status,omitempty"`

@@ -25,6 +25,7 @@ type Client struct {
 	CalculateLaborService  // 连续劳务税费试算
 	RealNameService        // 实名信息收集
 	TaxClearRefundService  // 连续劳务税费退补
+	FaceAuthService        // 人脸识别实名核验
 }
 
 // Config Client 配置
@@ -85,5 +86,6 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		CalculateLaborService:  NewCalculateLaborService(co),
 		RealNameService:        NewRealNameService(co),
 		TaxClearRefundService:  NewTaxClearRefundService(co),
+		FaceAuthService:        NewFaceAuthService(co),
 	}, nil
 }

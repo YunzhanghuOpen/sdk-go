@@ -284,6 +284,8 @@ type CreateAlipayOrderRequest struct {
 	DealerUserNickname string `json:"dealer_user_nickname,omitempty"`
 	// 用户唯一标识码
 	DealerUserID string `json:"dealer_user_id,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // CreateAlipayOrderResponse 支付宝实时支付返回
@@ -448,6 +450,8 @@ type GetOrderResponse struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // GetDealerVARechargeAccountRequest 查询平台企业汇款信息请求
@@ -656,6 +660,8 @@ type NotifyOrderData struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // NotifyOrderRequest 订单支付状态回调通知V1
@@ -1073,6 +1079,8 @@ type GetOrderLxlwResponse struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // TaxDetail 缴税明细
@@ -1217,6 +1225,8 @@ type NotifyOrderLxlwData struct {
 	DeductTax string `json:"deduct_tax,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 支付宝转账备注
+	OrderTitle string `json:"order_title,omitempty"`
 }
 
 // CancelOrderInBatchRequest 取消批次中单笔订单请求
