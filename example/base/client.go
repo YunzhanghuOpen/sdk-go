@@ -56,7 +56,7 @@ func NewClient() *api.Client {
 	}
 
 	conf := &api.Config{
-		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时使用 api.ProductHost，个体工商户注册使用 api.AicProductHost
+		Host:       api.SandboxHost, // 沙箱环境域名，正式上线时使用 api.ProductHost
 		DealerID:   DealerID,
 		PrivateKey: YunPrivateKey,
 		AppKey:     AppKey,

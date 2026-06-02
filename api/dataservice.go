@@ -354,6 +354,8 @@ type DealerOrderInfoV2 struct {
 	ReceivedTaxAmount string `json:"received_tax_amount,omitempty"`
 	// 缴税明细
 	TaxDetail *OrderTaxDetail `json:"tax_detail,omitempty"`
+	// 平台企业用户 ID
+	UserID string `json:"user_id,omitempty"`
 }
 
 // ListDailyBillRequest 查询日流水数据请求

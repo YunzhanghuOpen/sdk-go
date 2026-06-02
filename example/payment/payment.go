@@ -64,6 +64,7 @@ func CreateAlipayOrderExample(client api.Payment) {
 		CardNo:             "188****8888",
 		PhoneNo:            "188****8888",
 		PayRemark:          "支付宝支付",
+		OrderTitle:         "支付宝备注",
 		NotifyURL:          "https://www.example.com",
 		Pay:                "99.99",
 		DealerPlatformName: "互联网平台名称test",
