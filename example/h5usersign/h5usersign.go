@@ -18,7 +18,6 @@ func H5UserPresignExample(client api.H5UserSignService) {
 		IDCard:          "11010519491231002X",
 		CertificateType: 0,
 		CollectPhoneNo:  0,
-		PageOpenWay:     1,
 	}
 	resp, err := client.H5UserPresign(context.TODO(), req)
 	if err != nil {
@@ -99,6 +98,31 @@ func H5UserReleaseExample(client api.H5UserSignService) {
 	fmt.Println(resp)
 }
 
+// H5UserReleaseApplyExample H5 申请解约
+func H5UserReleaseApplyExample(client api.H5UserSignService) {
+	req := &api.H5UserReleaseApplyRequest{
+		DealerID:    base.DealerID,
+		BrokerID:    base.BrokerID,
+		RealName:    "张三",
+		IDCard:      "11010519491231002X",
+		Color:       "#FF0000",
+		URL:         "https://www.example.com/callback",
+		RedirectURL: "https://www.example.com/success",
+	}
+	resp, err := client.H5UserReleaseApply(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(e.Code, e.Message)
+	}
+	// 操作成功
+	fmt.Println(resp)
+}
+
 // Example 样例
 func Example() {
 	client := base.NewClient()
@@ -107,6 +131,7 @@ func Example() {
 		H5UserSignExample,
 		GeH5UserSignStatusExample,
 		H5UserReleaseExample,
+		H5UserReleaseApplyExample,
 	} {
 		example(client)
 	}

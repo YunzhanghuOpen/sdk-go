@@ -18,6 +18,7 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/tax"
 	"github.com/YunzhanghuOpen/sdk-go/example/taxclearrefund"
 	"github.com/YunzhanghuOpen/sdk-go/example/usercollect"
+	"github.com/YunzhanghuOpen/sdk-go/example/faceauth"
 )
 
 func main() {
@@ -38,4 +39,5 @@ func main() {
 	customerlink.Example()
 	realname.Example()
 	taxclearrefund.Example()
+	faceauth.Example()
 }

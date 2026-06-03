@@ -21,7 +21,7 @@ func ApplyInvoiceExample(client api.Invoice) {
 		GoodsServicesName: "*测试分类*test测试内容",
 		Remark:            "发票备注",
 		ReceiveEmails:     []string{"username1@example.com"},
-		InvoiceMedia:      "1",
+		InvoiceMedia:      "3",
 		StartDate:         "2026-01-01",
 		EndDate:           "2026-01-26",
 	}
