@@ -36,6 +36,8 @@ type Payment interface {
 	CheckUserAmount(context.Context, *CheckUserAmountRequest) (*CheckUserAmountResponse, error)
 	// GetOrderLxlw 查询劳务模式单笔订单信息
 	GetOrderLxlw(context.Context, *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error)
+	// GetLaborRefundOrder 查询劳动者退款订单信息
+	GetLaborRefundOrder(context.Context, *GetLaborRefundOrderRequest) (*GetLaborRefundOrderResponse, error)
 	// CancelOrderInBatch 取消批次中单笔订单
 	CancelOrderInBatch(context.Context, *CancelOrderInBatchRequest) (*CancelOrderInBatchResponse, error)
 }
@@ -194,6 +196,16 @@ func (c *paymentImpl) CheckUserAmount(ctx context.Context, in *CheckUserAmountRe
 func (c *paymentImpl) GetOrderLxlw(ctx context.Context, in *GetOrderLxlwRequest) (*GetOrderLxlwResponse, error) {
 	out := new(GetOrderLxlwResponse)
 	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-order", in.DataType == "encryption", in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GetLaborRefundOrder 查询劳动者退款订单信息
+func (c *paymentImpl) GetLaborRefundOrder(ctx context.Context, in *GetLaborRefundOrderRequest) (*GetLaborRefundOrderResponse, error) {
+	out := new(GetLaborRefundOrderResponse)
+	err := c.cc.Invoke(ctx, "GET", "/api/payment/v1/query-labor-refund-order", false, in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -360,6 +372,8 @@ type GetOrderRequest struct {
 type GetOrderResponse struct {
 	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
+	// 退回类型
+	RefundOrigin string `json:"refund_origin,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 综合服务主体 ID
@@ -444,12 +458,18 @@ type GetOrderResponse struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 劳动者还未缴清的个税
+	UserRemainingRepaymentPersonalAmount string `json:"user_remaining_repayment_personal_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 是否使用基本减除费用
+	BasicDeducted string `json:"basic_deducted,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 待追缴个税总金额
+	UserTotalRecoverPersonalTaxAmount string `json:"user_total_recover_personal_tax_amount,omitempty"`
 	// 支付宝转账备注
 	OrderTitle string `json:"order_title,omitempty"`
 }
@@ -654,12 +674,18 @@ type NotifyOrderData struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 劳动者还未缴清的个税
+	UserRemainingRepaymentPersonalAmount string `json:"user_remaining_repayment_personal_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 是否使用基本减除费用
+	BasicDeducted string `json:"basic_deducted,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 待追缴个税总金额
+	UserTotalRecoverPersonalTaxAmount string `json:"user_total_recover_personal_tax_amount,omitempty"`
 	// 支付宝转账备注
 	OrderTitle string `json:"order_title,omitempty"`
 }
@@ -989,6 +1015,8 @@ type GetOrderLxlwRequest struct {
 type GetOrderLxlwResponse struct {
 	// 平台企业订单号
 	OrderID string `json:"order_id,omitempty"`
+	// 退回类型
+	RefundOrigin string `json:"refund_origin,omitempty"`
 	// 订单金额
 	Pay string `json:"pay,omitempty"`
 	// 综合服务主体 ID
@@ -1073,12 +1101,18 @@ type GetOrderLxlwResponse struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 劳动者还未缴清的个税
+	UserRemainingRepaymentPersonalAmount string `json:"user_remaining_repayment_personal_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 是否使用基本减除费用
+	BasicDeducted string `json:"basic_deducted,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 待追缴个税总金额
+	UserTotalRecoverPersonalTaxAmount string `json:"user_total_recover_personal_tax_amount,omitempty"`
 	// 支付宝转账备注
 	OrderTitle string `json:"order_title,omitempty"`
 }
@@ -1219,14 +1253,180 @@ type NotifyOrderLxlwData struct {
 	UserRealExcludingVatAmount string `json:"user_real_excluding_vat_amount,omitempty"`
 	// 追缴增附税
 	UserRecoverTaxAmount string `json:"user_recover_tax_amount,omitempty"`
+	// 劳动者还未缴清的个税
+	UserRemainingRepaymentPersonalAmount string `json:"user_remaining_repayment_personal_amount,omitempty"`
 	// 预扣个税税率
 	PersonalTaxRate string `json:"personal_tax_rate,omitempty"`
 	// 预扣个税速算扣除数
 	DeductTax string `json:"deduct_tax,omitempty"`
+	// 是否使用基本减除费用
+	BasicDeducted string `json:"basic_deducted,omitempty"`
 	// 追缴个税
 	UserRecoverPersonalTaxAmount string `json:"user_recover_personal_tax_amount,omitempty"`
+	// 待追缴个税总金额
+	UserTotalRecoverPersonalTaxAmount string `json:"user_total_recover_personal_tax_amount,omitempty"`
 	// 支付宝转账备注
 	OrderTitle string `json:"order_title,omitempty"`
+}
+
+// NotifyLaborRefundOrderRequest 劳动者退款订单回调通知
+type NotifyLaborRefundOrderRequest struct {
+	// 通知 ID
+	NotifyID string `json:"notify_id,omitempty"`
+	// 通知时间
+	NotifyTime string `json:"notify_time,omitempty"`
+	// 返回数据
+	Data *NotifyLaborRefundOrderData `json:"data,omitempty"`
+}
+
+// NotifyLaborRefundOrderData 劳动者退款订单回调通知数据
+type NotifyLaborRefundOrderData struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 退款流水号
+	RefundRef string `json:"refund_ref,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
+	// 账号
+	CardNo string `json:"card_no,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
+	// 手机号
+	PhoneNo string `json:"phone_no,omitempty" mask:"phone_no"`
+	// 退款类型
+	RefundType string `json:"refund_type,omitempty"`
+	// 退款总金额
+	RefundTotalAmount string `json:"refund_total_amount,omitempty"`
+	// 退回劳动者实收金额
+	RefundUserRealAmount string `json:"refund_user_real_amount,omitempty"`
+	// 是否退加成服务费
+	IsRefundFee string `json:"is_refund_fee,omitempty"`
+	// 退回劳动者加成服务费金额
+	RefundUserFee string `json:"refund_user_fee,omitempty"`
+	// 退回平台企业加成服务费金额
+	RefundBrokerFee string `json:"refund_broker_fee,omitempty"`
+	// 退回平台企业服务费实收金额
+	RefundRealFee string `json:"refund_real_fee,omitempty"`
+	// 退回平台企业服务费抵扣金额
+	RefundDeductFee string `json:"refund_deduct_fee,omitempty"`
+	// 是否退税费
+	IsRefundTax string `json:"is_refund_tax,omitempty"`
+	// 退回税费总额
+	RefundTaxAmount string `json:"refund_tax_amount,omitempty"`
+	// 退回个税金额
+	RefundPersonalTax string `json:"refund_personal_tax,omitempty"`
+	// 退回增值税金额
+	RefundValueAddedTax string `json:"refund_value_added_tax,omitempty"`
+	// 退回附加税金额
+	RefundAdditionalTax string `json:"refund_additional_tax,omitempty"`
+	// 退回已追缴个税
+	RefundLaborRecoveryPersonalTax string `json:"refund_labor_recovery_personal_tax,omitempty"`
+	// 退回已追缴增附税
+	RefundLaborRecoveryAddedTax string `json:"refund_labor_recovery_added_tax,omitempty"`
+	// 退回劳动者个税金额
+	RefundUserPersonalTax string `json:"refund_user_personal_tax,omitempty"`
+	// 退回劳动者增值税金额
+	RefundUserValueAddedTax string `json:"refund_user_value_added_tax,omitempty"`
+	// 退回劳动者附加税金额
+	RefundUserAdditionalTax string `json:"refund_user_additional_tax,omitempty"`
+	// 退回平台企业个税金额
+	RefundDealerPersonalTax string `json:"refund_dealer_personal_tax,omitempty"`
+	// 退回平台企业增值税金额
+	RefundDealerValueAddedTax string `json:"refund_dealer_value_added_tax,omitempty"`
+	// 退回平台企业附加税金额
+	RefundDealerAdditionalTax string `json:"refund_dealer_additional_tax,omitempty"`
+}
+
+// GetLaborRefundOrderRequest 查询劳动者退款订单信息请求
+type GetLaborRefundOrderRequest struct {
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 支付路径
+	Channel string `json:"channel,omitempty"`
+}
+
+// GetLaborRefundOrderResponse 查询劳动者退款订单信息返回
+type GetLaborRefundOrderResponse struct {
+	// 综合服务主体 ID
+	BrokerID string `json:"broker_id,omitempty"`
+	// 平台企业 ID
+	DealerID string `json:"dealer_id,omitempty"`
+	// 综合服务平台流水号
+	Ref string `json:"ref,omitempty"`
+	// 退款流水号
+	RefundRef string `json:"refund_ref,omitempty"`
+	// 平台企业订单号
+	OrderID string `json:"order_id,omitempty"`
+	// 姓名
+	RealName string `json:"real_name,omitempty" mask:"real_name"`
+	// 账号
+	CardNo string `json:"card_no,omitempty"`
+	// 身份证号码
+	IDCard string `json:"id_card,omitempty" mask:"id_card"`
+	// 手机号
+	PhoneNo string `json:"phone_no,omitempty" mask:"phone_no"`
+	// 退款类型
+	RefundType string `json:"refund_type,omitempty"`
+	// 退款总金额
+	RefundTotalAmount string `json:"refund_total_amount,omitempty"`
+	// 退回劳动者实收金额
+	RefundUserRealAmount string `json:"refund_user_real_amount,omitempty"`
+	// 是否退加成服务费
+	IsRefundFee string `json:"is_refund_fee,omitempty"`
+	// 退回劳动者加成服务费金额
+	RefundUserFee string `json:"refund_user_fee,omitempty"`
+	// 退回平台企业加成服务费金额
+	RefundBrokerFee string `json:"refund_broker_fee,omitempty"`
+	// 退回平台企业服务费实收金额
+	RefundRealFee string `json:"refund_real_fee,omitempty"`
+	// 退回平台企业服务费抵扣金额
+	RefundDeductFee string `json:"refund_deduct_fee,omitempty"`
+	// 是否退税费
+	IsRefundTax string `json:"is_refund_tax,omitempty"`
+	// 退回税费总额
+	RefundTaxAmount string `json:"refund_tax_amount,omitempty"`
+	// 退回个税金额
+	RefundPersonalTax string `json:"refund_personal_tax,omitempty"`
+	// 退回增值税金额
+	RefundValueAddedTax string `json:"refund_value_added_tax,omitempty"`
+	// 退回附加税金额
+	RefundAdditionalTax string `json:"refund_additional_tax,omitempty"`
+	// 退回已追缴个税
+	RefundLaborRecoveryPersonalTax string `json:"refund_labor_recovery_personal_tax,omitempty"`
+	// 退回已追缴增附税
+	RefundLaborRecoveryAddedTax string `json:"refund_labor_recovery_added_tax,omitempty"`
+	// 退回劳动者个税
+	RefundUserPersonalTax string `json:"refund_user_personal_tax,omitempty"`
+	// 退回劳动者增值税
+	RefundUserValueAddedTax string `json:"refund_user_value_added_tax,omitempty"`
+	// 退回劳动者附加税
+	RefundUserAdditionalTax string `json:"refund_user_additional_tax,omitempty"`
+	// 退回平台企业个税
+	RefundDealerPersonalTax string `json:"refund_dealer_personal_tax,omitempty"`
+	// 退回平台企业增值税
+	RefundDealerValueAddedTax string `json:"refund_dealer_value_added_tax,omitempty"`
+	// 退回平台企业附加税
+	RefundDealerAdditionalTax string `json:"refund_dealer_additional_tax,omitempty"`
+	// 退回云账户个税
+	RefundBrokerPersonalTax string `json:"refund_broker_personal_tax,omitempty"`
+	// 退回云账户增值税
+	RefundBrokerValueAddedTax string `json:"refund_broker_value_added_tax,omitempty"`
+	// 退回云账户附加税
+	RefundBrokerAdditionalTax string `json:"refund_broker_additional_tax,omitempty"`
+	// 退款状态
+	RefundStatus string `json:"refund_status,omitempty"`
+	// 退款创建时间
+	CreateTime string `json:"create_time,omitempty"`
+	// 退款完成时间
+	FinishedAt string `json:"finished_at,omitempty"`
 }
 
 // CancelOrderInBatchRequest 取消批次中单笔订单请求

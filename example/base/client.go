@@ -170,7 +170,7 @@ func mapToURLParams(params map[string]string) string {
 	return values.Encode()
 }
 
-// GetCustomerLink 获取客服链接
+// GetCustomerLink 获取专属服务链接
 func GetCustomerLink(signType, baseurl, memberID string) (string, error) {
 	sv, ok := map[string]func() crypto.Signer{
 		"SHA256": NewHmacSigner,
