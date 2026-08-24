@@ -236,6 +236,8 @@ type UserExemptedInfoRequest struct {
 	ImageURLs []string `json:"image_urls,omitempty"`
 	// 外籍人员类型
 	ResidentType string `json:"resident_type,omitempty"`
+	// 证件有效期
+	ExpiryDate string `json:"expiry_date,omitempty"`
 	// 港澳台通行证号码
 	PermitCard string `json:"permit_card,omitempty"`
 }

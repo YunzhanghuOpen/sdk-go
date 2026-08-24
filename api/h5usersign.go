@@ -108,12 +108,14 @@ type H5UserPresignResponse struct {
 
 // H5UserSignRequest 申请签约请求
 type H5UserSignRequest struct {
-	// H5 签约 token
+	// 签约 token
 	Token string `json:"token,omitempty"`
-	// H5 页面主题颜色
+	// 主题颜色
 	Color string `json:"color,omitempty"`
-	// 回调 URL 地址
+	// 签约完成回调地址
 	URL string `json:"url,omitempty"`
+	// 签约事件状态回调地址
+	EventCallbackURL string `json:"event_callback_url,omitempty"`
 	// 跳转 URL
 	RedirectURL string `json:"redirect_url,omitempty"`
 }
@@ -122,6 +124,8 @@ type H5UserSignRequest struct {
 type H5UserSignResponse struct {
 	// H5 签约页面 URL
 	URL string `json:"url,omitempty"`
+	// 微信签约小程序码 URL
+	WxMpCodeURL string `json:"wx_mp_code_url,omitempty"`
 }
 
 // GetH5UserSignStatusRequest 获取用户签约状态请求
@@ -176,6 +180,14 @@ type NotifyH5UserSignRequest struct {
 	IDCard string `json:"id_card,omitempty"`
 	// 预签约手机号
 	Phone string `json:"phone,omitempty"`
+	// 签约状态 0：未签约 1：已签约 2：已解约
+	Status int32 `json:"status,omitempty"`
+	// 签约事件类型
+	EventType string `json:"event_type,omitempty"`
+	// 签约事件状态
+	EventStatus string `json:"event_status,omitempty"`
+	// 签约事件状态详情
+	EventStatusDetail string `json:"event_status_detail,omitempty"`
 }
 
 // H5UserReleaseApplyRequest 申请解约请求

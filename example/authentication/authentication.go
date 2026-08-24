@@ -174,6 +174,7 @@ func UserExemptedInfoExample(client api.Authentication) {
 		NotifyURL:    "https://www.example.com",
 		Ref:          "1234qwer",
 		ResidentType: "1",
+		ExpiryDate:   "2028-08-08",
 		PermitCard:   "H12345678",
 	}
 	resp, err := client.UserExemptedInfo(context.TODO(), req)

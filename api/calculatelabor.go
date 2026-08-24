@@ -174,6 +174,8 @@ type CalcTaxResponse struct {
 	BrokerTax string `json:"broker_tax,omitempty"`
 	// 劳动者服务费
 	UserFee string `json:"user_fee,omitempty"`
+	// 是否使用基本减除费用
+	BasicDeducted string `json:"basic_deducted,omitempty"`
 	// 结果
 	Status string `json:"status,omitempty"`
 	// 结果详细状态码
