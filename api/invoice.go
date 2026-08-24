@@ -325,7 +325,7 @@ type NotifyInvoiceDoneRequest struct {
 	// 税额
 	TaxAmount string `json:"tax_amount,omitempty"`
 	// 发票类型
-	InvoiceType string `json:"invoice_type,omitempty"`
+	InvoiceType int `json:"invoice_type,omitempty"`
 	// 购方名称
 	CustomerName string `json:"customer_name,omitempty"`
 	// 纳税人识别号

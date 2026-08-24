@@ -436,6 +436,33 @@ func GetOrderLxlwExample(client api.Payment) {
 	fmt.Println(string(data))
 }
 
+// GetLaborRefundOrderExample 查询劳动者退款订单信息
+func GetLaborRefundOrderExample(client api.Payment) {
+	req := &api.GetLaborRefundOrderRequest{
+		DealerID: "testdealer",
+		OrderID:  "202009010016562012987",
+		Channel:  "银行卡",
+	}
+	resp, err := client.GetLaborRefundOrder(context.TODO(), req)
+	if err != nil {
+		e, ok := errorx.FromError(err)
+		if !ok {
+			// 发生异常
+			fmt.Println(err)
+			return
+		}
+		// 失败返回
+		fmt.Println(e.Code, e.Message)
+		return
+	}
+	// 操作成功
+	data, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(data))
+}
+
 // NotifyOrderExample 订单回调样例
 func NotifyOrderExample() {
 	// 除本实现方式外，还可采用其他 http 请求框架实现
@@ -469,6 +496,27 @@ func NotifyOrderLxlwExample() {
 			sign := r.PostForm.Get("sign")
 			signType := r.PostForm.Get("sign_type")
 			req := api.NotifyOrderLxlwRequest{}
+			err := base.NotifyDecoder(mess, timestamp, data, sign, signType, &req)
+			if err != nil {
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write([]byte(err.Error()))
+				return
+			}
+		}
+	}))
+}
+
+// NotifyLaborRefundOrderExample 劳动者退款订单回调样例
+func NotifyLaborRefundOrderExample() {
+	// 除本实现方式外，还可采用其他 http 请求框架实现
+	http.HandleFunc("notify/labor-refund-order", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.ParseForm() == nil {
+			data := r.PostForm.Get("data")
+			timestamp := r.PostForm.Get("timestamp")
+			mess := r.PostForm.Get("mess")
+			sign := r.PostForm.Get("sign")
+			signType := r.PostForm.Get("sign_type")
+			req := api.NotifyLaborRefundOrderRequest{}
 			err := base.NotifyDecoder(mess, timestamp, data, sign, signType, &req)
 			if err != nil {
 				w.WriteHeader(http.StatusOK)
@@ -525,6 +573,7 @@ func Example() {
 		ConfirmBatchOrderExample,
 		QueryBatchOrderExample,
 		GetOrderLxlwExample,
+		GetLaborRefundOrderExample,
 		CancelOrderInBatchExample,
 	} {
 		example(client)
