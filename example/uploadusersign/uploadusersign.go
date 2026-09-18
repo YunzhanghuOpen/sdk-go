@@ -30,6 +30,7 @@ func UploadUserSignExample(client api.UploadUserSignService) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -53,6 +54,7 @@ func GetUploadUserSignStatusExample(client api.UploadUserSignService) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
