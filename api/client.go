@@ -8,24 +8,28 @@ import (
 
 // Client 客户端
 type Client struct {
-	Payment                // 实时下单接口
-	Tax                    // 个税服务接口
-	Authentication         // 用户信息验证接口
-	DataService            // 数据接口
-	Invoice                // 发票接口
-	ApiUserSignService     // API 签约
-	H5UserSignService      // H5 签约
-	UploadUserSignService  // 签约信息上传
-	BizlicXjjH5Service     // 新经济个体户注册 H5
-	BizlicXjjH5APIService  // 新经济个体户注册 H5+API
-	BizlicGxV2H5Service    // 共享大额个体户注册 H5
-	BizlicGxV2H5APIService // 共享大额个体户注册 H5+API
-	CustomService          // 通用请求接口
-	UserCollectService     // 用户信息收集
-	CalculateLaborService  // 连续劳务税费试算
-	RealNameService        // 实名信息收集
-	TaxClearRefundService  // 连续劳务税费退补
-	FaceAuthService        // 人脸识别实名核验
+	Payment                   // 实时下单接口
+	Tax                       // 个税服务接口
+	Authentication            // 用户信息验证接口
+	DataService               // 数据接口
+	Invoice                   // 发票接口
+	ApiUserSignService        // API 签约
+	H5UserSignService         // H5 签约
+	UploadUserSignService     // 签约信息上传
+	BizlicXjjH5Service        // 新经济个体户注册 H5
+	BizlicXjjH5APIService     // 新经济个体户注册 H5+API
+	BizlicGxV2H5Service       // 共享大额个体户注册 H5
+	BizlicGxV2H5APIService    // 共享大额个体户注册 H5+API
+	CustomService             // 通用请求接口
+	UserCollectService        // 用户信息收集
+	CalculateLaborService     // 连续劳务税费试算
+	RealNameService           // 实名信息收集
+	TaxClearRefundService     // 连续劳务税费退补
+	FaceAuthService           // 人脸识别实名核验
+	WalletIncomeService       // 钱包余额入账
+	WalletBalanceQueryService // 钱包余额查询
+	WalletDeductService       // 钱包余额扣减
+	WalletWithdrawService     // 钱包余额提现
 }
 
 // Config Client 配置
@@ -69,23 +73,27 @@ func New(cfg *Config, options ...core.Option) (*Client, error) {
 		core.WithRsaSign(cfg.PrivateKey, cfg.AppKey)(co)
 	}
 	return &Client{
-		Payment:                NewPayment(co),
-		Tax:                    NewTax(co),
-		Authentication:         NewAuthentication(co),
-		DataService:            NewDataService(co),
-		Invoice:                NewInvoice(co),
-		ApiUserSignService:     NewApiUserSignService(co),
-		H5UserSignService:      NewH5UserSignService(co),
-		UploadUserSignService:  NewUploadUserSignService(co),
-		BizlicXjjH5Service:     NewBizlicXjjH5Service(co),
-		BizlicXjjH5APIService:  NewBizlicXjjH5APIService(co),
-		BizlicGxV2H5Service:    NewBizlicGxV2H5Service(co),
-		BizlicGxV2H5APIService: NewBizlicGxV2H5APIService(co),
-		CustomService:          NewCustomService(co),
-		UserCollectService:     NewUserCollectService(co),
-		CalculateLaborService:  NewCalculateLaborService(co),
-		RealNameService:        NewRealNameService(co),
-		TaxClearRefundService:  NewTaxClearRefundService(co),
-		FaceAuthService:        NewFaceAuthService(co),
+		Payment:                   NewPayment(co),
+		Tax:                       NewTax(co),
+		Authentication:            NewAuthentication(co),
+		DataService:               NewDataService(co),
+		Invoice:                   NewInvoice(co),
+		ApiUserSignService:        NewApiUserSignService(co),
+		H5UserSignService:         NewH5UserSignService(co),
+		UploadUserSignService:     NewUploadUserSignService(co),
+		BizlicXjjH5Service:        NewBizlicXjjH5Service(co),
+		BizlicXjjH5APIService:     NewBizlicXjjH5APIService(co),
+		BizlicGxV2H5Service:       NewBizlicGxV2H5Service(co),
+		BizlicGxV2H5APIService:    NewBizlicGxV2H5APIService(co),
+		CustomService:             NewCustomService(co),
+		UserCollectService:        NewUserCollectService(co),
+		CalculateLaborService:     NewCalculateLaborService(co),
+		RealNameService:           NewRealNameService(co),
+		TaxClearRefundService:     NewTaxClearRefundService(co),
+		FaceAuthService:           NewFaceAuthService(co),
+		WalletIncomeService:       NewWalletIncomeService(co),
+		WalletBalanceQueryService: NewWalletBalanceQueryService(co),
+		WalletDeductService:       NewWalletDeductService(co),
+		WalletWithdrawService:     NewWalletWithdrawService(co),
 	}, nil
 }

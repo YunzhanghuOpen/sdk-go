@@ -28,6 +28,7 @@ func H5UserPresignExample(client api.H5UserSignService) {
 			return
 		}
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -48,6 +49,7 @@ func H5UserSignExample(client api.H5UserSignService) {
 			return
 		}
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -70,6 +72,7 @@ func GeH5UserSignStatusExample(client api.H5UserSignService) {
 			return
 		}
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -93,6 +96,7 @@ func H5UserReleaseExample(client api.H5UserSignService) {
 			return
 		}
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -118,6 +122,7 @@ func H5UserReleaseApplyExample(client api.H5UserSignService) {
 			return
 		}
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)

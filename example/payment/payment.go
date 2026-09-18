@@ -183,6 +183,7 @@ func GetDealerVARechargeAccountExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -203,6 +204,7 @@ func ListAccountExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -224,6 +226,7 @@ func GetEleReceiptFileExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -247,6 +250,7 @@ func CancelOrderExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -270,6 +274,7 @@ func RetryOrderExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)
@@ -293,6 +298,7 @@ func CheckUserAmountExample(client api.Payment) {
 		}
 		// 失败返回
 		fmt.Println(e.Code, e.Message)
+		return
 	}
 	// 操作成功
 	fmt.Println(resp)

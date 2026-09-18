@@ -7,13 +7,18 @@ import (
 	"github.com/YunzhanghuOpen/sdk-go/example/custom"
 	"github.com/YunzhanghuOpen/sdk-go/example/customerlink"
 	"github.com/YunzhanghuOpen/sdk-go/example/dataservice"
+	"github.com/YunzhanghuOpen/sdk-go/example/faceauth"
 	"github.com/YunzhanghuOpen/sdk-go/example/h5usersign"
 	"github.com/YunzhanghuOpen/sdk-go/example/invoice"
 	"github.com/YunzhanghuOpen/sdk-go/example/payment"
 	"github.com/YunzhanghuOpen/sdk-go/example/realname"
 	"github.com/YunzhanghuOpen/sdk-go/example/taxclearrefund"
+	"github.com/YunzhanghuOpen/sdk-go/example/uploadusersign"
 	"github.com/YunzhanghuOpen/sdk-go/example/usercollect"
-	"github.com/YunzhanghuOpen/sdk-go/example/faceauth"
+	"github.com/YunzhanghuOpen/sdk-go/example/walletbalancequery"
+	"github.com/YunzhanghuOpen/sdk-go/example/walletdeduct"
+	"github.com/YunzhanghuOpen/sdk-go/example/walletincome"
+	"github.com/YunzhanghuOpen/sdk-go/example/walletwithdraw"
 )
 
 func main() {
@@ -30,4 +35,9 @@ func main() {
 	realname.Example()
 	taxclearrefund.Example()
 	faceauth.Example()
+	uploadusersign.Example()
+	walletincome.Example()
+	walletbalancequery.Example()
+	walletdeduct.Example()
+	walletwithdraw.Example()
 }
